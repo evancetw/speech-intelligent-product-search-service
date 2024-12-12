@@ -1,0 +1,290 @@
+@page "/search"
+@using Microsoft.EntityFrameworkCore
+@using StrongBuy.Blazor.Models
+@inject StrongBuyContext Context
+@inject NavigationManager Navigation
+
+<PageTitle>商品搜尋</PageTitle>
+
+<div class="search-container">
+    <div class="search-sidebar">
+        <div class="filter-section">
+            <h3>分類</h3>
+            <div class="filter-list">
+                @foreach (var category in Categories)
+                {
+                    <div class="filter-item">
+                        <a href="/search?category=@category" class="@(SelectedCategory == category ? "selected" : "")">
+                            @category
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>價格</h3>
+            <div class="filter-list">
+                <div class="filter-item">
+                    <a href="#">NT$0 - NT$2,000</a>
+                </div>
+                <div class="filter-item">
+                    <a href="#">NT$2,000 - NT$5,000</a>
+                </div>
+                <div class="filter-item">
+                    <a href="#">NT$5,000以上</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>顧客評價</h3>
+            <div class="filter-list">
+                <div class="filter-item">
+                    <a href="#">
+                        <span class="stars">★★★★★</span> 以上
+                    </a>
+                </div>
+                <div class="filter-item">
+                    <a href="#">
+                        <span class="stars">★★★★</span> 以上
+                    </a>
+                </div>
+                <div class="filter-item">
+                    <a href="#">
+                        <span class="stars">★★★</span> 以上
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-results">
+        <div class="results-header">
+            <span>1-@ProductsList.Count 件，共 @ProductsList.Count 件</span>
+            <select class="sort-select">
+                <option>精選</option>
+                <option>價格：由低到高</option>
+                <option>價格：由高到低</option>
+                <option>平均顧客評價</option>
+                <option>最新上架</option>
+            </select>
+        </div>
+
+        <div class="products-grid">
+            @foreach (var product in ProductsList)
+            {
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
+                            alt="@product.Name">
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title">
+                            <a href="/product/@product.Id">@product.Name</a>
+                        </h2>
+                        <div class="product-rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="rating-count">@product.Reviews.Count</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="currency">NT$</span>
+                            <span class="amount">@product.Price.ToString("N0")</span>
+                        </div>
+                        <div class="product-delivery">
+                            <span>符合免運資格</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .search-container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+    .search-sidebar {
+        width: 240px;
+        flex-shrink: 0;
+    }
+
+    .filter-section {
+        margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .filter-list {
+        font-size: 14px;
+    }
+
+    .filter-item {
+        margin: 8px 0;
+    }
+
+    .filter-item a {
+        color: #0066c0;
+        text-decoration: none;
+    }
+
+    .filter-item a:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .filter-item a.selected {
+        color: #c45500;
+        font-weight: bold;
+    }
+
+    .search-results {
+        flex-grow: 1;
+    }
+
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sort-select {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+        background: white;
+        border: 1px solid #ddd;
+    }
+
+    .product-image {
+        width: 180px;
+        height: 180px;
+        display: flex;
+        /* 新增 */
+        align-items: center;
+        /* 新增 */
+        justify-content: center;
+        /* 新增 */
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* 確保這行存在 */
+        max-width: 100%;
+        /* 新增 */
+        max-height: 100%;
+        /* 新增 */
+    }
+
+    .product-info {
+        flex-grow: 1;
+    }
+
+    .product-title {
+        font-size: 16px;
+        margin: 0 0 8px 0;
+    }
+
+    .product-title a {
+        color: #0066c0;
+        text-decoration: none;
+    }
+
+    .product-title a:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .product-rating {
+        margin-bottom: 8px;
+    }
+
+    .stars {
+        color: #ffa41c;
+    }
+
+    .rating-count {
+        color: #007185;
+        margin-left: 5px;
+    }
+
+    .product-price {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .currency {
+        font-size: 12px;
+        position: relative;
+        top: -5px;
+    }
+
+    .product-delivery {
+        font-size: 14px;
+        color: #565959;
+    }
+</style>
+
+@code {
+    private List<Product> ProductsList = new();
+    private List<string> Categories = new();
+    private string? SelectedCategory;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Get parameters from query string
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        SelectedCategory = queryString["category"];
+        var searchQuery = queryString["q"];
+
+        // Load categories
+        Categories = await Context.Products
+        .Select(p => p.Category)
+        .Distinct()
+        .ToListAsync();
+
+        // Load products
+        var query = Context.Products.AsQueryable();
+
+        if (!string.IsNullOrEmpty(SelectedCategory))
+        {
+            query = query.Where(p => p.Category == SelectedCategory);
+        }
+
+        if (!string.IsNullOrEmpty(searchQuery))
+        {
+            query = query.Where(p => p.Name.Contains(searchQuery) ||
+            p.Description.Contains(searchQuery));
+        }
+
+        ProductsList = await query.ToListAsync();
+    }
+
+}

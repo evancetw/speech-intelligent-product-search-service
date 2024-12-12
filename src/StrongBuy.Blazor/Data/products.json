@@ -1,0 +1,2157 @@
+[
+  {
+    "id": 1,
+    "name": "超級無敵美白牙膏",
+    "description": "這款牙膏能讓您的牙齒潔白如新，笑容更迷人。",
+    "price": 99,
+    "category": "個人清潔",
+    "subcategories": ["牙齒保健"],
+    "brand": "牙齒大師",
+    "color": "白色",
+    "size": "100g",
+    "material": "氟化鈉",
+    "image": "https://example.com/toothpaste.jpg",
+    "images": [
+      "https://example.com/toothpaste1.jpg",
+      "https://example.com/toothpaste2.jpg"
+    ],
+    "tags": ["美白", "潔白"],
+    "attributes": {
+      "適用對象": "成人",
+      "功能": "美白"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後牙齒變白了，效果明顯！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 2,
+    "name": "超強吸水浴巾",
+    "description": "這款浴巾吸水力強，讓您洗完澡後瞬間乾爽。",
+    "price": 199,
+    "category": "家居用品",
+    "subcategories": ["浴室用品"],
+    "brand": "吸水王",
+    "color": "藍色",
+    "size": "150x70cm",
+    "material": "純棉",
+    "image": "https://example.com/towel.jpg",
+    "images": [
+      "https://example.com/towel1.jpg",
+      "https://example.com/towel2.jpg"
+    ],
+    "tags": ["吸水", "柔軟"],
+    "attributes": {
+      "適用場合": "浴室",
+      "材質": "純棉"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "吸水性很好，質感也不錯。"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 3,
+    "name": "超級防水雨衣",
+    "description": "這款雨衣防水效果佳，讓您在雨天也能保持乾爽。",
+    "price": 299,
+    "category": "服飾",
+    "subcategories": ["雨具"],
+    "brand": "雨神",
+    "color": "黃色",
+    "size": "L",
+    "material": "PVC",
+    "image": "https://example.com/raincoat.jpg",
+    "images": [
+      "https://example.com/raincoat1.jpg",
+      "https://example.com/raincoat2.jpg"
+    ],
+    "tags": ["防水", "輕便"],
+    "attributes": {
+      "適用季節": "雨季",
+      "功能": "防水"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "防水效果超好，雨天出門不怕濕。"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 4,
+    "name": "超強吸塵器",
+    "description": "這款吸塵器吸力強，清潔效果佳，讓您的家更乾淨。",
+    "price": 999,
+    "category": "家電",
+    "subcategories": ["清潔用品"],
+    "brand": "吸塵大師",
+    "color": "紅色",
+    "size": "手持式",
+    "material": "塑膠",
+    "image": "https://example.com/vacuum.jpg",
+    "images": [
+      "https://example.com/vacuum1.jpg",
+      "https://example.com/vacuum2.jpg"
+    ],
+    "tags": ["吸力強", "輕便"],
+    "attributes": {
+      "適用場所": "家居",
+      "功能": "吸塵"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "吸力強，清潔效果不錯。"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 5,
+    "name": "超級保濕面膜",
+    "description": "這款面膜保濕效果佳，讓您的肌膚水嫩光滑。",
+    "price": 149,
+    "category": "美妝",
+    "subcategories": ["面膜"],
+    "brand": "保濕女王",
+    "color": "透明",
+    "size": "25ml",
+    "material": "天然植物精華",
+    "image": "https://example.com/mask.jpg",
+    "images": [
+      "https://example.com/mask1.jpg",
+      "https://example.com/mask2.jpg"
+    ],
+    "tags": ["保濕", "亮白"],
+    "attributes": {
+      "適用膚質": "乾性",
+      "功能": "保濕"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後肌膚變得水嫩，超級喜歡！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 6,
+    "name": "超強防曬乳",
+    "description": "這款防曬乳SPF50+，有效防止紫外線傷害，保護肌膚不受日曬損傷，讓您享受陽光而不擔心曬黑。",
+    "price": 199,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "防曬大師",
+    "color": "白色",
+    "size": "50ml",
+    "material": "無油配方",
+    "image": "https://example.com/sunscreen.jpg",
+    "images": [
+      "https://example.com/sunscreen1.jpg",
+      "https://example.com/sunscreen2.jpg"
+    ],
+    "tags": ["防曬", "清爽", "不油膩"],
+    "attributes": {
+      "適用膚質": "油性",
+      "功能": "防曬"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "這款防曬乳超好用！完全不油膩，輕鬆防曬，曬後不會黑，強烈推薦！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 7,
+    "name": "超強智能電飯煲",
+    "description": "這款電飯煲具備智慧烹煮系統，讓您的米飯更美味。",
+    "price": 1999,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "飯煲大王",
+    "color": "金色",
+    "size": "5L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/ricecooker.jpg",
+    "images": [
+      "https://example.com/ricecooker1.jpg",
+      "https://example.com/ricecooker2.jpg"
+    ],
+    "tags": ["智能", "快煮"],
+    "attributes": {
+      "適用場合": "家庭",
+      "功能": "烹煮米飯"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "米飯煮得超級好吃，操作也很簡單！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 8,
+    "name": "超薄無線耳機",
+    "description": "這款耳機設計時尚，音質清晰，無線設計讓您自由運動。",
+    "price": 799,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "聽力王",
+    "color": "黑色",
+    "size": "一個尺寸",
+    "material": "塑膠",
+    "image": "https://example.com/headphones.jpg",
+    "images": [
+      "https://example.com/headphones1.jpg",
+      "https://example.com/headphones2.jpg"
+    ],
+    "tags": ["無線", "輕便"],
+    "attributes": {
+      "適用場合": "運動、聽音樂",
+      "功能": "無線"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "音質不錯，帶起來很舒適！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 9,
+    "name": "超強防霧洗面乳",
+    "description": "這款洗面乳能深層清潔，防止油脂與污垢堆積。",
+    "price": 199,
+    "category": "個人清潔",
+    "subcategories": ["洗面乳"],
+    "brand": "潔膚大師",
+    "color": "白色",
+    "size": "150ml",
+    "material": "天然植物提取物",
+    "image": "https://example.com/facewash.jpg",
+    "images": [
+      "https://example.com/facewash1.jpg",
+      "https://example.com/facewash2.jpg"
+    ],
+    "tags": ["深層潔淨", "防油"],
+    "attributes": {
+      "適用膚質": "油性、混合性",
+      "功能": "深層清潔"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "用完臉很清爽，油脂去除得很乾净！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 10,
+    "name": "超耐用運動鞋",
+    "description": "這款運動鞋設計輕便耐用，適合各種運動需求，舒適又不易磨損。",
+    "price": 1299,
+    "category": "服飾",
+    "subcategories": ["運動鞋"],
+    "brand": "步步高",
+    "color": "黑色",
+    "size": "40-44",
+    "material": "合成纖維",
+    "image": "https://example.com/sneakers.jpg",
+    "images": [
+      "https://example.com/sneakers1.jpg",
+      "https://example.com/sneakers2.jpg"
+    ],
+    "tags": ["耐用", "舒適"],
+    "attributes": {
+      "適用場合": "運動、健身",
+      "功能": "舒適"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "運動時穿著很舒適，跑步不會累！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 11,
+    "name": "極致保濕面膜",
+    "description": "深層滋潤，讓肌膚水嫩光滑。",
+    "price": 150,
+    "category": "美妝",
+    "subcategories": ["面膜"],
+    "brand": "水潤女神",
+    "color": "透明",
+    "size": "25g",
+    "material": "天然植物萃取",
+    "image": "https://example.com/mask1.jpg",
+    "images": [
+      "https://example.com/mask1.jpg",
+      "https://example.com/mask2.jpg"
+    ],
+    "tags": ["保濕", "滋潤"],
+    "attributes": {
+      "適用膚質": "乾性",
+      "功能": "保濕"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後肌膚變得水嫩，超級喜歡！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 12,
+    "name": "極速吸水浴巾",
+    "description": "快速吸水，讓您洗完澡後瞬間乾爽。",
+    "price": 200,
+    "category": "家居用品",
+    "subcategories": ["浴室用品"],
+    "brand": "乾爽王",
+    "color": "藍色",
+    "size": "150x70cm",
+    "material": "純棉",
+    "image": "https://example.com/towel1.jpg",
+    "images": [
+      "https://example.com/towel1.jpg",
+      "https://example.com/towel2.jpg"
+    ],
+    "tags": ["吸水", "柔軟"],
+    "attributes": {
+      "適用場合": "浴室",
+      "材質": "純棉"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "吸水性很好，質感也不錯。"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 13,
+    "name": "超強防曬乳",
+    "description": "SPF50+，有效防止紫外線傷害。",
+    "price": 250,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "防曬大師",
+    "color": "白色",
+    "size": "50ml",
+    "material": "無油配方",
+    "image": "https://example.com/sunscreen1.jpg",
+    "images": [
+      "https://example.com/sunscreen1.jpg",
+      "https://example.com/sunscreen2.jpg"
+    ],
+    "tags": ["防曬", "清爽"],
+    "attributes": {
+      "適用膚質": "油性",
+      "功能": "防曬"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "這款防曬乳超好用！完全不油膩，輕鬆防曬，曬後不會黑，強烈推薦！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 14,
+    "name": "智能電動牙刷",
+    "description": "高頻震動，深層清潔牙齒。",
+    "price": 800,
+    "category": "電子產品",
+    "subcategories": ["牙齒保健"],
+    "brand": "潔牙王",
+    "color": "黑色",
+    "size": "標準",
+    "material": "不鏽鋼",
+    "image": "https://example.com/toothbrush1.jpg",
+    "images": [
+      "https://example.com/toothbrush1.jpg",
+      "https://example.com/toothbrush2.jpg"
+    ],
+    "tags": ["電動", "潔牙"],
+    "attributes": {
+      "適用對象": "成人",
+      "功能": "潔牙"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後牙齒變得超級乾淨，牙齦也不出血了！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 15,
+    "name": "無線藍牙耳機",
+    "description": "高品質音效，無線設計，方便運動使用。",
+    "price": 500,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "音樂達人",
+    "color": "白色",
+    "size": "標準",
+    "material": "塑膠",
+    "image": "https://example.com/headphones1.jpg",
+    "images": [
+      "https://example.com/headphones1.jpg",
+      "https://example.com/headphones2.jpg"
+    ],
+    "tags": ["無線", "音質"],
+    "attributes": {
+      "適用場合": "運動、聽音樂",
+      "功能": "無線"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "音質不錯，帶起來很舒適！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 16,
+    "name": "多功能料理機",
+    "description": "集攪拌、榨汁、研磨於一身，廚房必備良品，讓您輕鬆製作各種料理，從果汁到湯品，應有盡有。",
+    "price": 1500,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "廚神",
+    "color": "銀色",
+    "size": "標準",
+    "material": "不鏽鋼",
+    "image": "https://example.com/blender1.jpg",
+    "images": [
+      "https://example.com/blender1.jpg",
+      "https://example.com/blender2.jpg"
+    ],
+    "tags": ["多功能", "廚房", "榨汁", "攪拌", "研磨"],
+    "attributes": {
+      "適用場合": "廚房",
+      "功能": "攪拌、榨汁、研磨"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "這款料理機超實用！不管是榨汁還是做湯都非常方便，清潔也很容易！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 17,
+    "name": "全自動咖啡機",
+    "description": "只需一鍵，快速製作專業級咖啡。",
+    "price": 2200,
+    "category": "家電",
+    "subcategories": ["咖啡機"],
+    "brand": "咖啡大師",
+    "color": "黑色",
+    "size": "標準",
+    "material": "不鏽鋼",
+    "image": "https://example.com/coffeemaker1.jpg",
+    "images": [
+      "https://example.com/coffeemaker1.jpg",
+      "https://example.com/coffeemaker2.jpg"
+    ],
+    "tags": ["智能", "便捷"],
+    "attributes": {
+      "適用場合": "家庭、辦公室",
+      "功能": "快速沖泡咖啡"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "咖啡做得非常好喝，使用起來很簡單！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 18,
+    "name": "超感光護膚霜",
+    "description": "抗UV，深層滋養，讓肌膚恢復光澤。",
+    "price": 350,
+    "category": "美妝",
+    "subcategories": ["保養品"],
+    "brand": "美肌秘方",
+    "color": "白色",
+    "size": "50ml",
+    "material": "天然植物萃取",
+    "image": "https://example.com/cream1.jpg",
+    "images": [
+      "https://example.com/cream1.jpg",
+      "https://example.com/cream2.jpg"
+    ],
+    "tags": ["滋養", "防曬"],
+    "attributes": {
+      "適用膚質": "乾性、混合性",
+      "功能": "保濕、防曬"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "質地輕盈，使用後肌膚滑順，光澤感十足！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 19,
+    "name": "超薄行動電源",
+    "description": "輕薄設計，容量大，隨時為您的手機充電。",
+    "price": 399,
+    "category": "電子產品",
+    "subcategories": ["行動電源"],
+    "brand": "電量超人",
+    "color": "黑色",
+    "size": "10000mAh",
+    "material": "鋁合金",
+    "image": "https://example.com/powerbank1.jpg",
+    "images": [
+      "https://example.com/powerbank1.jpg",
+      "https://example.com/powerbank2.jpg"
+    ],
+    "tags": ["輕便", "大容量"],
+    "attributes": {
+      "適用設備": "手機、平板",
+      "功能": "充電"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "非常輕便，充電速度快，隨身攜帶很方便！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 20,
+    "name": "可調溫水壺",
+    "description": "可調節不同溫度，滿足各種飲品需求。",
+    "price": 699,
+    "category": "家電",
+    "subcategories": ["水壺"],
+    "brand": "熱水寶",
+    "color": "銀色",
+    "size": "1L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/kettle1.jpg",
+    "images": [
+      "https://example.com/kettle1.jpg",
+      "https://example.com/kettle2.jpg"
+    ],
+    "tags": ["智能", "溫控"],
+    "attributes": {
+      "適用場所": "家庭、辦公室",
+      "功能": "溫控"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "非常好用，可以根據需要調節溫度，真的很方便！"
+      }
+    ],
+    "created_at": "2024-12-09",
+    "updated_at": "2024-12-09"
+  },
+  {
+    "id": 21,
+    "name": "水潤保濕面膜",
+    "description": "這款面膜含有高濃度的玻尿酸成分，能深層滋潤肌膚，提升保濕效果，讓您的肌膚恢復彈性與光澤，適合所有膚質使用。",
+    "price": 150,
+    "category": "美妝",
+    "subcategories": ["面膜"],
+    "brand": "潤澤之選",
+    "color": "白色",
+    "size": "25ml",
+    "material": "天然植物纖維",
+    "image": "https://example.com/image21.jpg",
+    "images": [
+      "https://example.com/image21_1.jpg",
+      "https://example.com/image21_2.jpg"
+    ],
+    "tags": ["保濕", "滋潤", "彈性"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "使用方法": "清潔臉部後，敷於面部15分鐘，取下後輕拍至吸收"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後感覺肌膚變得非常水嫩，效果顯著！"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 22,
+    "name": "深層潔淨洗面乳",
+    "description": "含有天然茶樹精油，能有效清潔毛孔內的污垢與多餘油脂，預防粉刺與痘痘的生成，使用後肌膚清爽不緊繃，適合油性及混合性膚質。",
+    "price": 200,
+    "category": "個人清潔",
+    "subcategories": ["洗面乳"],
+    "brand": "清新之選",
+    "color": "綠色",
+    "size": "120ml",
+    "material": "茶樹精油",
+    "image": "https://example.com/image22.jpg",
+    "images": [
+      "https://example.com/image22_1.jpg",
+      "https://example.com/image22_2.jpg"
+    ],
+    "tags": ["潔淨", "控油", "清爽"],
+    "attributes": {
+      "適用膚質": "油性及混合性膚質",
+      "使用方法": "取適量於手心，加水搓揉起泡後，輕柔按摩全臉，再以清水洗淨"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "洗完臉後感覺很清爽，對油脂控制有明顯效果。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 23,
+    "name": "高效防曬乳SPF50+",
+    "description": "提供長效防護，阻隔UVA及UVB，防止曬黑與曬傷，質地清爽不黏膩，適合日常使用及戶外活動，讓您自在享受陽光。",
+    "price": 250,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "陽光守護",
+    "color": "白色",
+    "size": "50ml",
+    "material": "無油配方",
+    "image": "https://example.com/image23.jpg",
+    "images": [
+      "https://example.com/image23_1.jpg",
+      "https://example.com/image23_2.jpg"
+    ],
+    "tags": ["防曬", "清爽", "長效"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "使用方法": "外出前15分鐘，取適量均勻塗抹於暴露部位，需長時間曝曬時，每2小時補擦一次"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "質地輕盈，防曬效果很好，長時間在戶外也不覺得曬黑。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 24,
+    "name": "滋養修護護髮素",
+    "description": "蘊含摩洛哥堅果油，深層滋養髮絲，修護受損髮質，恢復柔順光澤，減少毛躁與斷裂，適合乾性及受損髮質使用。",
+    "price": 180,
+    "category": "個人清潔",
+    "subcategories": ["護髮素"],
+    "brand": "秀髮之選",
+    "color": "金色",
+    "size": "200ml",
+    "material": "摩洛哥堅果油",
+    "image": "https://example.com/image24.jpg",
+    "images": [
+      "https://example.com/image24_1.jpg",
+      "https://example.com/image24_2.jpg"
+    ],
+    "tags": ["護髮", "修護", "滋養"],
+    "attributes": {
+      "適用髮質": "乾性及受損髮質",
+      "使用方法": "洗髮後，取適量塗抹於髮尾，停留3-5分鐘後沖洗乾淨"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "使用後頭髮變得柔順有光澤，毛躁情況明顯改善。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 25,
+    "name": "深層清潔洗髮精",
+    "description": "這款洗髮精特別添加薄荷精華與天然植物萃取，能深入清潔頭皮毛孔，有效去除多餘油脂與污垢，同時提供清涼舒爽的使用感受，幫助平衡頭皮油水平衡，維持健康髮質，並散發淡淡清香，讓人倍感舒適。適合油性與混合性髮質的日常使用，長期使用可改善頭皮出油問題。",
+    "price": 220,
+    "category": "個人清潔",
+    "subcategories": ["洗髮精"],
+    "brand": "清爽之選",
+    "color": "透明",
+    "size": "400ml",
+    "material": "薄荷精華、天然植物萃取",
+    "image": "https://example.com/image25.jpg",
+    "images": [
+      "https://example.com/image25_1.jpg",
+      "https://example.com/image25_2.jpg"
+    ],
+    "tags": ["清潔", "控油", "清爽"],
+    "attributes": {
+      "適用髮質": "油性與混合性髮質",
+      "使用方法": "取適量於手心，加水搓揉起泡，輕輕按摩頭皮與髮絲後，用清水沖洗乾淨。"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後頭皮感覺非常清爽，頭髮不容易出油，氣味也很好聞！"
+      },
+      {
+        "rating": 4,
+        "comment": "控油效果不錯，適合夏天使用，但對乾髮質可能會略微乾燥。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 26,
+    "name": "水感透亮保濕精華液",
+    "description": "富含玻尿酸與維他命C，深層滋潤肌膚，提升亮度與彈性，使用後肌膚感覺柔嫩光滑，適合所有膚質，特別是乾燥與暗沉肌膚。",
+    "price": 350,
+    "category": "美妝",
+    "subcategories": ["精華液"],
+    "brand": "水潤之選",
+    "color": "透明",
+    "size": "30ml",
+    "material": "玻尿酸、維他命C",
+    "image": "https://example.com/image26.jpg",
+    "images": [
+      "https://example.com/image26_1.jpg",
+      "https://example.com/image26_2.jpg"
+    ],
+    "tags": ["保濕", "亮膚", "滋潤"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "使用方法": "每日早晚清潔後，取適量塗抹於全臉，輕拍至吸收。"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用一週後，感覺肌膚明顯變得水嫩透亮，效果非常滿意！"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 27,
+    "name": "長效控油蜜粉餅",
+    "description": "含有細緻控油粉末，能有效吸附多餘油脂，維持肌膚清爽，妝容持久不脫妝，適合油性及混合性肌膚使用，讓您一整天保持完美妝感。",
+    "price": 280,
+    "category": "美妝",
+    "subcategories": ["蜜粉餅"],
+    "brand": "清爽之選",
+    "color": "自然膚色",
+    "size": "10g",
+    "material": "控油粉末",
+    "image": "https://example.com/image27.jpg",
+    "images": [
+      "https://example.com/image27_1.jpg",
+      "https://example.com/image27_2.jpg"
+    ],
+    "tags": ["控油", "持久", "清爽"],
+    "attributes": {
+      "適用膚質": "油性及混合性肌膚",
+      "使用方法": "以粉撲取適量，輕拍於全臉或易出油部位。"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "控油效果不錯，妝容能維持一整天，值得推薦。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 28,
+    "name": "深層滋養護手霜",
+    "description": "蘊含乳木果油與維他命E，能深層滋養雙手肌膚，修護乾裂，恢復柔嫩觸感，質地清爽不黏膩，適合日常使用，讓您的雙手時刻保持柔滑。",
+    "price": 120,
+    "category": "個人清潔",
+    "subcategories": ["護手霜"],
+    "brand": "手護之選",
+    "color": "白色",
+    "size": "50ml",
+    "material": "乳木果油、維他命E",
+    "image": "https://example.com/image28.jpg",
+    "images": [
+      "https://example.com/image28_1.jpg",
+      "https://example.com/image28_2.jpg"
+    ],
+    "tags": ["滋養", "修護", "保濕"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "使用方法": "取適量塗抹於雙手，輕柔按摩至吸收，可隨時使用。"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後雙手變得非常柔嫩，乾裂情況明顯改善，推薦！"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 29,
+    "name": "高效美白牙膏",
+    "description": "含有活性美白成分，能有效去除牙齒表面的色斑與牙漬，恢復亮白笑容，並添加薄荷精華，帶來清新口氣，適合日常使用，維持口腔健康。",
+    "price": 90,
+    "category": "個人清潔",
+    "subcategories": ["牙膏"],
+    "brand": "笑容之選",
+    "color": "白色",
+    "size": "100g",
+    "material": "活性美白成分、薄荷精華",
+    "image": "https://example.com/image29.jpg",
+    "images": [
+      "https://example.com/image29_1.jpg",
+      "https://example.com/image29_2.jpg"
+    ],
+    "tags": ["美白", "清新", "口腔健康"],
+    "attributes": {
+      "適用對象": "成人",
+      "使用方法": "每日早晚取適量刷牙，建議每次刷牙至少2分鐘。"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "使用一段時間後，牙齒明顯變白，口氣也清新了許多。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 30,
+    "name": "舒緩保濕身體乳",
+    "description": "富含蘆薈與維他命E，能深層滋潤肌膚，舒緩乾燥不適，恢復柔嫩光滑，質地輕盈易吸收，適合全身使用，特別是乾燥季節，讓您的肌膚時刻保持水潤健康。",
+    "price": 180,
+    "category": "個人清潔",
+    "subcategories": ["身體乳"],
+    "brand": "潤膚之選",
+    "color": "白色",
+    "size": "200ml",
+    "material": "蘆薈萃取、維他命E",
+    "image": "https://example.com/image30.jpg",
+    "images": [
+      "https://example.com/image30_1.jpg",
+      "https://example.com/image30_2.jpg"
+    ],
+    "tags": ["保濕", "滋潤", "舒緩"],
+    "attributes": {
+      "適用膚質": "乾性及敏感性肌膚",
+      "使用方法": "取適量塗抹於全身肌膚，輕輕按摩至完全吸收，可每日早晚使用。"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "非常保濕且不黏膩，皮膚變得光滑細緻，超適合冬天使用！"
+      },
+      {
+        "rating": 4,
+        "comment": "吸收速度快，味道清新自然，值得推薦。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 31,
+    "name": "智慧語音助理音箱",
+    "description": "這款智慧音箱內建最新的語音助理技術，能夠控制家中各種智慧設備，播放音樂、設定提醒，並回答您的各種問題，讓生活更加便利。",
+    "price": 2990,
+    "category": "電子產品",
+    "subcategories": ["智慧家居"],
+    "brand": "智音",
+    "color": "黑色",
+    "size": "直徑10cm，高20cm",
+    "material": "塑膠",
+    "image": "https://example.com/smart_speaker.jpg",
+    "images": [
+      "https://example.com/smart_speaker1.jpg",
+      "https://example.com/smart_speaker2.jpg"
+    ],
+    "tags": ["智慧家居", "語音助理", "音樂播放"],
+    "attributes": {
+      "連接方式": "Wi-Fi, 藍牙",
+      "支援語言": "中文, 英文"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後家中變得更智慧，音質也很棒！"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 32,
+    "name": "無線降噪耳機",
+    "description": "採用先進的主動降噪技術，提供純淨的音質體驗，無論在何種環境下，都能享受音樂的美好，長時間佩戴也舒適。",
+    "price": 4990,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "靜音",
+    "color": "白色",
+    "size": "耳罩式",
+    "material": "塑膠, 合成皮革",
+    "image": "https://example.com/noise_cancelling_headphones.jpg",
+    "images": [
+      "https://example.com/noise_cancelling_headphones1.jpg",
+      "https://example.com/noise_cancelling_headphones2.jpg"
+    ],
+    "tags": ["降噪", "無線", "高音質"],
+    "attributes": {
+      "連接方式": "藍牙",
+      "電池續航": "20小時"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "降噪效果很好，音質也不錯，但價格稍高。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 33,
+    "name": "4K 超高清投影機",
+    "description": "支援 4K 解析度，提供清晰銳利的影像，內建多種連接埠，方便連接各種設備，適合家庭影院或商務簡報使用。",
+    "price": 15990,
+    "category": "電子產品",
+    "subcategories": ["投影機"],
+    "brand": "影視",
+    "color": "銀色",
+    "size": "30cm x 20cm x 10cm",
+    "material": "金屬, 塑膠",
+    "image": "https://example.com/4k_projector.jpg",
+    "images": [
+      "https://example.com/4k_projector1.jpg",
+      "https://example.com/4k_projector2.jpg"
+    ],
+    "tags": ["4K", "投影", "家庭影院"],
+    "attributes": {
+      "亮度": "3000流明",
+      "對比度": "10000:1"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "畫質非常清晰，家庭影院的最佳選擇！"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 34,
+    "name": "智能健身手環",
+    "description": "具備心率監測、睡眠分析、運動追蹤等功能，防水設計，適合各種運動場景，電池續航長達一週。",
+    "price": 1990,
+    "category": "電子產品",
+    "subcategories": ["穿戴裝置"],
+    "brand": "健智",
+    "color": "黑色",
+    "size": "可調節",
+    "material": "矽膠, 塑膠",
+    "image": "https://example.com/fitness_tracker.jpg",
+    "images": [
+      "https://example.com/fitness_tracker1.jpg",
+      "https://example.com/fitness_tracker2.jpg"
+    ],
+    "tags": ["健身", "穿戴", "智能"],
+    "attributes": {
+      "防水等級": "IP68",
+      "電池續航": "7天"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "功能齊全，使用方便，但螢幕稍小。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 35,
+    "name": "多功能料理機",
+    "description": "這款多功能料理機能輕鬆實現攪拌、榨汁與研磨，配備高功率馬達與多種功能配件，可處理各種食材，滿足不同料理需求。堅固的不鏽鋼刀片設計保證長期使用，適合家庭日常使用或進階廚房應用，清潔簡便。",
+    "price": 3500,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "廚神",
+    "color": "銀色",
+    "size": "標準",
+    "material": "不鏽鋼",
+    "image": "https://example.com/blender.jpg",
+    "images": [
+      "https://example.com/blender1.jpg",
+      "https://example.com/blender2.jpg"
+    ],
+    "tags": ["多功能", "廚房", "料理"],
+    "attributes": {
+      "功率": "800W",
+      "容量": "1.5L",
+      "配件": "榨汁杯、研磨刀"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "非常實用的一台料理機，可以輕鬆處理多種食材，榨汁和研磨效果都很棒！"
+      },
+      {
+        "rating": 4,
+        "comment": "功能很多，操作簡單，唯一的缺點是馬達聲音稍大。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 36,
+    "name": "輕量運動水壺",
+    "description": "採用食品級塑膠材質，重量輕且耐用，配有防漏蓋設計，方便攜帶。適合戶外運動、健身房使用，容量足夠，滿足一天所需。",
+    "price": 200,
+    "category": "運動用品",
+    "subcategories": ["運動配件"],
+    "brand": "活力水",
+    "color": "藍色",
+    "size": "750ml",
+    "material": "食品級塑膠",
+    "image": "https://example.com/sports_bottle.jpg",
+    "images": [
+      "https://example.com/sports_bottle1.jpg",
+      "https://example.com/sports_bottle2.jpg"
+    ],
+    "tags": ["輕便", "防漏", "運動"],
+    "attributes": {
+      "容量": "750ml",
+      "重量": "150g",
+      "功能": "防漏設計，方便攜帶"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "水壺設計輕巧，帶去健身房很方便，而且不漏水！"
+      },
+      {
+        "rating": 4,
+        "comment": "質感很好，但稍微有點貴。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 37,
+    "name": "可調節瑜伽墊",
+    "description": "高密度材質設計，提供良好的緩衝效果，適合瑜伽、普拉提等運動，表面防滑設計保障安全。附贈收納袋，便於攜帶。",
+    "price": 500,
+    "category": "運動用品",
+    "subcategories": ["瑜伽用具"],
+    "brand": "健身派",
+    "color": "紫色",
+    "size": "180cm x 60cm",
+    "material": "高密度TPE",
+    "image": "https://example.com/yoga_mat.jpg",
+    "images": [
+      "https://example.com/yoga_mat1.jpg",
+      "https://example.com/yoga_mat2.jpg"
+    ],
+    "tags": ["防滑", "緩衝", "便攜"],
+    "attributes": {
+      "尺寸": "180cm x 60cm",
+      "厚度": "6mm",
+      "功能": "防滑設計，良好緩衝效果"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "墊子防滑效果非常好，做瑜伽時很穩定，推薦！"
+      },
+      {
+        "rating": 4,
+        "comment": "攜帶方便，但稍微偏薄。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 38,
+    "name": "極速充電行動電源",
+    "description": "支援多種快速充電協議，容量大達20000mAh，可同時為多台設備充電，外殼耐用且輕巧，是旅行或日常使用的最佳伴侶。",
+    "price": 1200,
+    "category": "電子產品",
+    "subcategories": ["行動電源"],
+    "brand": "電量滿",
+    "color": "黑色",
+    "size": "20000mAh",
+    "material": "鋁合金",
+    "image": "https://example.com/power_bank.jpg",
+    "images": [
+      "https://example.com/power_bank1.jpg",
+      "https://example.com/power_bank2.jpg"
+    ],
+    "tags": ["快速充電", "大容量", "便攜"],
+    "attributes": {
+      "容量": "20000mAh",
+      "充電輸出": "USB-A, USB-C",
+      "重量": "350g"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "充電速度快，容量大，旅行中非常實用！"
+      },
+      {
+        "rating": 4,
+        "comment": "設計輕巧，但價格稍高。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 39,
+    "name": "智慧溫控電熱毯",
+    "description": "這款電熱毯配備智慧溫控系統，可根據環境溫度自動調節，提供舒適的睡眠體驗。採用柔軟材質，並具備過熱保護功能，確保安全。",
+    "price": 2500,
+    "category": "家電",
+    "subcategories": ["寢具"],
+    "brand": "暖心",
+    "color": "米色",
+    "size": "雙人",
+    "material": "柔軟纖維",
+    "image": "https://example.com/heated_blanket.jpg",
+    "images": [
+      "https://example.com/heated_blanket1.jpg",
+      "https://example.com/heated_blanket2.jpg"
+    ],
+    "tags": ["電熱毯", "智慧溫控", "安全"],
+    "attributes": {
+      "功率": "100W",
+      "電壓": "110V",
+      "溫度範圍": "30-50°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "使用後睡眠品質提升很多，溫度調節也很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "材質柔軟舒適，但價格稍高。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 40,
+    "name": "無線手持吸塵器",
+    "description": "輕量化設計，無線手持，方便清潔家中各個角落。強力吸力可有效清除灰塵與毛髮，配備多種吸頭，適用於不同清潔需求。",
+    "price": 3200,
+    "category": "家電",
+    "subcategories": ["清潔家電"],
+    "brand": "潔淨",
+    "color": "白色",
+    "size": "標準",
+    "material": "ABS 塑膠",
+    "image": "https://example.com/handheld_vacuum.jpg",
+    "images": [
+      "https://example.com/handheld_vacuum1.jpg",
+      "https://example.com/handheld_vacuum2.jpg"
+    ],
+    "tags": ["吸塵器", "無線", "手持"],
+    "attributes": {
+      "吸力": "15000Pa",
+      "電池續航": "40分鐘",
+      "充電時間": "4小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "清潔效果很好，無線設計使用起來非常方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "續航時間足夠，但充電時間較長。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 41,
+    "name": "智能恆溫電熱水壺",
+    "description": "具備智能恆溫控制，可精確設定水溫，滿足不同飲品需求。快速加熱，容量大，適合家庭使用，並配有防乾燒保護，使用安全。",
+    "price": 1800,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "煮水達人",
+    "color": "不鏽鋼色",
+    "size": "1.7L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_kettle.jpg",
+    "images": [
+      "https://example.com/electric_kettle1.jpg",
+      "https://example.com/electric_kettle2.jpg"
+    ],
+    "tags": ["電熱水壺", "智能", "恆溫"],
+    "attributes": {
+      "容量": "1.7L",
+      "功率": "1500W",
+      "溫度設定": "40-100°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "水溫控制精確，泡茶和咖啡都很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "加熱速度快，但外殼容易發熱。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 42,
+    "name": "多功能電烤箱",
+    "description": "集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。",
+    "price": 4500,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "烘焙大師",
+    "color": "黑色",
+    "size": "30L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_oven.jpg",
+    "images": [
+      "https://example.com/electric_oven1.jpg",
+      "https://example.com/electric_oven2.jpg"
+    ],
+    "tags": ["電烤箱", "多功能", "烘焙"],
+    "attributes": {
+      "容量": "30L",
+      "功率": "1800W",
+      "溫度範圍": "100-250°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "烤箱容量大，功能多樣，烘焙愛好者必備！"
+      },
+      {
+        "rating": 4,
+        "comment": "操作簡單，但預熱時間稍長。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 43,
+    "name": "智能空氣清淨機",
+    "description": "配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質。",
+    "price": 6000,
+    "category": "家電",
+    "subcategories": ["空氣清淨機"],
+    "brand": "清新",
+    "color": "白色",
+    "size": "50cm x 30cm x 30cm",
+    "material": "ABS塑膠",
+    "image": "https://example.com/air_purifier.jpg",
+    "images": [
+      "https://example.com/air_purifier1.jpg",
+      "https://example.com/air_purifier2.jpg"
+    ],
+    "tags": ["空氣清淨", "智慧控制", "高效濾網"],
+    "attributes": {
+      "適用坪數": "10-15坪",
+      "濾網類型": "HEPA濾網",
+      "噪音等級": "30-50dB"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "空氣品質明顯改善，App控制也很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "運轉時有些微噪音，但整體效果不錯。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 44,
+    "name": "智慧恆溫電熱水壺",
+    "description": "具備智慧恆溫控制，可精確設定水溫，滿足不同飲品需求。快速加熱，容量大，適合家庭使用，並配有防乾燒保護，使用安全。",
+    "price": 1800,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "煮水達人",
+    "color": "不鏽鋼色",
+    "size": "1.7L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_kettle.jpg",
+    "images": [
+      "https://example.com/electric_kettle1.jpg",
+      "https://example.com/electric_kettle2.jpg"
+    ],
+    "tags": ["電熱水壺", "智慧", "恆溫"],
+    "attributes": {
+      "容量": "1.7L",
+      "功率": "1500W",
+      "溫度設定": "40-100°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "水溫控制精確，泡茶和咖啡都很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "加熱速度快，但外殼容易發熱。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 45,
+    "name": "多功能電烤箱",
+    "description": "集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。",
+    "price": 4500,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "烘焙大師",
+    "color": "黑色",
+    "size": "30L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_oven.jpg",
+    "images": [
+      "https://example.com/electric_oven1.jpg",
+      "https://example.com/electric_oven2.jpg"
+    ],
+    "tags": ["電烤箱", "多功能", "烘焙"],
+    "attributes": {
+      "容量": "30L",
+      "功率": "1800W",
+      "溫度範圍": "100-250°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "烤箱容量大，功能多樣，烘焙愛好者必備！"
+      },
+      {
+        "rating": 4,
+        "comment": "操作簡單，但預熱時間稍長。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 46,
+    "name": "智能空氣清淨機",
+    "description": "配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質。",
+    "price": 6000,
+    "category": "家電",
+    "subcategories": ["空氣清淨機"],
+    "brand": "清新",
+    "color": "白色",
+    "size": "50cm x 30cm x 30cm",
+    "material": "ABS塑膠",
+    "image": "https://example.com/air_purifier.jpg",
+    "images": [
+      "https://example.com/air_purifier1.jpg",
+      "https://example.com/air_purifier2.jpg"
+    ],
+    "tags": ["空氣清淨", "智慧控制", "高效濾網"],
+    "attributes": {
+      "適用坪數": "10-15坪",
+      "濾網類型": "HEPA濾網",
+      "噪音等級": "30-50dB"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "空氣品質明顯改善，App控制也很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "運轉時有些微噪音，但整體效果不錯。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 47,
+    "name": "智慧恆溫電熱水壺",
+    "description": "這款智慧恆溫電熱水壺具備精確的溫度控制功能，可根據不同飲品需求設定理想水溫，從40°C到100°C皆可調節。內建快速加熱系統，能在短時間內將水煮沸，節省您的寶貴時間。採用食品級304不鏽鋼內膽，確保飲水安全，雙層防燙設計則提升使用時的安全性。透過智慧手機App連接，您可遠程控制水壺的加熱與保溫功能，讓生活更便利。",
+    "price": 1800,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "煮水達人",
+    "color": "不鏽鋼色",
+    "size": "1.7L",
+    "material": "304不鏽鋼",
+    "image": "https://example.com/electric_kettle.jpg",
+    "images": [
+      "https://example.com/electric_kettle1.jpg",
+      "https://example.com/electric_kettle2.jpg"
+    ],
+    "tags": ["電熱水壺", "智慧", "恆溫", "快速加熱", "遠程控制"],
+    "attributes": {
+      "容量": "1.7L",
+      "功率": "1000W",
+      "溫度設定範圍": "40-100°C",
+      "連接方式": "Wi-Fi",
+      "保溫時間": "最長24小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "水溫控制精確，泡茶和咖啡都很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "加熱速度快，但外殼容易發熱。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 48,
+    "name": "多功能電烤箱",
+    "description": "這款多功能電烤箱集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。配備高效能加熱管，確保食物均勻受熱，烘焙效果更佳。",
+    "price": 4500,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "烘焙大師",
+    "color": "黑色",
+    "size": "30L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_oven.jpg",
+    "images": [
+      "https://example.com/electric_oven1.jpg",
+      "https://example.com/electric_oven2.jpg"
+    ],
+    "tags": ["電烤箱", "多功能", "烘焙", "大容量"],
+    "attributes": {
+      "容量": "30L",
+      "功率": "1800W",
+      "溫度範圍": "100-250°C",
+      "定時功能": "最長60分鐘"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "烤箱容量大，功能多樣，烘焙愛好者必備！"
+      },
+      {
+        "rating": 4,
+        "comment": "操作簡單，但預熱時間稍長。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 49,
+    "name": "智能空氣清淨機",
+    "description": "這款智能空氣清淨機配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質，為您和家人提供清新的居家環境。",
+    "price": 6000,
+    "category": "家電",
+    "subcategories": ["空氣清淨機"],
+    "brand": "清新",
+    "color": "白色",
+    "size": "50cm x 30cm x 30cm",
+    "material": "ABS塑膠",
+    "image": "https://example.com/air_purifier.jpg",
+    "images": [
+      "https://example.com/air_purifier1.jpg",
+      "https://example.com/air_purifier2.jpg"
+    ],
+    "tags": ["空氣清淨", "智慧控制", "高效濾網", "遠程控制"],
+    "attributes": {
+      "適用坪數": "10-15坪",
+      "濾網類型": "HEPA濾網",
+      "噪音等級": "30-50dB",
+      "連接方式": "Wi-Fi"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "空氣品質明顯改善，App控制也很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "運轉時有些微噪音，但整體效果不錯。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 50,
+    "name": "無線手持吸塵器",
+    "description": "這款無線手持吸塵器採用輕量化設計，方便清潔家中各個角落。強力吸力可有效清除灰塵與毛髮，配備多種吸頭，適用於不同清潔需求。長效電池續航，讓您一次清潔完整個家。",
+    "price": 3200,
+    "category": "家電",
+    "subcategories": ["清潔家電"],
+    "brand": "潔淨",
+    "color": "白色",
+    "size": "標準",
+    "material": "ABS塑膠",
+    "image": "https://example.com/handheld_vacuum.jpg",
+    "images": [
+      "https://example.com/handheld_vacuum1.jpg",
+      "https://example.com/handheld_vacuum2.jpg"
+    ],
+    "tags": ["無線", "手持", "吸塵器", "輕量", "強力吸力"],
+    "attributes": {
+      "吸力": "15000Pa",
+      "電池續航": "40分鐘",
+      "充電時間": "4小時",
+      "重量": "1.2kg",
+      "集塵容量": "0.5L"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "清潔效果很好，無線設計使用起來非常方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "續航時間足夠，但充電時間較長。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 51,
+    "name": "智能恆溫電熱水壺",
+    "description": "具備智能恆溫控制，可精確設定水溫，滿足不同飲品需求。快速加熱，容量大，適合家庭使用，並配有防乾燒保護，使用安全。",
+    "price": 1800,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "煮水達人",
+    "color": "不鏽鋼色",
+    "size": "1.7L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_kettle.jpg",
+    "images": [
+      "https://example.com/electric_kettle1.jpg",
+      "https://example.com/electric_kettle2.jpg"
+    ],
+    "tags": ["電熱水壺", "智能", "恆溫"],
+    "attributes": {
+      "容量": "1.7L",
+      "功率": "1500W",
+      "溫度設定": "40-100°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "水溫控制精確，泡茶和咖啡都很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "加熱速度快，但外殼容易發熱。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 52,
+    "name": "多功能電烤箱",
+    "description": "集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。",
+    "price": 4500,
+    "category": "家電",
+    "subcategories": ["廚房家電"],
+    "brand": "烘焙大師",
+    "color": "黑色",
+    "size": "30L",
+    "material": "不鏽鋼",
+    "image": "https://example.com/electric_oven.jpg",
+    "images": [
+      "https://example.com/electric_oven1.jpg",
+      "https://example.com/electric_oven2.jpg"
+    ],
+    "tags": ["電烤箱", "多功能", "烘焙"],
+    "attributes": {
+      "容量": "30L",
+      "功率": "1800W",
+      "溫度範圍": "100-250°C"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "烤箱容量大，功能多樣，烘焙愛好者必備！"
+      },
+      {
+        "rating": 4,
+        "comment": "操作簡單，但預熱時間稍長。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 53,
+    "name": "智能空氣清淨機",
+    "description": "配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質。",
+    "price": 6000,
+    "category": "家電",
+    "subcategories": ["空氣清淨機"],
+    "brand": "清新",
+    "color": "白色",
+    "size": "50cm x 30cm x 30cm",
+    "material": "ABS塑膠",
+    "image": "https://example.com/air_purifier.jpg",
+    "images": [
+      "https://example.com/air_purifier1.jpg",
+      "https://example.com/air_purifier2.jpg"
+    ],
+    "tags": ["空氣清淨", "智慧控制", "高效濾網"],
+    "attributes": {
+      "適用坪數": "10-15坪",
+      "濾網類型": "HEPA濾網",
+      "噪音等級": "30-50dB"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "空氣品質明顯改善，App控制也很方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "運轉時有些微噪音，但整體效果不錯。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 54,
+    "name": "長榮飯店 3日住宿優惠券",
+    "description": "享受長榮飯店三天兩夜的豪華住宿體驗，適用於全台各地的長榮飯店分店，包含每日雙人早餐，讓您盡情放鬆身心。",
+    "price": 9999,
+    "category": "旅遊",
+    "subcategories": ["住宿", "優惠券"],
+    "brand": "長榮飯店",
+    "color": "綠色",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evergreen_hotel_voucher.jpg",
+    "images": [
+      "https://example.com/evergreen_hotel_voucher1.jpg",
+      "https://example.com/evergreen_hotel_voucher2.jpg"
+    ],
+    "tags": ["長榮飯店", "住宿", "優惠券", "三日兩夜"],
+    "attributes": {
+      "適用地點": "全台長榮飯店",
+      "有效期限": "2025-12-31",
+      "包含餐點": "每日雙人早餐"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "房間舒適，服務優質，早餐豐盛。"
+      },
+      {
+        "rating": 4,
+        "comment": "位置便利，適合度假放鬆。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 55,
+    "name": "長榮航空日本來回優惠機票",
+    "description": "搭乘長榮航空，享受台灣至日本各大城市的來回優惠機票，提供舒適的座椅與優質的機上服務，讓您的旅程更加愉快。",
+    "price": 15000,
+    "category": "旅遊",
+    "subcategories": ["機票", "優惠券"],
+    "brand": "長榮航空",
+    "color": "N/A",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evaair_japan_ticket.jpg",
+    "images": [
+      "https://example.com/evaair_japan_ticket1.jpg",
+      "https://example.com/evaair_japan_ticket2.jpg"
+    ],
+    "tags": ["長榮航空", "日本", "來回機票", "優惠"],
+    "attributes": {
+      "出發地": "台灣",
+      "目的地": "日本各大城市",
+      "有效期限": "2025-06-30",
+      "艙等": "經濟艙"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "機上服務貼心，座位舒適，價格實惠。"
+      },
+      {
+        "rating": 4,
+        "comment": "航班準時，餐點美味。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 56,
+    "name": "長榮飯店白黑大廚自助餐優惠券",
+    "description": "持此優惠券可於長榮飯店享受白黑大廚主題自助餐，品嚐各式精緻美食，適合家庭聚餐或好友相約，共度美好時光。",
+    "price": 2000,
+    "category": "餐飲",
+    "subcategories": ["自助餐", "優惠券"],
+    "brand": "長榮飯店",
+    "color": "N/A",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evergreen_buffet_voucher.jpg",
+    "images": [
+      "https://example.com/evergreen_buffet_voucher1.jpg",
+      "https://example.com/evergreen_buffet_voucher2.jpg"
+    ],
+    "tags": ["長榮飯店", "自助餐", "優惠券", "白黑大廚"],
+    "attributes": {
+      "適用地點": "全台長榮飯店",
+      "有效期限": "2025-12-31",
+      "用餐時段": "午餐或晚餐"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "菜色豐富，環境優雅，服務周到。"
+      },
+      {
+        "rating": 4,
+        "comment": "食材新鮮，甜點特別好吃。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 57,
+    "name": "長榮航空國際航班升等優惠券",
+    "description": "持此優惠券可將長榮航空國際航班經濟艙升等至豪華經濟艙，享受更寬敞的座位與優質服務，提升您的飛行體驗。",
+    "price": 5000,
+    "category": "旅遊",
+    "subcategories": ["機票", "升等券"],
+    "brand": "長榮航空",
+    "color": "N/A",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evaair_upgrade_voucher.jpg",
+    "images": [
+      "https://example.com/evaair_upgrade_voucher1.jpg",
+      "https://example.com/evaair_upgrade_voucher2.jpg"
+    ],
+    "tags": ["長榮航空", "升等", "優惠券", "豪華經濟艙"],
+    "attributes": {
+      "適用航線": "長榮航空國際航班",
+      "有效期限": "2025-06-30",
+      "升等艙等": "豪華經濟艙"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "升等後座位舒適度大幅提升，服務更周到。"
+      },
+      {
+        "rating": 4,
+        "comment": "升等手續簡便，值得體驗。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 58,
+    "name": "長榮航空機上免稅商品優惠券",
+    "description": "使用此優惠券可在長榮航空機上購買免稅商品時享受折扣，讓您的空中購物體驗更加實惠。",
+    "price": 1000,
+    "category": "購物",
+    "subcategories": ["免稅商品", "優惠券"],
+    "brand": "長榮航空",
+    "color": "N/A",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evaair_dutyfree_voucher.jpg",
+    "images": [
+      "https://example.com/evaair_dutyfree_voucher1.jpg",
+      "https://example.com/evaair_dutyfree_voucher2.jpg"
+    ],
+    "tags": ["長榮航空", "免稅商品", "優惠券", "機上購物"],
+    "attributes": {
+      "適用範圍": "長榮航空機上免稅商品",
+      "有效期限": "2025-12-31",
+      "折扣幅度": "10%"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "購買心儀的免稅商品還能享折扣，超值！"
+      },
+      {
+        "rating": 4,
+        "comment": "使用方便，但部分商品不適用折扣。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 59,
+    "name": "長榮航空機上餐飲升級優惠券",
+    "description": "持此優惠券可在長榮航空航班上將經濟艙餐點升級為特選餐，享受更豐富的美食選擇，提升您的飛行餐飲體驗。",
+    "price": 800,
+    "category": "餐飲",
+    "subcategories": ["機上餐飲", "升級券"],
+    "brand": "長榮航空",
+    "color": "N/A",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evaair_meal_upgrade.jpg",
+    "images": [
+      "https://example.com/evaair_meal_upgrade1.jpg",
+      "https://example.com/evaair_meal_upgrade2.jpg"
+    ],
+    "tags": ["長榮航空", "機上餐飲", "升級", "優惠券"],
+    "attributes": {
+      "適用航線": "長榮航空國際航班",
+      "有效期限": "2025-06-30",
+      "升級內容": "特選餐"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "餐點升級後，口味和質量都提升不少。"
+      },
+      {
+        "rating": 4,
+        "comment": "升級手續簡單，但選擇有限。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 60,
+    "name": "長榮航空貴賓室使用優惠券",
+    "description": "此優惠券可讓您在搭乘長榮航空航班時，使用機場貴賓室，享受舒適的休息環境與精緻餐點，提升您的候機體驗。",
+    "price": 1500,
+    "category": "旅遊",
+    "subcategories": ["貴賓室", "優惠券"],
+    "brand": "長榮航空",
+    "color": "N/A",
+    "size": "電子票券",
+    "material": "N/A",
+    "image": "https://example.com/evaair_lounge_voucher.jpg",
+    "images": [
+      "https://example.com/evaair_lounge_voucher1.jpg",
+      "https://example.com/evaair_lounge_voucher2.jpg"
+    ],
+    "tags": ["長榮航空", "貴賓室", "優惠券", "機場休息"],
+    "attributes": {
+      "適用地點": "長榮航空各地貴賓室",
+      "有效期限": "2025-12-31",
+      "使用次數": "單次"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "貴賓室環境舒適，餐點豐富，值得體驗。"
+      },
+      {
+        "rating": 4,
+        "comment": "使用方便，但高峰期可能較擁擠。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 61,
+    "name": "蘋果 iPhone 16 Pro 智慧型手機",
+    "description": "最新一代的蘋果 iPhone 16 Pro，配備 6.1 吋 OLED 螢幕、A18 仿生晶片和三鏡頭相機系統，提供卓越的性能和拍攝體驗。支援 5G 網路，讓您隨時隨地享受高速連線。",
+    "price": 35900,
+    "category": "電子產品",
+    "subcategories": ["手機", "智慧型手機"],
+    "brand": "蘋果",
+    "color": "太空灰",
+    "size": "6.1 吋",
+    "material": "鋁合金與玻璃",
+    "image": "https://example.com/iphone16pro.jpg",
+    "images": [
+      "https://example.com/iphone16pro_1.jpg",
+      "https://example.com/iphone16pro_2.jpg"
+    ],
+    "tags": ["蘋果", "iPhone", "智慧型手機", "5G"],
+    "attributes": {
+      "儲存容量": "256GB",
+      "作業系統": "iOS 18",
+      "相機": "1200 萬像素三鏡頭"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "性能強大，拍照效果出色，值得升級。"
+      },
+      {
+        "rating": 4,
+        "comment": "價格偏高，但整體體驗非常好。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 62,
+    "name": "新鮮有機蘋果",
+    "description": "來自有機農場的新鮮蘋果，無農藥殘留，口感香甜多汁，富含維他命C和膳食纖維，是日常健康飲食的理想選擇。",
+    "price": 150,
+    "category": "食品",
+    "subcategories": ["水果", "有機食品"],
+    "brand": "綠色農場",
+    "color": "紅色",
+    "size": "每顆約 200 克",
+    "material": "N/A",
+    "image": "https://example.com/organic_apple.jpg",
+    "images": [
+      "https://example.com/organic_apple_1.jpg",
+      "https://example.com/organic_apple_2.jpg"
+    ],
+    "tags": ["蘋果", "有機", "水果", "健康"],
+    "attributes": {
+      "產地": "台灣",
+      "包裝": "每袋 5 顆",
+      "保存期限": "7 天"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "蘋果非常新鮮，口感很好，會回購。"
+      },
+      {
+        "rating": 4,
+        "comment": "品質不錯，但價格稍高。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 63,
+    "name": "蘋果牌天然蘋果汁",
+    "description": "由蘋果公司出品的 100% 純天然蘋果汁，無添加糖和防腐劑，保留蘋果的原始風味和營養，是全家人都喜愛的健康飲品。",
+    "price": 120,
+    "category": "飲料",
+    "subcategories": ["果汁", "健康飲品"],
+    "brand": "蘋果",
+    "color": "金黃色",
+    "size": "500 毫升",
+    "material": "N/A",
+    "image": "https://example.com/apple_juice.jpg",
+    "images": [
+      "https://example.com/apple_juice_1.jpg",
+      "https://example.com/apple_juice_2.jpg"
+    ],
+    "tags": ["蘋果", "果汁", "健康", "飲品"],
+    "attributes": {
+      "成分": "100% 蘋果汁",
+      "保存期限": "6 個月",
+      "包裝": "瓶裝"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "口感純正，沒有添加劑，喝起來很安心。"
+      },
+      {
+        "rating": 4,
+        "comment": "味道不錯，但容量有點小。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 64,
+    "name": "亞馬遜 Kindle Paperwhite 電子書閱讀器",
+    "description": "亞馬遜 Kindle Paperwhite 配備 6.8 吋防眩光螢幕，內建可調節暖光，提供舒適的閱讀體驗。輕薄設計，單手即可輕鬆握持，防水功能讓您在浴室或泳池邊也能安心閱讀。",
+    "price": 139.99,
+    "category": "電子產品",
+    "subcategories": ["電子書閱讀器"],
+    "brand": "亞馬遜",
+    "color": "黑色",
+    "size": "6.8 吋",
+    "material": "塑膠",
+    "image": "https://example.com/kindle_paperwhite.jpg",
+    "images": [
+      "https://example.com/kindle_paperwhite1.jpg",
+      "https://example.com/kindle_paperwhite2.jpg"
+    ],
+    "tags": ["亞馬遜", "Kindle", "電子書", "閱讀器"],
+    "attributes": {
+      "儲存容量": "8GB",
+      "防水等級": "IPX8",
+      "電池續航": "最長可達 10 週"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "閱讀體驗非常棒，螢幕清晰，重量輕盈，攜帶方便。"
+      },
+      {
+        "rating": 4,
+        "comment": "防水功能實用，但價格稍高。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 65,
+    "name": "亞馬遜熱帶雨林探險之旅",
+    "description": "參加為期 7 天的亞馬遜熱帶雨林探險之旅，深入世界最大的熱帶雨林，體驗豐富的生態系統，觀察多樣的野生動植物，並與當地原住民交流，了解他們的文化與生活方式。",
+    "price": 2500,
+    "category": "旅遊",
+    "subcategories": ["探險旅遊"],
+    "brand": "環球探險",
+    "color": "N/A",
+    "size": "7 天",
+    "material": "N/A",
+    "image": "https://example.com/amazon_rainforest_tour.jpg",
+    "images": [
+      "https://example.com/amazon_rainforest_tour1.jpg",
+      "https://example.com/amazon_rainforest_tour2.jpg"
+    ],
+    "tags": ["亞馬遜", "熱帶雨林", "探險", "旅遊"],
+    "attributes": {
+      "行程天數": "7 天",
+      "包含項目": "住宿、餐點、導遊",
+      "適合對象": "冒險愛好者、自然愛好者"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "難忘的體驗，導遊專業，行程安排豐富多彩。"
+      },
+      {
+        "rating": 4,
+        "comment": "環境優美，但蚊蟲較多，需做好防護。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  },
+  {
+    "id": 66,
+    "name": "亞馬遜河流域咖啡豆",
+    "description": "來自亞馬遜河流域的精品咖啡豆，採用有機種植方式，手工採摘，經中度烘焙，呈現豐富的風味層次，帶有巧克力和堅果的香氣，口感順滑，餘韻悠長。",
+    "price": 25,
+    "category": "食品",
+    "subcategories": ["咖啡豆"],
+    "brand": "亞馬遜咖啡",
+    "color": "深棕色",
+    "size": "500 克",
+    "material": "N/A",
+    "image": "https://example.com/amazon_coffee_beans.jpg",
+    "images": [
+      "https://example.com/amazon_coffee_beans1.jpg",
+      "https://example.com/amazon_coffee_beans2.jpg"
+    ],
+    "tags": ["亞馬遜", "咖啡豆", "有機", "食品"],
+    "attributes": {
+      "產地": "巴西",
+      "烘焙程度": "中度",
+      "保存期限": "12 個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "咖啡香氣濃郁，口感豐富，是每日的提神佳品。"
+      },
+      {
+        "rating": 4,
+        "comment": "品質優良，但價格稍高。"
+      }
+    ],
+    "created_at": "2024-12-10",
+    "updated_at": "2024-12-10"
+  }
+]

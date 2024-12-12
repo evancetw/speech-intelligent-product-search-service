@@ -1,0 +1,69 @@
+
+.top-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px; /* 減少 padding 以縮小橫幅 */
+}
+
+.banner-text {
+    max-width: 40%; /* 減少最大寬度 */
+}
+
+.banner-text h1 {
+    font-size: 2rem; /* 減小字體大小 */
+    margin-bottom: 8px; /* 減少 margin */
+}
+
+.banner-text p {
+    font-size: 1rem; /* 減小字體大小 */
+}
+
+.banner-image {
+    max-width: 30%; /* 減少最大寬度 */
+    border-radius: 10px;
+}
+.highlight-section {
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+.highlight-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.product-grid {
+    display: flex;
+    justify-content: space-around;
+}
+.product-item {
+    text-align: center;
+    max-width: 30%;
+}
+.product-item img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.product-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+.footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.footer-info, .footer-links {
+    max-width: 45%;
+}
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-links ul li {
+    margin-bottom: 5px;
+}

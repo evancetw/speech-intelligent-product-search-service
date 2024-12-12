@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.WebUtilities
+@using Microsoft.EntityFrameworkCore
+@inject ILogger<NavMenu> Logger
+@rendermode InteractiveServer
+
+<div class="navbar-content">
+    <a class="navbar-brand" href="">史創敗</a>
+    <EditForm Model="@SearchModelObj" OnValidSubmit="HandleSearch" FormName="my-search-form">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="search-form">
+            <InputSelect class="category-select" @bind-Value="SearchModelObj.SelectedCategory">
+                <option value="">所有分類</option>
+                @foreach (var category in Categories)
+                {
+                    <option value="@category">@category</option>
+                }
+            </InputSelect>
+
+            <InputText class="search-input" placeholder="搜尋商品..."
+                       @bind-Value="SearchModelObj.SearchText" />
+
+            <button type="submit" class="search-button">
+                <i class="bi bi-search"></i>搜尋
+            </button>
+        </div>
+    </EditForm>
+
+    <NavLink class="nav-link cart-link" href="cart">
+        <span class="cart-icon">
+            <i class="bi bi-cart3"></i>
+            <span class="cart-count">0</span>
+        </span>
+        購物車
+    </NavLink>
+</div>
+
+@code {
+
+    [SupplyParameterFromForm(FormName = "my-search-form")]
+    private SearchModel SearchModelObj { get; set; } = new SearchModel();
+
+    // private string? SelectedCategory { get; set; } = string.Empty;
+    // private string? SearchText { get; set; } = string.Empty;
+    private List<string> Categories { get; set; } = new();
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject] private StrongBuyContext Context { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // 解析當前的 URI 並取得 query string 參數
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("category", out var category))
+        {
+            SearchModelObj.SelectedCategory = category;
+        }
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("q", out var searchText))
+        {
+            SearchModelObj.SearchText = searchText;
+        }
+        
+        // 載入所有分類
+        Categories = await Context.Products
+        .Select(p => p.Category)
+        .Distinct()
+        .ToListAsync();
+    }
+
+    private void HandleSearch()
+    {
+        Logger.LogInformation("Start searching...");
+
+        var queryParams = new List<string>();
+
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.SelectedCategory))
+        {
+            queryParams.Add($"category={Uri.EscapeDataString(SearchModelObj.SelectedCategory)}");
+        }
+
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.SearchText))
+        {
+            queryParams.Add($"q={Uri.EscapeDataString(SearchModelObj.SearchText)}");
+        }
+
+        var queryString = queryParams.Any() ? "?" + string.Join("&", queryParams) : "";
+        NavigationManager.NavigateTo($"/search{queryString}");
+    }
+
+    private class SearchModel
+    {
+        public string? SelectedCategory { get; set; } = string.Empty;
+        public string? SearchText { get; set; } = string.Empty;
+    }
+}
