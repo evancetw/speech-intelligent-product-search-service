@@ -1,22 +1,51 @@
 @page "/search"
 @using Microsoft.EntityFrameworkCore
+@using StrongBuy.Blazor.Components.Layout
 @using StrongBuy.Blazor.Models
 @inject StrongBuyContext Context
 @inject NavigationManager Navigation
+@rendermode InteractiveServer
 
 <PageTitle>商品搜尋</PageTitle>
 
 <div class="search-container">
     <div class="search-sidebar">
         <div class="filter-section">
-            <h3>分類</h3>
+            <h3>所有分類</h3>
+            @* <div class="filter-list"> *@
+            @*     @foreach (var category in Categories) *@
+            @*     { *@
+            @*         <div class="filter-item"> *@
+            @*             <a href="/search?category=@category" *@
+            @*                class="@(SearchModelObj.SelectedCategory == category ? "selected" : "")"> *@
+            @*                 @category *@
+            @*             </a> *@
+            @*         </div> *@
+            @*     } *@
+            @* </div> *@
+
             <div class="filter-list">
                 @foreach (var category in Categories)
                 {
                     <div class="filter-item">
-                        <a href="/search?category=@category" class="@(SelectedCategory == category ? "selected" : "")">
-                            @category
-                        </a>
+                        <input type="button" value="@category" @onclick="() => RedirectWithNewCategory(category)"
+                               class="filter-button @(SearchModelObj.SelectedCategory == category ? "selected" : "")"/>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>品牌</h3>
+            <div class="filter-list">
+                @foreach (var brand in Brands)
+                {
+                    <div class="filter-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked="@(SearchModelObj?.FilterBrands?.Contains(brand) ?? false)"
+                                   @onchange="(e) => ToggleBrandFilter(brand)"/>
+                            <span class="brand-name">@brand</span>
+                        </label>
                     </div>
                 }
             </div>
@@ -62,12 +91,12 @@
     <div class="search-results">
         <div class="results-header">
             <span>1-@ProductsList.Count 件，共 @ProductsList.Count 件</span>
-            <select class="sort-select">
-                <option>精選</option>
-                <option>價格：由低到高</option>
-                <option>價格：由高到低</option>
-                <option>平均顧客評價</option>
-                <option>最新上架</option>
+            <select class="sort-select" @bind="SearchModelObj.SortOption" @bind:event="onchange">
+                <option value="">精選</option>
+                <option value="price_asc">價格：由低到高</option>
+                <option value="price_desc">價格：由高到低</option>
+                <option value="rating">平均顧客評價</option>
+                <option value="newest">最新上架</option>
             </select>
         </div>
 
@@ -77,7 +106,7 @@
                 <div class="product-card">
                     <div class="product-image">
                         <img src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
-                            alt="@product.Name">
+                             alt="@product.Name">
                     </div>
                     <div class="product-info">
                         <h2 class="product-title">
@@ -129,7 +158,7 @@
     }
 
     .filter-item {
-        margin: 8px 0;
+        margin: 4px 0;
     }
 
     .filter-item a {
@@ -145,6 +174,47 @@
     .filter-item a.selected {
         color: #c45500;
         font-weight: bold;
+    }
+
+    .filter-button {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: 4px 8px;
+        cursor: pointer;
+        color: #0066c0;
+        font-size: 14px;
+    }
+
+    .filter-button:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .filter-button.selected {
+        color: #c45500;
+        font-weight: bold;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 4px 0;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .brand-name {
+        color: #0066c0;
+    }
+
+    .checkbox-label:hover .brand-name {
+        color: #c45500;
+        text-decoration: underline;
     }
 
     .search-results {
@@ -254,37 +324,208 @@
 @code {
     private List<Product> ProductsList = new();
     private List<string> Categories = new();
-    private string? SelectedCategory;
+    private List<string> Brands = new();
+
+    //[SupplyParameterFromForm(FormName = "my-search-form")]
+    private NavMenu.SearchModel SearchModelObj { get; set; } = new NavMenu.SearchModel();
+
+    //private string? SelectedCategory;
+    //private string? SortOption;
 
     protected override async Task OnInitializedAsync()
     {
         // Get parameters from query string
         var uri = new Uri(Navigation.Uri);
         var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
-        SelectedCategory = queryString["category"];
-        var searchQuery = queryString["q"];
+        //SelectedCategory = queryString["category"];
+        // var searchQuery = queryString["q"];
+        // SortOption = queryString["sort"];
+
+        SearchModelObj.SearchText = queryString["q"];
+        SearchModelObj.SelectedCategory = queryString["category"];
+        SearchModelObj.FilterBrands = queryString["brands"];
+
 
         // Load categories
         Categories = await Context.Products
-        .Select(p => p.Category)
-        .Distinct()
-        .ToListAsync();
+            .Select(p => p.Category)
+            .Distinct()
+            .ToListAsync();
 
         // Load products
         var query = Context.Products.AsQueryable();
 
-        if (!string.IsNullOrEmpty(SelectedCategory))
+        if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
         {
-            query = query.Where(p => p.Category == SelectedCategory);
+            query = query.Where(p => p.Category == SearchModelObj.SelectedCategory);
         }
 
-        if (!string.IsNullOrEmpty(searchQuery))
+        if (!string.IsNullOrEmpty(SearchModelObj.SearchText))
         {
-            query = query.Where(p => p.Name.Contains(searchQuery) ||
-            p.Description.Contains(searchQuery));
+            query = query.Where(p => p.Name.Contains(SearchModelObj.SearchText) ||
+                                     p.Description.Contains(SearchModelObj.SearchText));
         }
+
+        // #################### FILTERS ####################
+
+        // 取得過濾後的品牌列表
+        Brands = await query
+            .Select(p => p.Brand)
+            .Distinct()
+            .ToListAsync();
+
+        // 載入商品列表
+        if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
+        {
+            // FilterBrands 是逗號分隔的品牌名稱，例如 "Apple,Samsung"，還原回陣列後做為 OR 條件
+            var brands = SearchModelObj.FilterBrands.Split(',');
+            query = query.Where(p => brands.Contains(p.Brand));
+        }
+
+        // Apply sorting
+        query = SearchModelObj.SortOption switch
+        {
+            "price_asc" => query.OrderBy(p => p.Price),
+            "price_desc" => query.OrderByDescending(p => p.Price),
+            "rating" => query.OrderByDescending(p => p.Reviews.Average(r => r.Rating)),
+            "newest" => query.OrderByDescending(p => p.CreatedAt),
+            _ => query // 預設排序
+        };
 
         ProductsList = await query.ToListAsync();
+    }
+
+    private void RedirectWithNewCategory(string value)
+    {
+        RedirectWithNewQuery("category", value);
+    }
+
+    private void RedirectWithNewQuery(string key, string value)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        if (string.IsNullOrEmpty(value))
+        {
+            queryString.Remove(key);
+        }
+        else
+        {
+            queryString[key] = value;
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void RedirectWithNewQueries(Dictionary<string, string> newQueries)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        foreach (var (key, value) in newQueries)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                queryString.Remove(key);
+            }
+            else
+            {
+                queryString[key] = value;
+            }
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void ToggleBrandFilter(string brand)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        var currentBrands = queryString["brands"]?.Split(',')
+            .Where(b => !string.IsNullOrEmpty(b))
+            .ToList() ?? new List<string>();
+
+        if (currentBrands.Contains(brand))
+        {
+            currentBrands.Remove(brand);
+        }
+        else
+        {
+            currentBrands.Add(brand);
+        }
+
+        if (currentBrands.Any())
+        {
+            queryString["brands"] = string.Join(",", currentBrands);
+        }
+        else
+        {
+            queryString.Remove("brands");
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void OnSortChanged(ChangeEventArgs e)
+    {
+        /*
+        你有兩個選擇：
+        使用 forceLoad: true：這會重新載入整個頁面，確保所有狀態都是最新的。
+        手動更新：不重新載入頁面，而是手動更新狀態和重新獲取資料。
+        我建議使用第一種方法（forceLoad: true），因為它更可靠且能確保所有狀態都正確更新。如果你想要更好的使用者體驗（不重新載入整個頁面），可以使用註解中的第二種方法。
+        選擇哪種方法取決於你的需求：
+        第一種方法（forceLoad: true）更簡單且可靠
+        第二種方法（手動更新）提供更好的使用者體驗，但需要更謹慎地管理狀態
+        */
+        var value = e.Value?.ToString();
+
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        if (string.IsNullOrEmpty(value))
+        {
+            queryString.Remove("sort");
+        }
+        else
+        {
+            queryString["sort"] = value;
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        // 使用 NavigateTo 的第二個參數 forceLoad 來強制重新載入頁面
+        Navigation.NavigateTo(newUri, forceLoad: true);
+
+        // 或者，如果不想重新載入整個頁面，可以這樣做：
+        /*
+        Navigation.NavigateTo(newUri);
+        SortOption = value;
+        await OnInitializedAsync();
+        StateHasChanged();
+        */
     }
 
 }

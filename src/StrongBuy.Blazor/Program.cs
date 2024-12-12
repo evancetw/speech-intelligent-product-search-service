@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    ;
 
 // Add DbContext
 builder.Services.AddDbContext<StrongBuyContext>(options =>
@@ -22,7 +23,7 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<StrongBuyContext>();
-        
+
         // Ensure database is created and apply migrations
         context.Database.Migrate();
 
@@ -32,8 +33,9 @@ using (var scope = app.Services.CreateScope())
             // Read products from JSON file
             var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
             var jsonString = File.ReadAllText(jsonPath);
-            var products = JsonSerializer.Deserialize<List<Product>>(jsonString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            
+            var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
             if (products != null)
             {
                 context.Products.AddRange(products);

@@ -21,6 +21,8 @@
             <InputText class="search-input" placeholder="搜尋商品..."
                        @bind-Value="SearchModelObj.SearchText"/>
 
+            <InputText visible="false" @bind-Value="SearchModelObj.FilterBrands"/>
+
             <button type="submit" class="search-button">
                 @* <i class="bi bi-search"></i>搜尋 *@
                 搜尋
@@ -54,6 +56,7 @@
     {
 // 解析當前的 URI 並取得 query string 參數
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+
         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("category", out var category))
         {
             SearchModelObj.SelectedCategory = category;
@@ -62,6 +65,12 @@
         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("q", out var searchText))
         {
             SearchModelObj.SearchText = searchText;
+        }
+
+        // filter by brands
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("brands", out var brands))
+        {
+            SearchModelObj.FilterBrands = brands;
         }
 
         // 載入所有分類
@@ -87,6 +96,12 @@
             queryParams.Add($"q={Uri.EscapeDataString(SearchModelObj.SearchText)}");
         }
 
+        // filter by brands
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.FilterBrands))
+        {
+            queryParams.Add($"brands={Uri.EscapeDataString(SearchModelObj.FilterBrands)}");
+        }
+
         var queryString = queryParams.Any() ? "?" + string.Join("&", queryParams) : "";
 
         /*
@@ -99,10 +114,30 @@
         SearchModelObj.SearchText = string.Empty;
     }
 
-    private class SearchModel
+    public class SearchModel
     {
-        public string? SelectedCategory { get; set; } = string.Empty;
         public string? SearchText { get; set; } = string.Empty;
+
+        // filter by category
+        public string? SelectedCategory { get; set; } = string.Empty;
+
+        public double? MinPrice { get; set; } = null;
+
+        public double? MaxPrice { get; set; } = null;
+
+        // filter by brands，多個品牌以逗號分隔
+        public string? FilterBrands { get; set; } = string.Empty;
+
+        public string? FilterColors { get; set; } = string.Empty;
+
+        public string? FilterSizes { get; set; } = string.Empty;
+
+        public string? FilterMaterials { get; set; } = string.Empty;
+
+        //public string? FilterTags { get; set; } = string.Empty;
+
+        // sort by price, rating, newest
+        public string? SortOption { get; set; } = string.Empty;
     }
 
 }
