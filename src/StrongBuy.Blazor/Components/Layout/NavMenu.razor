@@ -23,6 +23,8 @@
 
             <InputText visible="false" @bind-Value="SearchModelObj.FilterBrands"/>
 
+            <InputText visible="false" @bind-Value="SearchModelObj.SortOption"/>
+
             <button type="submit" class="search-button">
                 @* <i class="bi bi-search"></i>搜尋 *@
                 搜尋
@@ -71,6 +73,12 @@
         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("brands", out var brands))
         {
             SearchModelObj.FilterBrands = brands;
+        }
+
+        // sort
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("sort", out var sort))
+        {
+            SearchModelObj.SortOption = sort;
         }
 
         // 載入所有分類

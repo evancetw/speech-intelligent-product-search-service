@@ -91,13 +91,33 @@
     <div class="search-results">
         <div class="results-header">
             <span>1-@ProductsList.Count 件，共 @ProductsList.Count 件</span>
-            <select class="sort-select" @bind="SearchModelObj.SortOption" @bind:event="onchange">
+            @* <select class="sort-select" @bind="SearchModelObj.SortOption" @onchange="OnSortChanged"> *@
+            @* <select class="sort-select" @onchange="OnSortChanged"> *@
+            @*     <option value="">精選</option> *@
+            @*     <option value="price_asc">價格：由低到高</option> *@
+            @*     <option value="price_desc">價格：由高到低</option> *@
+            @*     <option value="rating">平均顧客評價</option> *@
+            @*     <option value="newest">最新上架</option> *@
+            @* </select> *@
+
+            @* <InputSelect class="sort-select" Value="@SearchModelObj.SortOption"
+                         ValueChanged="@((string? value) => OnSortOptionChanged(value))">
+                <option value="">精選</option>
+                <option value="price_asc">價格：由低到高</option>
+                <option value="price_desc">價格：由高到低</option>
+                <option value="rating">平均顧客評價</option>
+                <option value="newest">最新上架</option>
+            </InputSelect> *@
+
+            <select class="sort-select" value="@SearchModelObj.SortOption"
+                    @onchange="@((ChangeEventArgs e) => OnSortOptionChanged(e.Value?.ToString()))">
                 <option value="">精選</option>
                 <option value="price_asc">價格：由低到高</option>
                 <option value="price_desc">價格：由高到低</option>
                 <option value="rating">平均顧客評價</option>
                 <option value="newest">最新上架</option>
             </select>
+
         </div>
 
         <div class="products-grid">
@@ -344,7 +364,7 @@
         SearchModelObj.SearchText = queryString["q"];
         SearchModelObj.SelectedCategory = queryString["category"];
         SearchModelObj.FilterBrands = queryString["brands"];
-
+        SearchModelObj.SortOption = queryString["sort"];
 
         // Load categories
         Categories = await Context.Products
@@ -395,12 +415,12 @@
         ProductsList = await query.ToListAsync();
     }
 
-    private void RedirectWithNewCategory(string value)
+    private void RedirectWithNewCategory(string? value)
     {
         RedirectWithNewQuery("category", value);
     }
 
-    private void RedirectWithNewQuery(string key, string value)
+    private void RedirectWithNewQuery(string key, string? value)
     {
         var uri = new Uri(Navigation.Uri);
         var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
@@ -485,6 +505,12 @@
         Navigation.NavigateTo(newUri, forceLoad: true);
     }
 
+    private void OnSortOptionChanged(string? value)
+    {
+        SearchModelObj.SortOption = value;
+        RedirectWithNewQuery("sort", value);
+    }
+
     private void OnSortChanged(ChangeEventArgs e)
     {
         /*
@@ -497,6 +523,10 @@
         第二種方法（手動更新）提供更好的使用者體驗，但需要更謹慎地管理狀態
         */
         var value = e.Value?.ToString();
+
+        RedirectWithNewQuery("sort", value);
+
+        return;
 
         var uri = new Uri(Navigation.Uri);
         var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);

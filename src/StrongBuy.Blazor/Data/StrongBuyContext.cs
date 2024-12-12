@@ -13,9 +13,9 @@ public class StrongBuyContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Product>()
-            .Property(p => p.Price)
-            .HasConversion<double>();
+        // modelBuilder.Entity<Product>()
+        //     .Property(p => p.Price)
+        //     .HasConversion<double>();
 
         modelBuilder.Entity<Product>()
             .Property(p => p.Subcategories)

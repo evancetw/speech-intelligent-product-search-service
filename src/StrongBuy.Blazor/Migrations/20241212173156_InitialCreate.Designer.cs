@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace StrongBuy.Blazor.Migrations
 {
     [DbContext(typeof(StrongBuyContext))]
-    [Migration("20241209194750_InitialCreate")]
+    [Migration("20241212173156_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -64,8 +64,8 @@ namespace StrongBuy.Blazor.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Reviews")
                         .IsRequired()
