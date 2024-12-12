@@ -2,6 +2,9 @@ using StrongBuy.Blazor.Components;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 using StrongBuy.Blazor.Models;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,18 @@ builder.Services.AddRazorComponents()
 // Add DbContext
 builder.Services.AddDbContext<StrongBuyContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 配置 Elasticsearch 客戶端
+builder.Services.AddScoped(provider =>
+{
+    // var settings = new ElasticsearchClientSettings(new Uri("http://localhost:9200"))
+    //     .DefaultIndex("your_index_name"); // 替換為您的索引名稱
+    // return new ElasticsearchClient(settings);
+
+    return new ElasticsearchClient(
+        "CloudId",
+        new ApiKey("APIKey"));
+});
 
 var app = builder.Build();
 
@@ -47,6 +62,32 @@ using (var scope = app.Services.CreateScope())
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while initializing the database.");
+    }
+}
+
+// 確認是否能連線到 Elasticsearch 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var client = services.GetRequiredService<ElasticsearchClient>();
+        var response = await client.PingAsync();
+        if (response.IsValidResponse)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogInformation("Successfully connected to Elasticsearch");
+        }
+        else
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError("Failed to connect to Elasticsearch");
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while connecting to Elasticsearch");
     }
 }
 
