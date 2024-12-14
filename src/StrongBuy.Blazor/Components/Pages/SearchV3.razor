@@ -1,10 +1,11 @@
-@page "/searchv2"
+@page "/searchv3"
 @using Elastic.Clients.Elasticsearch
 @using Elastic.Clients.Elasticsearch.Aggregations
 @using Elastic.Clients.Elasticsearch.QueryDsl
 @using Elastic.Transport.Extensions
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal
+@using OpenAI.Embeddings
 @using StrongBuy.Blazor.Components.Layout
 @using StrongBuy.Blazor.Models
 @using StrongBuy.Blazor.Services
@@ -12,10 +13,11 @@
 @inject NavigationManager Navigation
 @* @inject ElasticsearchService ElasticsearchService *@
 @inject ElasticsearchClient ElasticsearchClient
+@inject EmbeddingClient EmbeddingClient;
 @rendermode InteractiveServer
 
 <PageTitle>商品搜尋 - 精準搜尋</PageTitle>
-<p>精準搜尋</p>
+<p>向量搜尋</p>
 
 <div class="search-container">
     <div class="search-sidebar">
@@ -562,14 +564,14 @@
 </style>
 
 @code {
-    private List<Product> ProductsList = new();
+    private List<ProductV2> ProductsList = new();
     private List<string> Categories = new();
     private List<string> Brands = new();
 
     //[SupplyParameterFromForm(FormName = "my-search-form")]
     private NavMenu.SearchModel SearchModelObj { get; set; } = new NavMenu.SearchModel();
 
-    private Product? selectedProduct;
+    private ProductV2? selectedProduct;
     private bool isReviewsVisible;
 
     //private string? SelectedCategory;
@@ -630,10 +632,10 @@
         //
 
         // 組合 query 並查詢
-        var resp = await SearchAndReturnRawQueryAsync<Product>(requestDescriptor =>
+        var resp = await SearchAndReturnRawQueryAsync<ProductV2>(requestDescriptor =>
             {
                 // 開始查詢商品
-                requestDescriptor.Size(100);
+
 
                 var must = new List<Query>();
                 var filters = new List<Query>();
@@ -641,20 +643,33 @@
                 // Text search
                 if (string.IsNullOrEmpty(SearchModelObj.SearchText) == false)
                 {
-                    var keywordQuery = new MultiMatchQuery()
+                    //var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(SearchModelObj.SearchText);
+                    
+                    //var searchPrompt = "我是一位廚師，我喜歡美食，最近看了黑白大廚，很喜歡\n" + SearchModelObj.SearchText;
+                    var searchPrompt = "我是我家的首富，服務都要最好的\n" + SearchModelObj.SearchText;
+                    var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(searchPrompt);
+                    
+                    var searchVector = searchTextKnnResult.Value.ToFloats();
+
+                    var knnQuery = new KnnQuery()
                     {
-                        Fields = Fields.FromFields([
-                            Field.FromString("name")!,
-                            Field.FromString("description")!
-                        ]),
-                        Query = SearchModelObj.SearchText,
+                        k = 10,
+                        NumCandidates = 1000,
+                        Field = "combinedEmbedding"!,
+                        QueryVector = searchVector.ToArray(),
                     };
-                    must.Add(keywordQuery);
+                    must.Add(knnQuery);
+
+                    requestDescriptor.Size(100);
+                }
+                else
+                {
+                    requestDescriptor.Size(100);
                 }
 
                 if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
                 {
-                    var categoryFilter = new TermQuery("category"!)
+                    var categoryFilter = new TermQuery("catego›ry")
                     {
                         Value = SearchModelObj.SelectedCategory
                     };
@@ -664,13 +679,23 @@
                 if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
                 {
                     var brands = SearchModelObj.FilterBrands.Split(',');
+
                     var brandsFilter = new TermsQuery
                     {
-                        Field = "brand"!,
-                        Terms = new TermsQueryField(brands.Select(FieldValue.String).ToList())
+                        Field = "brand",
+                        Terms = new TermsQueryField(brands.Select(id => FieldValue.String(id)).ToList())
                     };
+
                     filters.Add(brandsFilter);
                 }
+
+                // if (filters.Any())
+                // {
+                //     requestDescriptor.Query(q => q
+                //         .Bool(b => { b.Filter(filters); }
+                //         )
+                //     );
+                // }
 
                 requestDescriptor.Query(q => q
                     .Bool(b =>
@@ -872,7 +897,7 @@
         */
     }
 
-    private void ShowReviews(Product product)
+    private void ShowReviews(ProductV2 product)
     {
         selectedProduct = product;
         isReviewsVisible = true;
@@ -894,10 +919,17 @@
         where T : class
     {
         var searchRequest = new SearchRequestDescriptor<T>();
-        searchRequest.Index("products");
+        // get index name first, from IndexNameAttribute
+        // if (typeof(T).GetCustomAttributes(typeof(IndexNameAttribute), true)
+        //         .FirstOrDefault() is IndexNameAttribute indexName)
+        // {
+        //     searchRequest.Index(this.TryGetIndexName(indexName.Name));
+        // }
+        searchRequest.Index("products-v2");
 
         requestAction?.Invoke(searchRequest);
 
+        // using logger to print request
         var rawQuery = this.GetRawQueryAsync(searchRequest);
         var searchResponse = await this.ElasticsearchClient.SearchAsync(searchRequest);
         return new SearchResultWithRawStringResponse<T>(searchResponse, rawQuery);
@@ -911,8 +943,14 @@
     /// <returns></returns>
     private string GetRawQueryAsync<T>(SearchRequestDescriptor<T> searchRequest)
     {
+        //using var ms = new MemoryStream();
+        //await this._elasticsearchClient.RequestResponseSerializer.SerializeAsync(searchRequest, ms);
+        //var rawQuery = Encoding.UTF8.GetString(ms.ToArray());
+        //this._logger.LogInformation("ElasticSearch Request: \n" + rawQuery);
+
         var rawQuery = this.ElasticsearchClient.RequestResponseSerializer.SerializeToString(searchRequest);
-        
+
+        //this.LogInformation("ElasticSearch Request: {rawQuery}", rawQuery);
         Console.WriteLine($"ElasticSearch Request: {rawQuery}");
 
         return rawQuery;

@@ -22,15 +22,15 @@
             <InputText class="search-input" placeholder="搜尋商品..."
                        @bind-Value="SearchModelObj.SearchText"/>
 
-            <InputText visible="false" @bind-Value="SearchModelObj.FilterBrands"/>
+            @* <InputText visible="false" @bind-Value="SearchModelObj.FilterBrands"/>
 
-            <InputText visible="false" @bind-Value="SearchModelObj.SortOption"/>
+            <InputText visible="false" @bind-Value="SearchModelObj.SortOption"/> *@
 
             <InputSelect class="version-select" @bind-Value="SearchModelObj.SearchVersion">
                 <option value="">預設搜尋</option>
                 @* <option value="v1">搜尋 V1</option> *@
                 <option value="v2">精準搜尋</option>
-                @* <option value="v3">搜尋 V3</option> *@
+                <option value="v3">向量搜尋</option>
             </InputSelect>
 
             <button type="submit" class="search-button">

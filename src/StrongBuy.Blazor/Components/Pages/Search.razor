@@ -589,26 +589,26 @@
         // Load products
         var query = Context.Products.AsQueryable();
 
-        if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
-        {
-            query = query.Where(p => p.Category == SearchModelObj.SelectedCategory);
-        }
-
         if (!string.IsNullOrEmpty(SearchModelObj.SearchText))
         {
             query = query.Where(p => p.Name.Contains(SearchModelObj.SearchText) ||
                                      p.Description.Contains(SearchModelObj.SearchText));
         }
-
+        
         // #################### FILTERS ####################
 
-        // 取得過濾後的品牌列表
+        if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
+        {
+            query = query.Where(p => p.Category == SearchModelObj.SelectedCategory);
+        }
+
+        // 取得搜尋及過濾分類後的品牌列表
         Brands = await query
             .Select(p => p.Brand)
             .Distinct()
             .ToListAsync();
 
-        // 載入商品列表
+        // 過濾品牌
         if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
         {
             // FilterBrands 是逗號分隔的品牌名稱，例如 "Apple,Samsung"，還原回陣列後做為 OR 條件
@@ -626,6 +626,7 @@
             _ => query // 預設排序
         };
 
+        // 載入商品列表
         ProductsList = await query.ToListAsync();
     }
 
