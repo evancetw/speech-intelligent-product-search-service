@@ -5,6 +5,7 @@ using StrongBuy.Blazor.Models;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
+using StrongBuy.Blazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,14 +21,17 @@ builder.Services.AddDbContext<StrongBuyContext>(options =>
 // 配置 Elasticsearch 客戶端
 builder.Services.AddScoped(provider =>
 {
-    // var settings = new ElasticsearchClientSettings(new Uri("http://localhost:9200"))
-    //     .DefaultIndex("your_index_name"); // 替換為您的索引名稱
-    // return new ElasticsearchClient(settings);
+    var settings = new ElasticsearchClientSettings(
+            cloudId:
+            "cloudid",
+            credentials: new ApiKey("apikey")
+        )
+        .DefaultIndex("products");
 
-    return new ElasticsearchClient(
-        "CloudId",
-        new ApiKey("APIKey"));
+    return new ElasticsearchClient(settings);
 });
+
+builder.Services.AddScoped<ElasticsearchService>();
 
 var app = builder.Build();
 
@@ -65,29 +69,101 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// 確認是否能連線到 Elasticsearch 
+// 確認是否能連線到 Elasticsearch 並初始化資料
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var client = services.GetRequiredService<ElasticsearchClient>();
-        var response = await client.PingAsync();
-        if (response.IsValidResponse)
+        var logger = services.GetRequiredService<ILogger<Program>>();
+
+        // 1. 檢查連線
+        var pingResponse = await client.PingAsync();
+        if (!pingResponse.IsValidResponse)
         {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogInformation("Successfully connected to Elasticsearch");
+            logger.LogError("Failed to connect to Elasticsearch");
+            return;
+        }
+
+        logger.LogInformation("Successfully connected to Elasticsearch");
+
+        // 2. 檢查索引是否存在
+        var indexName = "products";
+        var indexExistsResponse = await client.Indices.ExistsAsync(indexName);
+
+        // 跳過這段，先手動建立索引
+        // // 3. 如果索引不存在，建立索引
+        // if (!indexExistsResponse.Exists)
+        // {
+        //     logger.LogInformation("Creating index: {IndexName}", indexName);
+        //
+        //     // 讀取 mapping 檔案
+        //     var mappingPath = Path.Combine(
+        //         builder.Environment.ContentRootPath, "Data", "products.smartcn.esmapping.json");
+        //     var mappingJson = await File.ReadAllTextAsync(mappingPath);
+        //
+        //     var createIndexResponse = await client.Indices.CreateAsync(indexName, c => c
+        //         .InitializeUsingJson(mappingJson)
+        //     );
+        //
+        //     if (!createIndexResponse.IsValidResponse)
+        //     {
+        //         logger.LogError("Failed to create index: {Error}", createIndexResponse.DebugInformation);
+        //         return;
+        //     }
+        //
+        //     logger.LogInformation("Index created successfully");
+        // }
+
+        // 4. 檢查索引中的文檔數量
+        var countResponse = await client.CountAsync(c => c.Index(indexName));
+        if (!countResponse.IsValidResponse)
+        {
+            logger.LogError("Failed to get document count");
+            return;
+        }
+
+        // 5. 如果沒有文檔，則匯入資料
+        if (countResponse.Count == 0)
+        {
+            logger.LogInformation("No documents found in index. Starting import...");
+
+            // 讀取 products.json
+            var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
+            var jsonString = await File.ReadAllTextAsync(jsonPath);
+            var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (products == null || !products.Any())
+            {
+                logger.LogError("No products found in products.json");
+                return;
+            }
+
+            // 批量匯入資料
+            var bulkResponse = await client.BulkAsync(b => b
+                .Index(indexName)
+                .IndexMany(products)
+            );
+
+            if (!bulkResponse.IsValidResponse)
+            {
+                logger.LogError("Failed to import products: {Error}", bulkResponse.DebugInformation);
+                return;
+            }
+
+            logger.LogInformation("Successfully imported {Count} products", products.Count);
         }
         else
         {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError("Failed to connect to Elasticsearch");
+            logger.LogInformation("Index already contains {Count} documents", countResponse.Count);
         }
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while connecting to Elasticsearch");
+        logger.LogError(ex, "An error occurred while initializing Elasticsearch");
     }
 }
 

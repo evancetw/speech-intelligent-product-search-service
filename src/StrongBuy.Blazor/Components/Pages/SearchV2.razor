@@ -1,17 +1,23 @@
 @page "/searchv2"
+@using Elastic.Clients.Elasticsearch
+@using Elastic.Clients.Elasticsearch.Aggregations
+@using Elastic.Clients.Elasticsearch.QueryDsl
+@using Elastic.Transport.Extensions
 @using Microsoft.EntityFrameworkCore
+@using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal
 @using StrongBuy.Blazor.Components.Layout
 @using StrongBuy.Blazor.Models
 @using StrongBuy.Blazor.Services
 @inject StrongBuyContext Context
 @inject NavigationManager Navigation
-@inject ElasticsearchService ElasticsearchService
+@* @inject ElasticsearchService ElasticsearchService *@
+@inject ElasticsearchClient ElasticsearchClient
 @rendermode InteractiveServer
 
 <PageTitle>商品搜尋 - 精準搜尋</PageTitle>
+<p>精準搜尋</p>
 
 <div class="search-container">
-    <p>精準搜尋</p>
     <div class="search-sidebar">
         <div class="filter-section">
             <h3>所有分類</h3>
@@ -160,10 +166,47 @@
                         {
                             <div class="new-product-badge">新品上架</div>
                         } *@
+                        <button class="show-reviews-btn" @onclick="() => ShowReviews(product)">
+                            顯示評論 (@product.Reviews.Count)
+                        </button>
                     </div>
                 </div>
             }
         </div>
+
+        @if (selectedProduct != null)
+        {
+            <div class="reviews-modal @(isReviewsVisible ? "show" : "")">
+                <div class="reviews-content">
+                    <div class="reviews-header">
+                        <h3>@selectedProduct.Name 的評論</h3>
+                        <button class="close-reviews" @onclick="HideReviews">×</button>
+                    </div>
+                    <div class="reviews-list">
+                        @if (selectedProduct.Reviews.Any())
+                        {
+                            @foreach (var review in selectedProduct.Reviews)
+                            {
+                                <div class="review-item">
+                                    <div class="review-rating">
+                                        @for (int i = 0; i < review.Rating; i++)
+                                        {
+                                            <span class="star">★</span>
+                                        }
+                                    </div>
+                                    <div class="review-content">@review.Comment</div>
+                                    @* <div class="review-date">@review.CreatedAt.ToString("yyyy/MM/dd")</div> *@
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-reviews">目前沒有評論</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -419,6 +462,103 @@
         flex-shrink: 0;
         /* 防止描述區域被壓縮 */
     }
+
+    .show-reviews-btn {
+        background-color: #f0f2f2;
+        border: 1px solid #d5d9d9;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: auto;
+    }
+
+    .show-reviews-btn:hover {
+        background-color: #e3e6e6;
+    }
+
+    .reviews-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .reviews-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .reviews-content {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reviews-header {
+        padding: 16px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .reviews-header h3 {
+        margin: 0;
+    }
+
+    .close-reviews {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0 8px;
+    }
+
+    .reviews-list {
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .review-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .review-item:last-child {
+        border-bottom: none;
+    }
+
+    .review-rating {
+        color: #ffa41c;
+        margin-bottom: 8px;
+    }
+
+    .review-content {
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .review-date {
+        color: #565959;
+        font-size: 12px;
+    }
+
+    .no-reviews {
+        text-align: center;
+        color: #565959;
+        padding: 20px;
+    }
 </style>
 
 @code {
@@ -429,6 +569,9 @@
     //[SupplyParameterFromForm(FormName = "my-search-form")]
     private NavMenu.SearchModel SearchModelObj { get; set; } = new NavMenu.SearchModel();
 
+    private Product? selectedProduct;
+    private bool isReviewsVisible;
+
     //private string? SelectedCategory;
     //private string? SortOption;
 
@@ -437,62 +580,155 @@
         // Get parameters from query string
         var uri = new Uri(Navigation.Uri);
         var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
-        //SelectedCategory = queryString["category"];
-        // var searchQuery = queryString["q"];
-        // SortOption = queryString["sort"];
 
         SearchModelObj.SearchText = queryString["q"];
         SearchModelObj.SelectedCategory = queryString["category"];
         SearchModelObj.FilterBrands = queryString["brands"];
         SearchModelObj.SortOption = queryString["sort"];
 
-        // Load categories
-        Categories = await Context.Products
-            .Select(p => p.Category)
-            .Distinct()
-            .ToListAsync();
+        // Load categories from Elasticsearch
+        var categoryResponse = await ElasticsearchClient.SearchAsync<Product>(s => s
+            .Size(0)
+            .Aggregations(a => a
+                .Add("categories", aggregation => aggregation
+                    .Terms(t => t
+                        //.Field(f => f.Category.Suffix("keyword"))
+                        .Field("category")
+                        .Size(100)
+                    )
+                )
+            )
+        );
+        
+        Categories = categoryResponse.Aggregations.GetStringTerms("categories")
+            .Buckets.Select(b => b.Key.ToString()).ToList();
+        
+        // var categoryResponse = await SearchAndReturnRawQueryAsync<Product>(rd =>
+        // {
+        //     rd.Size(0);
+        //
+        //     rd.Aggregations(a => a
+        //         .Terms("categories", t => t
+        //             .Field("category")
+        //             .Aggregations(aa => aa
+        //                 .Sum("total_payment", sa => sa
+        //                     .Field("totalActualProviderPaymentAmount")
+        //                 )
+        //             )
+        //         )
+        //     );
+        //
+        //     // rd.Aggregations(agg => agg
+        //     //     .Add("categories", aggregation => aggregation
+        //     //         .Terms(t => t
+        //     //             .Field(f => f.Category.Suffix("keyword"))
+        //     //             .Size(100)
+        //     //         )
+        //     //     )
+        //     // );
+        // });
+        //
 
-        // Load products
-        var query = Context.Products.AsQueryable();
+        // 組合 query 並查詢
+        var resp = await SearchAndReturnRawQueryAsync<Product>(requestDescriptor =>
+            {
+                // 開始查詢商品
 
-        if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
-        {
-            query = query.Where(p => p.Category == SearchModelObj.SelectedCategory);
-        }
+                var must = new List<Query>();
+                var filters = new List<Query>();
 
-        if (!string.IsNullOrEmpty(SearchModelObj.SearchText))
-        {
-            query = query.Where(p => p.Name.Contains(SearchModelObj.SearchText) ||
-                                     p.Description.Contains(SearchModelObj.SearchText));
-        }
+                // Text search
+                if (string.IsNullOrEmpty(SearchModelObj.SearchText) == false)
+                {
+                    var keywordQuery = new MultiMatchQuery()
+                    {
+                        Fields = Fields.FromFields(new[]
+                        {
+                            Field.FromString("name"),
+                            Field.FromString("description")
+                        }),
+                        Query = SearchModelObj.SearchText
+                    };
+                    must.Add(keywordQuery);
+                }
 
-        // #################### FILTERS ####################
+                if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
+                {
+                    var categoryFilter = new TermQuery("category")
+                    {
+                        Value = SearchModelObj.SelectedCategory
+                    };
+                    filters.Add(categoryFilter);
+                }
 
-        // 取得過濾後的品牌列表
-        Brands = await query
-            .Select(p => p.Brand)
-            .Distinct()
-            .ToListAsync();
+                if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
+                {
+                    var brands = SearchModelObj.FilterBrands.Split(',');
 
-        // 載入商品列表
-        if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
-        {
-            // FilterBrands 是逗號分隔的品牌名稱，例如 "Apple,Samsung"，還原回陣列後做為 OR 條件
-            var brands = SearchModelObj.FilterBrands.Split(',');
-            query = query.Where(p => brands.Contains(p.Brand));
-        }
+                    var brandsFilter = new TermsQuery
+                    {
+                        Field = "brand",
+                        Terms = new TermsQueryField(brands.Select(id => FieldValue.String(id)).ToList())
+                    };
 
-        // Apply sorting
-        query = SearchModelObj.SortOption switch
-        {
-            "price_asc" => query.OrderBy(p => p.Price),
-            "price_desc" => query.OrderByDescending(p => p.Price),
-            "rating" => query.OrderByDescending(p => p.Reviews.Average(r => r.Rating)),
-            "newest" => query.OrderByDescending(p => p.CreatedAt),
-            _ => query // 預設排序
-        };
+                    filters.Add(brandsFilter);
+                }
 
-        ProductsList = await query.ToListAsync();
+                requestDescriptor.Query(q => q
+                    .Bool(b =>
+                        {
+                            if (must.Any())
+                            {
+                                b.Must(must);
+                            }
+
+                            if (filters.Any())
+                            {
+                                b.Filter(filters);
+                            }
+                        }
+                    )
+                );
+
+                // Add sortings
+                List<SortOptions> sortList = new();
+
+                if (!string.IsNullOrEmpty(SearchModelObj.SortOption))
+                {
+                    var sortDirection = SearchModelObj.SortOption switch
+                    {
+                        "price_asc" => SortOrder.Asc,
+                        "price_desc" => SortOrder.Desc,
+                        _ => SortOrder.Desc
+                    };
+
+                    var priceSorting = new FieldSort();
+                    priceSorting.Order = sortDirection;
+                    var priceSortOptions = SortOptions.Field(new Field("price"), priceSorting);
+                    sortList.Add(priceSortOptions);
+                }
+                else
+                {
+                        // sort by score
+                        var scoreSorting = new ScoreSort();
+                        scoreSorting.Order = SortOrder.Desc;
+                        var scoreSortOptions = SortOptions.Score(scoreSorting);
+                        sortList.Add(scoreSortOptions);
+                }
+
+                // 加入預設排序
+                var idSorting = new FieldSort();
+                idSorting.Order = SortOrder.Asc;
+                var idSortOptions = SortOptions.Field(new Field("id"), idSorting);
+                sortList.Add(idSortOptions);
+
+                requestDescriptor.Sort(sortList);
+            }
+        );
+
+        ProductsList = resp.SearchResponse.Documents.ToList();
+
+        Brands = ProductsList.Select(x => x.Brand).Distinct().ToList();
     }
 
     private void RedirectWithNewCategory(string? value)
@@ -636,6 +872,90 @@
         await OnInitializedAsync();
         StateHasChanged();
         */
+    }
+
+    private void ShowReviews(Product product)
+    {
+        selectedProduct = product;
+        isReviewsVisible = true;
+    }
+
+    private void HideReviews()
+    {
+        isReviewsVisible = false;
+        selectedProduct = null;
+    }
+
+    /// <summary>
+    /// 搜尋並回傳原始查詢字串
+    /// </summary>
+    /// <param name="requestAction"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    private async Task<SearchResultWithRawStringResponse<T>> SearchAndReturnRawQueryAsync<T>(Action<SearchRequestDescriptor<T>>? requestAction)
+        where T : class
+    {
+        var searchRequest = new SearchRequestDescriptor<T>();
+        // get index name first, from IndexNameAttribute
+        // if (typeof(T).GetCustomAttributes(typeof(IndexNameAttribute), true)
+        //         .FirstOrDefault() is IndexNameAttribute indexName)
+        // {
+        //     searchRequest.Index(this.TryGetIndexName(indexName.Name));
+        // }
+        searchRequest.Index("products");
+
+        requestAction?.Invoke(searchRequest);
+
+        // using logger to print request
+        var rawQuery = this.GetRawQueryAsync(searchRequest);
+        var searchResponse = await this.ElasticsearchClient.SearchAsync(searchRequest);
+        return new SearchResultWithRawStringResponse<T>(searchResponse, rawQuery);
+    }
+
+    /// <summary>
+    /// 取得 ElasticSearch 查詢的原始字串
+    /// </summary>
+    /// <param name="searchRequest"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    private string GetRawQueryAsync<T>(SearchRequestDescriptor<T> searchRequest)
+    {
+        //using var ms = new MemoryStream();
+        //await this._elasticsearchClient.RequestResponseSerializer.SerializeAsync(searchRequest, ms);
+        //var rawQuery = Encoding.UTF8.GetString(ms.ToArray());
+        //this._logger.LogInformation("ElasticSearch Request: \n" + rawQuery);
+
+        var rawQuery = this.ElasticsearchClient.RequestResponseSerializer.SerializeToString(searchRequest);
+
+        //this.LogInformation("ElasticSearch Request: {rawQuery}", rawQuery);
+        Console.WriteLine($"ElasticSearch Request: {rawQuery}");
+
+        return rawQuery;
+    }
+
+
+    public class SearchResultWithRawStringResponse<T> where T : class
+    {
+        public SearchResponse<T> SearchResponse { get; set; }
+        public string RawQuery { get; set; }
+
+        public SearchResultWithRawStringResponse(SearchResponse<T> searchResponse, string rawQuery)
+        {
+            SearchResponse = searchResponse;
+            RawQuery = rawQuery;
+        }
+    }
+
+    // only for class 
+    [AttributeUsage(AttributeTargets.Class)]
+    public class IndexNameAttribute : Attribute
+    {
+        public string Name { get; set; }
+
+        public IndexNameAttribute(string name)
+        {
+            this.Name = name;
+        }
     }
 
 }

@@ -29,7 +29,7 @@
                 {
                     <div class="filter-item">
                         <input type="button" value="@category" @onclick="() => RedirectWithNewCategory(category)"
-                            class="filter-button @(SearchModelObj.SelectedCategory == category ? "selected" : "")" />
+                               class="filter-button @(SearchModelObj.SelectedCategory == category ? "selected" : "")"/>
                         @if (SearchModelObj.SelectedCategory == category)
                         {
                             <button class="clear-filter" @onclick="() => RedirectWithNewCategory(null)">x</button>
@@ -47,7 +47,7 @@
                     <div class="filter-item">
                         <label class="checkbox-label">
                             <input type="checkbox" checked="@(SearchModelObj?.FilterBrands?.Contains(brand) ?? false)"
-                                @onchange="(e) => ToggleBrandFilter(brand)" />
+                                   @onchange="(e) => ToggleBrandFilter(brand)"/>
                             <span class="brand-name">@brand</span>
                         </label>
                     </div>
@@ -114,7 +114,7 @@
             </InputSelect> *@
 
             <select class="sort-select" value="@SearchModelObj.SortOption"
-                @onchange="@((ChangeEventArgs e) => OnSortOptionChanged(e.Value?.ToString()))">
+                    @onchange="@((ChangeEventArgs e) => OnSortOptionChanged(e.Value?.ToString()))">
                 <option value="">精選</option>
                 <option value="price_asc">價格：由低到高</option>
                 <option value="price_desc">價格：由高到低</option>
@@ -130,7 +130,7 @@
                 <div class="product-card">
                     <div class="product-image">
                         <img src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
-                            alt="@product.Name">
+                             alt="@product.Name">
                     </div>
                     <div class="product-info">
                         <h2 class="product-title">
@@ -157,10 +157,47 @@
                         {
                             <div class="new-product-badge">新品上架</div>
                         } *@
+                        <button class="show-reviews-btn" @onclick="() => ShowReviews(product)">
+                            顯示評論 (@product.Reviews.Count)
+                        </button>
                     </div>
                 </div>
             }
         </div>
+
+        @if (selectedProduct != null)
+        {
+            <div class="reviews-modal @(isReviewsVisible ? "show" : "")">
+                <div class="reviews-content">
+                    <div class="reviews-header">
+                        <h3>@selectedProduct.Name 的評論</h3>
+                        <button class="close-reviews" @onclick="HideReviews">×</button>
+                    </div>
+                    <div class="reviews-list">
+                        @if (selectedProduct.Reviews.Any())
+                        {
+                            @foreach (var review in selectedProduct.Reviews)
+                            {
+                                <div class="review-item">
+                                    <div class="review-rating">
+                                        @for (int i = 0; i < review.Rating; i++)
+                                        {
+                                            <span class="star">★</span>
+                                        }
+                                    </div>
+                                    <div class="review-content">@review.Comment</div>
+                                    @* <div class="review-date">@review.CreatedAt.ToString("yyyy/MM/dd")</div> *@
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-reviews">目前沒有評論</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
@@ -416,6 +453,103 @@
         flex-shrink: 0;
         /* 防止描述區域被壓縮 */
     }
+
+    .show-reviews-btn {
+        background-color: #f0f2f2;
+        border: 1px solid #d5d9d9;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: auto;
+    }
+
+    .show-reviews-btn:hover {
+        background-color: #e3e6e6;
+    }
+
+    .reviews-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .reviews-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .reviews-content {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reviews-header {
+        padding: 16px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .reviews-header h3 {
+        margin: 0;
+    }
+
+    .close-reviews {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0 8px;
+    }
+
+    .reviews-list {
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .review-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .review-item:last-child {
+        border-bottom: none;
+    }
+
+    .review-rating {
+        color: #ffa41c;
+        margin-bottom: 8px;
+    }
+
+    .review-content {
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .review-date {
+        color: #565959;
+        font-size: 12px;
+    }
+
+    .no-reviews {
+        text-align: center;
+        color: #565959;
+        padding: 20px;
+    }
 </style>
 
 @code {
@@ -425,6 +559,9 @@
 
     //[SupplyParameterFromForm(FormName = "my-search-form")]
     private NavMenu.SearchModel SearchModelObj { get; set; } = new NavMenu.SearchModel();
+
+    private Product? selectedProduct;
+    private bool isReviewsVisible;
 
     //private string? SelectedCategory;
     //private string? SortOption;
@@ -445,9 +582,9 @@
 
         // Load categories
         Categories = await Context.Products
-        .Select(p => p.Category)
-        .Distinct()
-        .ToListAsync();
+            .Select(p => p.Category)
+            .Distinct()
+            .ToListAsync();
 
         // Load products
         var query = Context.Products.AsQueryable();
@@ -460,16 +597,16 @@
         if (!string.IsNullOrEmpty(SearchModelObj.SearchText))
         {
             query = query.Where(p => p.Name.Contains(SearchModelObj.SearchText) ||
-            p.Description.Contains(SearchModelObj.SearchText));
+                                     p.Description.Contains(SearchModelObj.SearchText));
         }
 
         // #################### FILTERS ####################
 
         // 取得過濾後的品牌列表
         Brands = await query
-        .Select(p => p.Brand)
-        .Distinct()
-        .ToListAsync();
+            .Select(p => p.Brand)
+            .Distinct()
+            .ToListAsync();
 
         // 載入商品列表
         if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
@@ -552,8 +689,8 @@
         var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
 
         var currentBrands = queryString["brands"]?.Split(',')
-        .Where(b => !string.IsNullOrEmpty(b))
-        .ToList() ?? new List<string>();
+            .Where(b => !string.IsNullOrEmpty(b))
+            .ToList() ?? new List<string>();
 
         if (currentBrands.Contains(brand))
         {
@@ -633,6 +770,18 @@
         await OnInitializedAsync();
         StateHasChanged();
         */
+    }
+
+    private void ShowReviews(Product product)
+    {
+        selectedProduct = product;
+        isReviewsVisible = true;
+    }
+
+    private void HideReviews()
+    {
+        isReviewsVisible = false;
+        selectedProduct = null;
     }
 
 }

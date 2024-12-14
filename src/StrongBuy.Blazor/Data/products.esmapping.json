@@ -1,0 +1,136 @@
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "long"
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "my_chinese_ik_max_word_analyzer",
+        "search_analyzer": "my_chinese_ik_smart_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "my_chinese_ik_max_word_analyzer",
+        "search_analyzer": "my_chinese_ik_smart_analyzer"
+      },
+      "price": {
+        "type": "double"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "subcategories": {
+        "type": "keyword"
+      },
+      "brand": {
+        "type": "keyword"
+      },
+      "color": {
+        "type": "keyword"
+      },
+      "size": {
+        "type": "keyword"
+      },
+      "material": {
+        "type": "keyword"
+      },
+      "image": {
+        "type": "keyword"
+      },
+      "images": {
+        "type": "keyword"
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "attributes": {
+        "type": "object",
+        "dynamic": true
+      },
+      "reviews": {
+        "type": "nested",
+        "properties": {
+          "rating": {
+            "type": "integer"
+          },
+          "comment": {
+            "type": "text",
+            "analyzer": "my_chinese_ik_max_word_analyzer",
+            "search_analyzer": "my_chinese_ik_smart_analyzer"
+          }
+        }
+      },
+      "created_at": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "updated_at": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      }
+    }
+  },
+  "settings": {
+    "analysis_old": {
+      "analyzer": {
+        "ik_max_word": {
+          "type": "custom",
+          "tokenizer": "ik_max_word",
+          "filter": ["lowercase", "asciifolding"]
+        },
+        "ik_smart": {
+          "type": "custom",
+          "tokenizer": "ik_smart",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    },
+    "analysis": {
+      "char_filter": {
+        "stconvert": {
+          "type": "stconvert",
+          "delimiter": "#",
+          "keep_both": false,
+          "convert_type": "t2s"
+        }
+      },
+      "tokenizer": {
+        "ik_max_word": {
+          "type": "ik_max_word"
+        },
+        "ik_smart": {
+          "type": "ik_smart"
+        }
+      },
+      "filter": {
+        "stconvert": {
+          "type": "stconvert",
+          "delimiter": "#",
+          "keep_both": false,
+          "convert_type": "s2t"
+        }
+      },
+      "analyzer": {
+        "my_chinese_ik_max_word_analyzer": {
+          "type": "custom",
+          "char_filter": ["stconvert"],
+          "tokenizer": "ik_max_word",
+          "filter": ["stconvert"]
+        },
+        "my_chinese_ik_smart_analyzer": {
+          "type": "custom",
+          "char_filter": ["stconvert"],
+          "tokenizer": "ik_smart",
+          "filter": ["stconvert"]
+        }
+      }
+    }
+  }
+}

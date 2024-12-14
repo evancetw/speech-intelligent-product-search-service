@@ -1,0 +1,90 @@
+{
+  "mappings": {
+    "properties": {
+      "id": {
+        "type": "long"
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "smartcn",
+        "search_analyzer": "smartcn",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "smartcn",
+        "search_analyzer": "smartcn"
+      },
+      "price": {
+        "type": "double"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "subcategories": {
+        "type": "keyword"
+      },
+      "brand": {
+        "type": "keyword"
+      },
+      "color": {
+        "type": "keyword"
+      },
+      "size": {
+        "type": "keyword"
+      },
+      "material": {
+        "type": "keyword"
+      },
+      "image": {
+        "type": "keyword"
+      },
+      "images": {
+        "type": "keyword"
+      },
+      "tags": {
+        "type": "keyword"
+      },
+      "attributes": {
+        "type": "object",
+        "dynamic": true
+      },
+      "reviews": {
+        "type": "nested",
+        "properties": {
+          "rating": {
+            "type": "integer"
+          },
+          "comment": {
+            "type": "text",
+            "analyzer": "smartcn",
+            "search_analyzer": "smartcn"
+          }
+        }
+      },
+      "created_at": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "updated_at": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      }
+    }
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "smartcn": {
+          "type": "custom",
+          "tokenizer": "smartcn_tokenizer"
+        }
+      }
+    }
+  }
+}
