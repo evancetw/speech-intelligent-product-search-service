@@ -18,23 +18,16 @@
                 }
             </InputSelect>
 
-
             <InputText class="search-input" placeholder="搜尋商品..."
                        @bind-Value="SearchModelObj.SearchText"/>
-
-            @* <InputText visible="false" @bind-Value="SearchModelObj.FilterBrands"/>
-
-            <InputText visible="false" @bind-Value="SearchModelObj.SortOption"/> *@
-
+            
             <InputSelect class="version-select" @bind-Value="SearchModelObj.SearchVersion">
                 <option value="">預設搜尋</option>
-                @* <option value="v1">搜尋 V1</option> *@
                 <option value="v2">精準搜尋</option>
                 <option value="v3">向量搜尋</option>
             </InputSelect>
 
             <button type="submit" class="search-button">
-                @* <i class="bi bi-search"></i>搜尋 *@
                 搜尋
             </button>
         </div>
@@ -54,8 +47,6 @@
     [SupplyParameterFromForm(FormName = "my-search-form")]
     private SearchModel SearchModelObj { get; set; } = new SearchModel();
 
-// private string? SelectedCategory { get; set; } = string.Empty;
-// private string? SearchText { get; set; } = string.Empty;
     private List<string> Categories { get; set; } = new();
 
     [Inject] private NavigationManager NavigationManager { get; set; } = default!;
@@ -64,8 +55,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // 解析當前的 URI 並取得 query string 參數
-        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+      var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
 
         if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("searchversion", out var searchVersion))
         {
@@ -93,7 +83,6 @@
         {
             SearchModelObj.SortOption = sort;
         }
-
 
         // 載入所有分類
         Categories = await Context.Products
@@ -167,12 +156,11 @@
 
         public string? FilterMaterials { get; set; } = string.Empty;
 
-        //public string? FilterTags { get; set; } = string.Empty;
+        public string? FilterTags { get; set; } = string.Empty;
 
         // sort by price, rating, newest
         public string? SortOption { get; set; } = string.Empty;
 
         public string? SearchVersion { get; set; } = string.Empty;
     }
-
 }

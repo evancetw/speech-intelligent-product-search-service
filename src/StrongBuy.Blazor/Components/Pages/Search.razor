@@ -1,4 +1,5 @@
 @page "/search"
+@using System.Web
 @using Microsoft.EntityFrameworkCore
 @using StrongBuy.Blazor.Components.Layout
 @using StrongBuy.Blazor.Models
@@ -12,18 +13,6 @@
     <div class="search-sidebar">
         <div class="filter-section">
             <h3>所有分類</h3>
-            @* <div class="filter-list"> *@
-            @*     @foreach (var category in Categories) *@
-            @*     { *@
-            @*         <div class="filter-item"> *@
-            @*             <a href="/search?category=@category" *@
-            @*                class="@(SearchModelObj.SelectedCategory == category ? "selected" : "")"> *@
-            @*                 @category *@
-            @*             </a> *@
-            @*         </div> *@
-            @*     } *@
-            @* </div> *@
-
             <div class="filter-list">
                 @foreach (var category in Categories)
                 {
@@ -54,65 +43,11 @@
                 }
             </div>
         </div>
-
-        @* <div class="filter-section"> *@
-        @*     <h3>價格</h3> *@
-        @*     <div class="filter-list"> *@
-        @*         <div class="filter-item"> *@
-        @*             <a href="#">NT$0 - NT$2,000</a> *@
-        @*         </div> *@
-        @*         <div class="filter-item"> *@
-        @*             <a href="#">NT$2,000 - NT$5,000</a> *@
-        @*         </div> *@
-        @*         <div class="filter-item"> *@
-        @*             <a href="#">NT$5,000以上</a> *@
-        @*         </div> *@
-        @*     </div> *@
-        @* </div> *@
-
-        @* <div class="filter-section"> *@
-        @*     <h3>顧客評價</h3> *@
-        @*     <div class="filter-list"> *@
-        @*         <div class="filter-item"> *@
-        @*             <a href="#"> *@
-        @*                 <span class="stars">★★★★★</span> 以上 *@
-        @*             </a> *@
-        @*         </div> *@
-        @*         <div class="filter-item"> *@
-        @*             <a href="#"> *@
-        @*                 <span class="stars">★★★★</span> 以上 *@
-        @*             </a> *@
-        @*         </div> *@
-        @*         <div class="filter-item"> *@
-        @*             <a href="#"> *@
-        @*                 <span class="stars">★★★</span> 以上 *@
-        @*             </a> *@
-        @*         </div> *@
-        @*     </div> *@
-        @* </div> *@
     </div>
 
     <div class="search-results">
         <div class="results-header">
             <span>1-@ProductsList.Count 件，共 @ProductsList.Count 件</span>
-            @* <select class="sort-select" @bind="SearchModelObj.SortOption" @onchange="OnSortChanged"> *@
-            @* <select class="sort-select" @onchange="OnSortChanged"> *@
-            @*     <option value="">精選</option> *@
-            @*     <option value="price_asc">價格：由低到高</option> *@
-            @*     <option value="price_desc">價格：由高到低</option> *@
-            @*     <option value="rating">平均顧客評價</option> *@
-            @*     <option value="newest">最新上架</option> *@
-            @* </select> *@
-
-            @* <InputSelect class="sort-select" Value="@SearchModelObj.SortOption"
-                         ValueChanged="@((string? value) => OnSortOptionChanged(value))">
-                <option value="">精選</option>
-                <option value="price_asc">價格：由低到高</option>
-                <option value="price_desc">價格：由高到低</option>
-                <option value="rating">平均顧客評價</option>
-                <option value="newest">最新上架</option>
-            </InputSelect> *@
-
             <select class="sort-select" value="@SearchModelObj.SortOption"
                     @onchange="@((ChangeEventArgs e) => OnSortOptionChanged(e.Value?.ToString()))">
                 <option value="">精選</option>
@@ -121,7 +56,6 @@
                 @* <option value="rating">平均顧客評價</option> *@
                 @* <option value="newest">最新上架</option> *@
             </select>
-
         </div>
 
         <div class="products-grid">
@@ -139,10 +73,6 @@
                         <div class="product-brand">
                             <span class="brand">@product.Brand</span>
                         </div>
-                        @* <div class="product-rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="rating-count">@product.Reviews.Count</span>
-                        </div> *@
                         <div class="product-price">
                             <span class="currency">NT$</span>
                             <span class="amount">@product.Price.ToString("N0")</span>
@@ -150,13 +80,6 @@
                         <div class="product-description">
                             @product.Description
                         </div>
-                        @* <div class="product-delivery">
-                            <span>符合免運資格</span>
-                        </div> *@
-                        @* @if ((DateTime.Now - product.CreatedAt).TotalDays <= 7)
-                        {
-                            <div class="new-product-badge">新品上架</div>
-                        } *@
                         <button class="show-reviews-btn" @onclick="() => ShowReviews(product)">
                             顯示評論 (@product.Reviews.Count)
                         </button>
@@ -186,7 +109,6 @@
                                         }
                                     </div>
                                     <div class="review-content">@review.Comment</div>
-                                    @* <div class="review-date">@review.CreatedAt.ToString("yyyy/MM/dd")</div> *@
                                 </div>
                             }
                         }
@@ -570,7 +492,7 @@
     {
         // Get parameters from query string
         var uri = new Uri(Navigation.Uri);
-        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var queryString = HttpUtility.ParseQueryString(uri.Query);
         //SelectedCategory = queryString["category"];
         // var searchQuery = queryString["q"];
         // SortOption = queryString["sort"];
@@ -594,7 +516,7 @@
             query = query.Where(p => p.Name.Contains(SearchModelObj.SearchText) ||
                                      p.Description.Contains(SearchModelObj.SearchText));
         }
-        
+
         // #################### FILTERS ####################
 
         if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
@@ -638,7 +560,7 @@
     private void RedirectWithNewQuery(string key, string? value)
     {
         var uri = new Uri(Navigation.Uri);
-        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var queryString = HttpUtility.ParseQueryString(uri.Query);
 
         if (string.IsNullOrEmpty(value))
         {
@@ -661,7 +583,7 @@
     private void RedirectWithNewQueries(Dictionary<string, string> newQueries)
     {
         var uri = new Uri(Navigation.Uri);
-        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var queryString = HttpUtility.ParseQueryString(uri.Query);
 
         foreach (var (key, value) in newQueries)
         {
@@ -687,7 +609,7 @@
     private void ToggleBrandFilter(string brand)
     {
         var uri = new Uri(Navigation.Uri);
-        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var queryString = HttpUtility.ParseQueryString(uri.Query);
 
         var currentBrands = queryString["brands"]?.Split(',')
             .Where(b => !string.IsNullOrEmpty(b))
@@ -744,7 +666,7 @@
         return;
 
         var uri = new Uri(Navigation.Uri);
-        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var queryString = HttpUtility.ParseQueryString(uri.Query);
 
         if (string.IsNullOrEmpty(value))
         {

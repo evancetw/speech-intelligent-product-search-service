@@ -605,32 +605,6 @@
         Categories = categoryResponse.Aggregations.GetStringTerms("categories")
             .Buckets.Select(b => b.Key.ToString()).ToList();
 
-        // var categoryResponse = await SearchAndReturnRawQueryAsync<Product>(rd =>
-        // {
-        //     rd.Size(0);
-        //
-        //     rd.Aggregations(a => a
-        //         .Terms("categories", t => t
-        //             .Field("category")
-        //             .Aggregations(aa => aa
-        //                 .Sum("total_payment", sa => sa
-        //                     .Field("totalActualProviderPaymentAmount")
-        //                 )
-        //             )
-        //         )
-        //     );
-        //
-        //     // rd.Aggregations(agg => agg
-        //     //     .Add("categories", aggregation => aggregation
-        //     //         .Terms(t => t
-        //     //             .Field(f => f.Category.Suffix("keyword"))
-        //     //             .Size(100)
-        //     //         )
-        //     //     )
-        //     // );
-        // });
-        //
-
         // 組合 query 並查詢
         var resp = await SearchAndReturnRawQueryAsync<ProductV2>(requestDescriptor =>
             {
@@ -645,8 +619,8 @@
                 {
                     //var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(SearchModelObj.SearchText);
                     
-                    //var searchPrompt = "我是一位廚師，我喜歡美食，最近看了黑白大廚，很喜歡\n" + SearchModelObj.SearchText;
-                    var searchPrompt = "我是我家的首富，服務都要最好的\n" + SearchModelObj.SearchText;
+                    var searchPrompt = "我是一位廚師，我喜歡美食，最近看了黑白大廚，很喜歡\n" + SearchModelObj.SearchText;
+                    //var searchPrompt = "我是我家的首富，服務都要最好的\n" + SearchModelObj.SearchText;
                     var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(searchPrompt);
                     
                     var searchVector = searchTextKnnResult.Value.ToFloats();
@@ -688,14 +662,6 @@
 
                     filters.Add(brandsFilter);
                 }
-
-                // if (filters.Any())
-                // {
-                //     requestDescriptor.Query(q => q
-                //         .Bool(b => { b.Filter(filters); }
-                //         )
-                //     );
-                // }
 
                 requestDescriptor.Query(q => q
                     .Bool(b =>
