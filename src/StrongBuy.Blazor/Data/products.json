@@ -5,8 +5,10 @@
     "description": "這款牙膏能讓您的牙齒潔白如新，笑容更迷人。",
     "price": 99,
     "category": "個人清潔",
-    "subcategories": ["牙齒保健"],
-    "brand": "牙齒大師",
+    "subcategories": [
+      "牙齒保健"
+    ],
+    "brand": "笑容之選",
     "color": "白色",
     "size": "100g",
     "material": "氟化鈉",
@@ -15,7 +17,10 @@
       "https://example.com/toothpaste1.jpg",
       "https://example.com/toothpaste2.jpg"
     ],
-    "tags": ["美白", "潔白"],
+    "tags": [
+      "美白",
+      "潔白"
+    ],
     "attributes": {
       "適用對象": "成人",
       "功能": "美白"
@@ -35,7 +40,9 @@
     "description": "這款浴巾吸水力強，讓您洗完澡後瞬間乾爽。",
     "price": 199,
     "category": "家居用品",
-    "subcategories": ["浴室用品"],
+    "subcategories": [
+      "浴室用品"
+    ],
     "brand": "吸水王",
     "color": "藍色",
     "size": "150x70cm",
@@ -45,7 +52,10 @@
       "https://example.com/towel1.jpg",
       "https://example.com/towel2.jpg"
     ],
-    "tags": ["吸水", "柔軟"],
+    "tags": [
+      "吸水",
+      "柔軟"
+    ],
     "attributes": {
       "適用場合": "浴室",
       "材質": "純棉"
@@ -65,7 +75,9 @@
     "description": "這款雨衣防水效果佳，讓您在雨天也能保持乾爽。",
     "price": 299,
     "category": "服飾",
-    "subcategories": ["雨具"],
+    "subcategories": [
+      "雨具"
+    ],
     "brand": "雨神",
     "color": "黃色",
     "size": "L",
@@ -75,7 +87,10 @@
       "https://example.com/raincoat1.jpg",
       "https://example.com/raincoat2.jpg"
     ],
-    "tags": ["防水", "輕便"],
+    "tags": [
+      "防水",
+      "輕便"
+    ],
     "attributes": {
       "適用季節": "雨季",
       "功能": "防水"
@@ -95,8 +110,10 @@
     "description": "這款吸塵器吸力強，清潔效果佳，讓您的家更乾淨。",
     "price": 999,
     "category": "家電",
-    "subcategories": ["清潔用品"],
-    "brand": "吸塵大師",
+    "subcategories": [
+      "清潔用品"
+    ],
+    "brand": "潔淨",
     "color": "紅色",
     "size": "手持式",
     "material": "塑膠",
@@ -105,7 +122,10 @@
       "https://example.com/vacuum1.jpg",
       "https://example.com/vacuum2.jpg"
     ],
-    "tags": ["吸力強", "輕便"],
+    "tags": [
+      "吸力強",
+      "輕便"
+    ],
     "attributes": {
       "適用場所": "家居",
       "功能": "吸塵"
@@ -125,8 +145,10 @@
     "description": "這款面膜保濕效果佳，讓您的肌膚水嫩光滑。",
     "price": 149,
     "category": "美妝",
-    "subcategories": ["面膜"],
-    "brand": "保濕女王",
+    "subcategories": [
+      "面膜"
+    ],
+    "brand": "水潤之選",
     "color": "透明",
     "size": "25ml",
     "material": "天然植物精華",
@@ -135,7 +157,10 @@
       "https://example.com/mask1.jpg",
       "https://example.com/mask2.jpg"
     ],
-    "tags": ["保濕", "亮白"],
+    "tags": [
+      "保濕",
+      "亮白"
+    ],
     "attributes": {
       "適用膚質": "乾性",
       "功能": "保濕"
@@ -155,7 +180,9 @@
     "description": "這款防曬乳SPF50+，有效防止紫外線傷害，保護肌膚不受日曬損傷，讓您享受陽光而不擔心曬黑。",
     "price": 199,
     "category": "美妝",
-    "subcategories": ["防曬"],
+    "subcategories": [
+      "防曬"
+    ],
     "brand": "防曬大師",
     "color": "白色",
     "size": "50ml",
@@ -165,7 +192,11 @@
       "https://example.com/sunscreen1.jpg",
       "https://example.com/sunscreen2.jpg"
     ],
-    "tags": ["防曬", "清爽", "不油膩"],
+    "tags": [
+      "防曬",
+      "清爽",
+      "不油膩"
+    ],
     "attributes": {
       "適用膚質": "油性",
       "功能": "防曬"
@@ -185,8 +216,10 @@
     "description": "這款電飯煲具備智慧烹煮系統，讓您的米飯更美味。",
     "price": 1999,
     "category": "家電",
-    "subcategories": ["廚房家電"],
-    "brand": "飯煲大王",
+    "subcategories": [
+      "廚房家電"
+    ],
+    "brand": "煮水達人",
     "color": "金色",
     "size": "5L",
     "material": "不鏽鋼",
@@ -195,7 +228,10 @@
       "https://example.com/ricecooker1.jpg",
       "https://example.com/ricecooker2.jpg"
     ],
-    "tags": ["智能", "快煮"],
+    "tags": [
+      "智能",
+      "快煮"
+    ],
     "attributes": {
       "適用場合": "家庭",
       "功能": "烹煮米飯"
@@ -215,8 +251,10 @@
     "description": "這款耳機設計時尚，音質清晰，無線設計讓您自由運動。",
     "price": 799,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "聽力王",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "黑色",
     "size": "一個尺寸",
     "material": "塑膠",
@@ -225,7 +263,10 @@
       "https://example.com/headphones1.jpg",
       "https://example.com/headphones2.jpg"
     ],
-    "tags": ["無線", "輕便"],
+    "tags": [
+      "無線",
+      "輕便"
+    ],
     "attributes": {
       "適用場合": "運動、聽音樂",
       "功能": "無線"
@@ -245,7 +286,9 @@
     "description": "這款洗面乳能深層清潔，防止油脂與污垢堆積。",
     "price": 199,
     "category": "個人清潔",
-    "subcategories": ["洗面乳"],
+    "subcategories": [
+      "洗面乳"
+    ],
     "brand": "潔膚大師",
     "color": "白色",
     "size": "150ml",
@@ -255,7 +298,10 @@
       "https://example.com/facewash1.jpg",
       "https://example.com/facewash2.jpg"
     ],
-    "tags": ["深層潔淨", "防油"],
+    "tags": [
+      "深層潔淨",
+      "防油"
+    ],
     "attributes": {
       "適用膚質": "油性、混合性",
       "功能": "深層清潔"
@@ -275,7 +321,9 @@
     "description": "這款運動鞋設計輕便耐用，適合各種運動需求，舒適又不易磨損。",
     "price": 1299,
     "category": "服飾",
-    "subcategories": ["運動鞋"],
+    "subcategories": [
+      "運動鞋"
+    ],
     "brand": "步步高",
     "color": "黑色",
     "size": "40-44",
@@ -285,7 +333,10 @@
       "https://example.com/sneakers1.jpg",
       "https://example.com/sneakers2.jpg"
     ],
-    "tags": ["耐用", "舒適"],
+    "tags": [
+      "耐用",
+      "舒適"
+    ],
     "attributes": {
       "適用場合": "運動、健身",
       "功能": "舒適"
@@ -305,8 +356,10 @@
     "description": "深層滋潤，讓肌膚水嫩光滑。",
     "price": 150,
     "category": "美妝",
-    "subcategories": ["面膜"],
-    "brand": "水潤女神",
+    "subcategories": [
+      "面膜"
+    ],
+    "brand": "水潤之選",
     "color": "透明",
     "size": "25g",
     "material": "天然植物萃取",
@@ -315,7 +368,10 @@
       "https://example.com/mask1.jpg",
       "https://example.com/mask2.jpg"
     ],
-    "tags": ["保濕", "滋潤"],
+    "tags": [
+      "保濕",
+      "滋潤"
+    ],
     "attributes": {
       "適用膚質": "乾性",
       "功能": "保濕"
@@ -335,7 +391,9 @@
     "description": "快速吸水，讓您洗完澡後瞬間乾爽。",
     "price": 200,
     "category": "家居用品",
-    "subcategories": ["浴室用品"],
+    "subcategories": [
+      "浴室用品"
+    ],
     "brand": "乾爽王",
     "color": "藍色",
     "size": "150x70cm",
@@ -345,7 +403,10 @@
       "https://example.com/towel1.jpg",
       "https://example.com/towel2.jpg"
     ],
-    "tags": ["吸水", "柔軟"],
+    "tags": [
+      "吸水",
+      "柔軟"
+    ],
     "attributes": {
       "適用場合": "浴室",
       "材質": "純棉"
@@ -365,7 +426,9 @@
     "description": "SPF50+，有效防止紫外線傷害。",
     "price": 250,
     "category": "美妝",
-    "subcategories": ["防曬"],
+    "subcategories": [
+      "防曬"
+    ],
     "brand": "防曬大師",
     "color": "白色",
     "size": "50ml",
@@ -375,7 +438,10 @@
       "https://example.com/sunscreen1.jpg",
       "https://example.com/sunscreen2.jpg"
     ],
-    "tags": ["防曬", "清爽"],
+    "tags": [
+      "防曬",
+      "清爽"
+    ],
     "attributes": {
       "適用膚質": "油性",
       "功能": "防曬"
@@ -395,8 +461,10 @@
     "description": "高頻震動，深層清潔牙齒。",
     "price": 800,
     "category": "電子產品",
-    "subcategories": ["牙齒保健"],
-    "brand": "潔牙王",
+    "subcategories": [
+      "牙齒保健"
+    ],
+    "brand": "健智",
     "color": "黑色",
     "size": "標準",
     "material": "不鏽鋼",
@@ -405,7 +473,10 @@
       "https://example.com/toothbrush1.jpg",
       "https://example.com/toothbrush2.jpg"
     ],
-    "tags": ["電動", "潔牙"],
+    "tags": [
+      "電動",
+      "潔牙"
+    ],
     "attributes": {
       "適用對象": "成人",
       "功能": "潔牙"
@@ -425,8 +496,10 @@
     "description": "高品質音效，無線設計，方便運動使用。",
     "price": 500,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "音樂達人",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "白色",
     "size": "標準",
     "material": "塑膠",
@@ -435,7 +508,10 @@
       "https://example.com/headphones1.jpg",
       "https://example.com/headphones2.jpg"
     ],
-    "tags": ["無線", "音質"],
+    "tags": [
+      "無線",
+      "音質"
+    ],
     "attributes": {
       "適用場合": "運動、聽音樂",
       "功能": "無線"
@@ -455,7 +531,9 @@
     "description": "集攪拌、榨汁、研磨於一身，廚房必備良品，讓您輕鬆製作各種料理，從果汁到湯品，應有盡有。",
     "price": 1500,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "廚神",
     "color": "銀色",
     "size": "標準",
@@ -465,7 +543,13 @@
       "https://example.com/blender1.jpg",
       "https://example.com/blender2.jpg"
     ],
-    "tags": ["多功能", "廚房", "榨汁", "攪拌", "研磨"],
+    "tags": [
+      "多功能",
+      "廚房",
+      "榨汁",
+      "攪拌",
+      "研磨"
+    ],
     "attributes": {
       "適用場合": "廚房",
       "功能": "攪拌、榨汁、研磨"
@@ -485,8 +569,10 @@
     "description": "只需一鍵，快速製作專業級咖啡。",
     "price": 2200,
     "category": "家電",
-    "subcategories": ["咖啡機"],
-    "brand": "咖啡大師",
+    "subcategories": [
+      "咖啡機"
+    ],
+    "brand": "煮水達人",
     "color": "黑色",
     "size": "標準",
     "material": "不鏽鋼",
@@ -495,7 +581,10 @@
       "https://example.com/coffeemaker1.jpg",
       "https://example.com/coffeemaker2.jpg"
     ],
-    "tags": ["智能", "便捷"],
+    "tags": [
+      "智能",
+      "便捷"
+    ],
     "attributes": {
       "適用場合": "家庭、辦公室",
       "功能": "快速沖泡咖啡"
@@ -515,8 +604,10 @@
     "description": "抗UV，深層滋養，讓肌膚恢復光澤。",
     "price": 350,
     "category": "美妝",
-    "subcategories": ["保養品"],
-    "brand": "美肌秘方",
+    "subcategories": [
+      "保養品"
+    ],
+    "brand": "水潤之選",
     "color": "白色",
     "size": "50ml",
     "material": "天然植物萃取",
@@ -525,7 +616,10 @@
       "https://example.com/cream1.jpg",
       "https://example.com/cream2.jpg"
     ],
-    "tags": ["滋養", "防曬"],
+    "tags": [
+      "滋養",
+      "防曬"
+    ],
     "attributes": {
       "適用膚質": "乾性、混合性",
       "功能": "保濕、防曬"
@@ -545,8 +639,10 @@
     "description": "輕薄設計，容量大，隨時為您的手機充電。",
     "price": 399,
     "category": "電子產品",
-    "subcategories": ["行動電源"],
-    "brand": "電量超人",
+    "subcategories": [
+      "行動電源"
+    ],
+    "brand": "電量滿",
     "color": "黑色",
     "size": "10000mAh",
     "material": "鋁合金",
@@ -555,7 +651,10 @@
       "https://example.com/powerbank1.jpg",
       "https://example.com/powerbank2.jpg"
     ],
-    "tags": ["輕便", "大容量"],
+    "tags": [
+      "輕便",
+      "大容量"
+    ],
     "attributes": {
       "適用設備": "手機、平板",
       "功能": "充電"
@@ -575,8 +674,10 @@
     "description": "可調節不同溫度，滿足各種飲品需求。",
     "price": 699,
     "category": "家電",
-    "subcategories": ["水壺"],
-    "brand": "熱水寶",
+    "subcategories": [
+      "水壺"
+    ],
+    "brand": "煮水達人",
     "color": "銀色",
     "size": "1L",
     "material": "不鏽鋼",
@@ -585,7 +686,10 @@
       "https://example.com/kettle1.jpg",
       "https://example.com/kettle2.jpg"
     ],
-    "tags": ["智能", "溫控"],
+    "tags": [
+      "智能",
+      "溫控"
+    ],
     "attributes": {
       "適用場所": "家庭、辦公室",
       "功能": "溫控"
@@ -605,8 +709,10 @@
     "description": "這款面膜含有高濃度的玻尿酸成分，能深層滋潤肌膚，提升保濕效果，讓您的肌膚恢復彈性與光澤，適合所有膚質使用。",
     "price": 150,
     "category": "美妝",
-    "subcategories": ["面膜"],
-    "brand": "潤澤之選",
+    "subcategories": [
+      "面膜"
+    ],
+    "brand": "水潤之選",
     "color": "白色",
     "size": "25ml",
     "material": "天然植物纖維",
@@ -615,7 +721,11 @@
       "https://example.com/image21_1.jpg",
       "https://example.com/image21_2.jpg"
     ],
-    "tags": ["保濕", "滋潤", "彈性"],
+    "tags": [
+      "保濕",
+      "滋潤",
+      "彈性"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "使用方法": "清潔臉部後，敷於面部15分鐘，取下後輕拍至吸收"
@@ -635,8 +745,10 @@
     "description": "含有天然茶樹精油，能有效清潔毛孔內的污垢與多餘油脂，預防粉刺與痘痘的生成，使用後肌膚清爽不緊繃，適合油性及混合性膚質。",
     "price": 200,
     "category": "個人清潔",
-    "subcategories": ["洗面乳"],
-    "brand": "清新之選",
+    "subcategories": [
+      "洗面乳"
+    ],
+    "brand": "清新潔淨",
     "color": "綠色",
     "size": "120ml",
     "material": "茶樹精油",
@@ -645,7 +757,11 @@
       "https://example.com/image22_1.jpg",
       "https://example.com/image22_2.jpg"
     ],
-    "tags": ["潔淨", "控油", "清爽"],
+    "tags": [
+      "潔淨",
+      "控油",
+      "清爽"
+    ],
     "attributes": {
       "適用膚質": "油性及混合性膚質",
       "使用方法": "取適量於手心，加水搓揉起泡後，輕柔按摩全臉，再以清水洗淨"
@@ -665,8 +781,10 @@
     "description": "提供長效防護，阻隔UVA及UVB，防止曬黑與曬傷，質地清爽不黏膩，適合日常使用及戶外活動，讓您自在享受陽光。",
     "price": 250,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "陽光守護",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "陽光防護",
     "color": "白色",
     "size": "50ml",
     "material": "無油配方",
@@ -675,7 +793,11 @@
       "https://example.com/image23_1.jpg",
       "https://example.com/image23_2.jpg"
     ],
-    "tags": ["防曬", "清爽", "長效"],
+    "tags": [
+      "防曬",
+      "清爽",
+      "長效"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "使用方法": "外出前15分鐘，取適量均勻塗抹於暴露部位，需長時間曝曬時，每2小時補擦一次"
@@ -695,8 +817,10 @@
     "description": "蘊含摩洛哥堅果油，深層滋養髮絲，修護受損髮質，恢復柔順光澤，減少毛躁與斷裂，適合乾性及受損髮質使用。",
     "price": 180,
     "category": "個人清潔",
-    "subcategories": ["護髮素"],
-    "brand": "秀髮之選",
+    "subcategories": [
+      "護髮素"
+    ],
+    "brand": "清新潔淨",
     "color": "金色",
     "size": "200ml",
     "material": "摩洛哥堅果油",
@@ -705,7 +829,11 @@
       "https://example.com/image24_1.jpg",
       "https://example.com/image24_2.jpg"
     ],
-    "tags": ["護髮", "修護", "滋養"],
+    "tags": [
+      "護髮",
+      "修護",
+      "滋養"
+    ],
     "attributes": {
       "適用髮質": "乾性及受損髮質",
       "使用方法": "洗髮後，取適量塗抹於髮尾，停留3-5分鐘後沖洗乾淨"
@@ -725,8 +853,10 @@
     "description": "這款洗髮精特別添加薄荷精華與天然植物萃取，能深入清潔頭皮毛孔，有效去除多餘油脂與污垢，同時提供清涼舒爽的使用感受，幫助平衡頭皮油水平衡，維持健康髮質，並散發淡淡清香，讓人倍感舒適。適合油性與混合性髮質的日常使用，長期使用可改善頭皮出油問題。",
     "price": 220,
     "category": "個人清潔",
-    "subcategories": ["洗髮精"],
-    "brand": "清爽之選",
+    "subcategories": [
+      "洗髮精"
+    ],
+    "brand": "清爽活力",
     "color": "透明",
     "size": "400ml",
     "material": "薄荷精華、天然植物萃取",
@@ -735,7 +865,11 @@
       "https://example.com/image25_1.jpg",
       "https://example.com/image25_2.jpg"
     ],
-    "tags": ["清潔", "控油", "清爽"],
+    "tags": [
+      "清潔",
+      "控油",
+      "清爽"
+    ],
     "attributes": {
       "適用髮質": "油性與混合性髮質",
       "使用方法": "取適量於手心，加水搓揉起泡，輕輕按摩頭皮與髮絲後，用清水沖洗乾淨。"
@@ -759,7 +893,9 @@
     "description": "富含玻尿酸與維他命C，深層滋潤肌膚，提升亮度與彈性，使用後肌膚感覺柔嫩光滑，適合所有膚質，特別是乾燥與暗沉肌膚。",
     "price": 350,
     "category": "美妝",
-    "subcategories": ["精華液"],
+    "subcategories": [
+      "精華液"
+    ],
     "brand": "水潤之選",
     "color": "透明",
     "size": "30ml",
@@ -769,7 +905,11 @@
       "https://example.com/image26_1.jpg",
       "https://example.com/image26_2.jpg"
     ],
-    "tags": ["保濕", "亮膚", "滋潤"],
+    "tags": [
+      "保濕",
+      "亮膚",
+      "滋潤"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "使用方法": "每日早晚清潔後，取適量塗抹於全臉，輕拍至吸收。"
@@ -789,8 +929,10 @@
     "description": "含有細緻控油粉末，能有效吸附多餘油脂，維持肌膚清爽，妝容持久不脫妝，適合油性及混合性肌膚使用，讓您一整天保持完美妝感。",
     "price": 280,
     "category": "美妝",
-    "subcategories": ["蜜粉餅"],
-    "brand": "清爽之選",
+    "subcategories": [
+      "蜜粉餅"
+    ],
+    "brand": "日常防護",
     "color": "自然膚色",
     "size": "10g",
     "material": "控油粉末",
@@ -799,7 +941,11 @@
       "https://example.com/image27_1.jpg",
       "https://example.com/image27_2.jpg"
     ],
-    "tags": ["控油", "持久", "清爽"],
+    "tags": [
+      "控油",
+      "持久",
+      "清爽"
+    ],
     "attributes": {
       "適用膚質": "油性及混合性肌膚",
       "使用方法": "以粉撲取適量，輕拍於全臉或易出油部位。"
@@ -819,8 +965,10 @@
     "description": "蘊含乳木果油與維他命E，能深層滋養雙手肌膚，修護乾裂，恢復柔嫩觸感，質地清爽不黏膩，適合日常使用，讓您的雙手時刻保持柔滑。",
     "price": 120,
     "category": "個人清潔",
-    "subcategories": ["護手霜"],
-    "brand": "手護之選",
+    "subcategories": [
+      "護手霜"
+    ],
+    "brand": "潤膚之選",
     "color": "白色",
     "size": "50ml",
     "material": "乳木果油、維他命E",
@@ -829,7 +977,11 @@
       "https://example.com/image28_1.jpg",
       "https://example.com/image28_2.jpg"
     ],
-    "tags": ["滋養", "修護", "保濕"],
+    "tags": [
+      "滋養",
+      "修護",
+      "保濕"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "使用方法": "取適量塗抹於雙手，輕柔按摩至吸收，可隨時使用。"
@@ -849,7 +1001,9 @@
     "description": "含有活性美白成分，能有效去除牙齒表面的色斑與牙漬，恢復亮白笑容，並添加薄荷精華，帶來清新口氣，適合日常使用，維持口腔健康。",
     "price": 90,
     "category": "個人清潔",
-    "subcategories": ["牙膏"],
+    "subcategories": [
+      "牙膏"
+    ],
     "brand": "笑容之選",
     "color": "白色",
     "size": "100g",
@@ -859,7 +1013,11 @@
       "https://example.com/image29_1.jpg",
       "https://example.com/image29_2.jpg"
     ],
-    "tags": ["美白", "清新", "口腔健康"],
+    "tags": [
+      "美白",
+      "清新",
+      "口腔健康"
+    ],
     "attributes": {
       "適用對象": "成人",
       "使用方法": "每日早晚取適量刷牙，建議每次刷牙至少2分鐘。"
@@ -879,7 +1037,9 @@
     "description": "富含蘆薈與維他命E，能深層滋潤肌膚，舒緩乾燥不適，恢復柔嫩光滑，質地輕盈易吸收，適合全身使用，特別是乾燥季節，讓您的肌膚時刻保持水潤健康。",
     "price": 180,
     "category": "個人清潔",
-    "subcategories": ["身體乳"],
+    "subcategories": [
+      "身體乳"
+    ],
     "brand": "潤膚之選",
     "color": "白色",
     "size": "200ml",
@@ -889,7 +1049,11 @@
       "https://example.com/image30_1.jpg",
       "https://example.com/image30_2.jpg"
     ],
-    "tags": ["保濕", "滋潤", "舒緩"],
+    "tags": [
+      "保濕",
+      "滋潤",
+      "舒緩"
+    ],
     "attributes": {
       "適用膚質": "乾性及敏感性肌膚",
       "使用方法": "取適量塗抹於全身肌膚，輕輕按摩至完全吸收，可每日早晚使用。"
@@ -913,8 +1077,10 @@
     "description": "這款智慧音箱內建最新的語音助理技術，能夠控制家中各種智慧設備，播放音樂、設定提醒，並回答您的各種問題，讓生活更加便利。",
     "price": 2990,
     "category": "電子產品",
-    "subcategories": ["智慧家居"],
-    "brand": "智音",
+    "subcategories": [
+      "智慧家居"
+    ],
+    "brand": "智能音響",
     "color": "黑色",
     "size": "直徑10cm，高20cm",
     "material": "塑膠",
@@ -923,7 +1089,11 @@
       "https://example.com/smart_speaker1.jpg",
       "https://example.com/smart_speaker2.jpg"
     ],
-    "tags": ["智慧家居", "語音助理", "音樂播放"],
+    "tags": [
+      "智慧家居",
+      "語音助理",
+      "音樂播放"
+    ],
     "attributes": {
       "連接方式": "Wi-Fi, 藍牙",
       "支援語言": "中文, 英文"
@@ -943,8 +1113,10 @@
     "description": "採用先進的主動降噪技術，提供純淨的音質體驗，無論在何種環境下，都能享受音樂的美好，長時間佩戴也舒適。",
     "price": 4990,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "靜音",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "白色",
     "size": "耳罩式",
     "material": "塑膠, 合成皮革",
@@ -953,7 +1125,11 @@
       "https://example.com/noise_cancelling_headphones1.jpg",
       "https://example.com/noise_cancelling_headphones2.jpg"
     ],
-    "tags": ["降噪", "無線", "高音質"],
+    "tags": [
+      "降噪",
+      "無線",
+      "高音質"
+    ],
     "attributes": {
       "連接方式": "藍牙",
       "電池續航": "20小時"
@@ -973,8 +1149,10 @@
     "description": "支援 4K 解析度，提供清晰銳利的影像，內建多種連接埠，方便連接各種設備，適合家庭影院或商務簡報使用。",
     "price": 15990,
     "category": "電子產品",
-    "subcategories": ["投影機"],
-    "brand": "影視",
+    "subcategories": [
+      "投影機"
+    ],
+    "brand": "智能音響",
     "color": "銀色",
     "size": "30cm x 20cm x 10cm",
     "material": "金屬, 塑膠",
@@ -983,7 +1161,11 @@
       "https://example.com/4k_projector1.jpg",
       "https://example.com/4k_projector2.jpg"
     ],
-    "tags": ["4K", "投影", "家庭影院"],
+    "tags": [
+      "4K",
+      "投影",
+      "家庭影院"
+    ],
     "attributes": {
       "亮度": "3000流明",
       "對比度": "10000:1"
@@ -1003,7 +1185,9 @@
     "description": "具備心率監測、睡眠分析、運動追蹤等功能，防水設計，適合各種運動場景，電池續航長達一週。",
     "price": 1990,
     "category": "電子產品",
-    "subcategories": ["穿戴裝置"],
+    "subcategories": [
+      "穿戴裝置"
+    ],
     "brand": "健智",
     "color": "黑色",
     "size": "可調節",
@@ -1013,7 +1197,11 @@
       "https://example.com/fitness_tracker1.jpg",
       "https://example.com/fitness_tracker2.jpg"
     ],
-    "tags": ["健身", "穿戴", "智能"],
+    "tags": [
+      "健身",
+      "穿戴",
+      "智能"
+    ],
     "attributes": {
       "防水等級": "IP68",
       "電池續航": "7天"
@@ -1033,7 +1221,9 @@
     "description": "這款多功能料理機能輕鬆實現攪拌、榨汁與研磨，配備高功率馬達與多種功能配件，可處理各種食材，滿足不同料理需求。堅固的不鏽鋼刀片設計保證長期使用，適合家庭日常使用或進階廚房應用，清潔簡便。",
     "price": 3500,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "廚神",
     "color": "銀色",
     "size": "標準",
@@ -1043,7 +1233,11 @@
       "https://example.com/blender1.jpg",
       "https://example.com/blender2.jpg"
     ],
-    "tags": ["多功能", "廚房", "料理"],
+    "tags": [
+      "多功能",
+      "廚房",
+      "料理"
+    ],
     "attributes": {
       "功率": "800W",
       "容量": "1.5L",
@@ -1068,7 +1262,9 @@
     "description": "採用食品級塑膠材質，重量輕且耐用，配有防漏蓋設計，方便攜帶。適合戶外運動、健身房使用，容量足夠，滿足一天所需。",
     "price": 200,
     "category": "運動用品",
-    "subcategories": ["運動配件"],
+    "subcategories": [
+      "運動配件"
+    ],
     "brand": "活力水",
     "color": "藍色",
     "size": "750ml",
@@ -1078,7 +1274,11 @@
       "https://example.com/sports_bottle1.jpg",
       "https://example.com/sports_bottle2.jpg"
     ],
-    "tags": ["輕便", "防漏", "運動"],
+    "tags": [
+      "輕便",
+      "防漏",
+      "運動"
+    ],
     "attributes": {
       "容量": "750ml",
       "重量": "150g",
@@ -1103,7 +1303,9 @@
     "description": "高密度材質設計，提供良好的緩衝效果，適合瑜伽、普拉提等運動，表面防滑設計保障安全。附贈收納袋，便於攜帶。",
     "price": 500,
     "category": "運動用品",
-    "subcategories": ["瑜伽用具"],
+    "subcategories": [
+      "瑜伽用具"
+    ],
     "brand": "健身派",
     "color": "紫色",
     "size": "180cm x 60cm",
@@ -1113,7 +1315,11 @@
       "https://example.com/yoga_mat1.jpg",
       "https://example.com/yoga_mat2.jpg"
     ],
-    "tags": ["防滑", "緩衝", "便攜"],
+    "tags": [
+      "防滑",
+      "緩衝",
+      "便攜"
+    ],
     "attributes": {
       "尺寸": "180cm x 60cm",
       "厚度": "6mm",
@@ -1138,7 +1344,9 @@
     "description": "支援多種快速充電協議，容量大達20000mAh，可同時為多台設備充電，外殼耐用且輕巧，是旅行或日常使用的最佳伴侶。",
     "price": 1200,
     "category": "電子產品",
-    "subcategories": ["行動電源"],
+    "subcategories": [
+      "行動電源"
+    ],
     "brand": "電量滿",
     "color": "黑色",
     "size": "20000mAh",
@@ -1148,7 +1356,11 @@
       "https://example.com/power_bank1.jpg",
       "https://example.com/power_bank2.jpg"
     ],
-    "tags": ["快速充電", "大容量", "便攜"],
+    "tags": [
+      "快速充電",
+      "大容量",
+      "便攜"
+    ],
     "attributes": {
       "容量": "20000mAh",
       "充電輸出": "USB-A, USB-C",
@@ -1173,8 +1385,10 @@
     "description": "這款電熱毯配備智慧溫控系統，可根據環境溫度自動調節，提供舒適的睡眠體驗。採用柔軟材質，並具備過熱保護功能，確保安全。",
     "price": 2500,
     "category": "家電",
-    "subcategories": ["寢具"],
-    "brand": "暖心",
+    "subcategories": [
+      "寢具"
+    ],
+    "brand": "清新空氣",
     "color": "米色",
     "size": "雙人",
     "material": "柔軟纖維",
@@ -1183,7 +1397,11 @@
       "https://example.com/heated_blanket1.jpg",
       "https://example.com/heated_blanket2.jpg"
     ],
-    "tags": ["電熱毯", "智慧溫控", "安全"],
+    "tags": [
+      "電熱毯",
+      "智慧溫控",
+      "安全"
+    ],
     "attributes": {
       "功率": "100W",
       "電壓": "110V",
@@ -1208,7 +1426,9 @@
     "description": "輕量化設計，無線手持，方便清潔家中各個角落。強力吸力可有效清除灰塵與毛髮，配備多種吸頭，適用於不同清潔需求。",
     "price": 3200,
     "category": "家電",
-    "subcategories": ["清潔家電"],
+    "subcategories": [
+      "清潔家電"
+    ],
     "brand": "潔淨",
     "color": "白色",
     "size": "標準",
@@ -1218,7 +1438,11 @@
       "https://example.com/handheld_vacuum1.jpg",
       "https://example.com/handheld_vacuum2.jpg"
     ],
-    "tags": ["吸塵器", "無線", "手持"],
+    "tags": [
+      "吸塵器",
+      "無線",
+      "手持"
+    ],
     "attributes": {
       "吸力": "15000Pa",
       "電池續航": "40分鐘",
@@ -1243,7 +1467,9 @@
     "description": "具備智能恆溫控制，可精確設定水溫，滿足不同飲品需求。快速加熱，容量大，適合家庭使用，並配有防乾燒保護，使用安全。",
     "price": 1800,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "煮水達人",
     "color": "不鏽鋼色",
     "size": "1.7L",
@@ -1253,7 +1479,11 @@
       "https://example.com/electric_kettle1.jpg",
       "https://example.com/electric_kettle2.jpg"
     ],
-    "tags": ["電熱水壺", "智能", "恆溫"],
+    "tags": [
+      "電熱水壺",
+      "智能",
+      "恆溫"
+    ],
     "attributes": {
       "容量": "1.7L",
       "功率": "1500W",
@@ -1278,7 +1508,9 @@
     "description": "集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。",
     "price": 4500,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "烘焙大師",
     "color": "黑色",
     "size": "30L",
@@ -1288,7 +1520,11 @@
       "https://example.com/electric_oven1.jpg",
       "https://example.com/electric_oven2.jpg"
     ],
-    "tags": ["電烤箱", "多功能", "烘焙"],
+    "tags": [
+      "電烤箱",
+      "多功能",
+      "烘焙"
+    ],
     "attributes": {
       "容量": "30L",
       "功率": "1800W",
@@ -1313,8 +1549,10 @@
     "description": "配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質。",
     "price": 6000,
     "category": "家電",
-    "subcategories": ["空氣清淨機"],
-    "brand": "清新",
+    "subcategories": [
+      "空氣清淨機"
+    ],
+    "brand": "清新空氣",
     "color": "白色",
     "size": "50cm x 30cm x 30cm",
     "material": "ABS塑膠",
@@ -1323,7 +1561,11 @@
       "https://example.com/air_purifier1.jpg",
       "https://example.com/air_purifier2.jpg"
     ],
-    "tags": ["空氣清淨", "智慧控制", "高效濾網"],
+    "tags": [
+      "空氣清淨",
+      "智慧控制",
+      "高效濾網"
+    ],
     "attributes": {
       "適用坪數": "10-15坪",
       "濾網類型": "HEPA濾網",
@@ -1348,7 +1590,9 @@
     "description": "具備智慧恆溫控制，可精確設定水溫，滿足不同飲品需求。快速加熱，容量大，適合家庭使用，並配有防乾燒保護，使用安全。",
     "price": 1800,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "煮水達人",
     "color": "不鏽鋼色",
     "size": "1.7L",
@@ -1358,7 +1602,11 @@
       "https://example.com/electric_kettle1.jpg",
       "https://example.com/electric_kettle2.jpg"
     ],
-    "tags": ["電熱水壺", "智慧", "恆溫"],
+    "tags": [
+      "電熱水壺",
+      "智慧",
+      "恆溫"
+    ],
     "attributes": {
       "容量": "1.7L",
       "功率": "1500W",
@@ -1383,7 +1631,9 @@
     "description": "集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。",
     "price": 4500,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "烘焙大師",
     "color": "黑色",
     "size": "30L",
@@ -1393,7 +1643,11 @@
       "https://example.com/electric_oven1.jpg",
       "https://example.com/electric_oven2.jpg"
     ],
-    "tags": ["電烤箱", "多功能", "烘焙"],
+    "tags": [
+      "電烤箱",
+      "多功能",
+      "烘焙"
+    ],
     "attributes": {
       "容量": "30L",
       "功率": "1800W",
@@ -1418,8 +1672,10 @@
     "description": "配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質。",
     "price": 6000,
     "category": "家電",
-    "subcategories": ["空氣清淨機"],
-    "brand": "清新",
+    "subcategories": [
+      "空氣清淨機"
+    ],
+    "brand": "清新空氣",
     "color": "白色",
     "size": "50cm x 30cm x 30cm",
     "material": "ABS塑膠",
@@ -1428,7 +1684,11 @@
       "https://example.com/air_purifier1.jpg",
       "https://example.com/air_purifier2.jpg"
     ],
-    "tags": ["空氣清淨", "智慧控制", "高效濾網"],
+    "tags": [
+      "空氣清淨",
+      "智慧控制",
+      "高效濾網"
+    ],
     "attributes": {
       "適用坪數": "10-15坪",
       "濾網類型": "HEPA濾網",
@@ -1453,7 +1713,9 @@
     "description": "這款智慧恆溫電熱水壺具備精確的溫度控制功能，可根據不同飲品需求設定理想水溫，從40°C到100°C皆可調節。內建快速加熱系統，能在短時間內將水煮沸，節省您的寶貴時間。採用食品級304不鏽鋼內膽，確保飲水安全，雙層防燙設計則提升使用時的安全性。透過智慧手機App連接，您可遠程控制水壺的加熱與保溫功能，讓生活更便利。",
     "price": 1800,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "煮水達人",
     "color": "不鏽鋼色",
     "size": "1.7L",
@@ -1463,7 +1725,13 @@
       "https://example.com/electric_kettle1.jpg",
       "https://example.com/electric_kettle2.jpg"
     ],
-    "tags": ["電熱水壺", "智慧", "恆溫", "快速加熱", "遠程控制"],
+    "tags": [
+      "電熱水壺",
+      "智慧",
+      "恆溫",
+      "快速加熱",
+      "遠程控制"
+    ],
     "attributes": {
       "容量": "1.7L",
       "功率": "1000W",
@@ -1490,7 +1758,9 @@
     "description": "這款多功能電烤箱集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。配備高效能加熱管，確保食物均勻受熱，烘焙效果更佳。",
     "price": 4500,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "烘焙大師",
     "color": "黑色",
     "size": "30L",
@@ -1500,7 +1770,12 @@
       "https://example.com/electric_oven1.jpg",
       "https://example.com/electric_oven2.jpg"
     ],
-    "tags": ["電烤箱", "多功能", "烘焙", "大容量"],
+    "tags": [
+      "電烤箱",
+      "多功能",
+      "烘焙",
+      "大容量"
+    ],
     "attributes": {
       "容量": "30L",
       "功率": "1800W",
@@ -1526,8 +1801,10 @@
     "description": "這款智能空氣清淨機配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質，為您和家人提供清新的居家環境。",
     "price": 6000,
     "category": "家電",
-    "subcategories": ["空氣清淨機"],
-    "brand": "清新",
+    "subcategories": [
+      "空氣清淨機"
+    ],
+    "brand": "清新空氣",
     "color": "白色",
     "size": "50cm x 30cm x 30cm",
     "material": "ABS塑膠",
@@ -1536,7 +1813,12 @@
       "https://example.com/air_purifier1.jpg",
       "https://example.com/air_purifier2.jpg"
     ],
-    "tags": ["空氣清淨", "智慧控制", "高效濾網", "遠程控制"],
+    "tags": [
+      "空氣清淨",
+      "智慧控制",
+      "高效濾網",
+      "遠程控制"
+    ],
     "attributes": {
       "適用坪數": "10-15坪",
       "濾網類型": "HEPA濾網",
@@ -1562,7 +1844,9 @@
     "description": "這款無線手持吸塵器採用輕量化設計，方便清潔家中各個角落。強力吸力可有效清除灰塵與毛髮，配備多種吸頭，適用於不同清潔需求。長效電池續航，讓您一次清潔完整個家。",
     "price": 3200,
     "category": "家電",
-    "subcategories": ["清潔家電"],
+    "subcategories": [
+      "清潔家電"
+    ],
     "brand": "潔淨",
     "color": "白色",
     "size": "標準",
@@ -1572,7 +1856,13 @@
       "https://example.com/handheld_vacuum1.jpg",
       "https://example.com/handheld_vacuum2.jpg"
     ],
-    "tags": ["無線", "手持", "吸塵器", "輕量", "強力吸力"],
+    "tags": [
+      "無線",
+      "手持",
+      "吸塵器",
+      "輕量",
+      "強力吸力"
+    ],
     "attributes": {
       "吸力": "15000Pa",
       "電池續航": "40分鐘",
@@ -1599,7 +1889,9 @@
     "description": "具備智能恆溫控制，可精確設定水溫，滿足不同飲品需求。快速加熱，容量大，適合家庭使用，並配有防乾燒保護，使用安全。",
     "price": 1800,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "煮水達人",
     "color": "不鏽鋼色",
     "size": "1.7L",
@@ -1609,7 +1901,11 @@
       "https://example.com/electric_kettle1.jpg",
       "https://example.com/electric_kettle2.jpg"
     ],
-    "tags": ["電熱水壺", "智能", "恆溫"],
+    "tags": [
+      "電熱水壺",
+      "智能",
+      "恆溫"
+    ],
     "attributes": {
       "容量": "1.7L",
       "功率": "1500W",
@@ -1634,7 +1930,9 @@
     "description": "集烤、烘、烤吐司等多種功能於一身，溫度與時間可調，內部空間寬敞，可同時烤製多份食物，適合家庭聚會或日常使用。",
     "price": 4500,
     "category": "家電",
-    "subcategories": ["廚房家電"],
+    "subcategories": [
+      "廚房家電"
+    ],
     "brand": "烘焙大師",
     "color": "黑色",
     "size": "30L",
@@ -1644,7 +1942,11 @@
       "https://example.com/electric_oven1.jpg",
       "https://example.com/electric_oven2.jpg"
     ],
-    "tags": ["電烤箱", "多功能", "烘焙"],
+    "tags": [
+      "電烤箱",
+      "多功能",
+      "烘焙"
+    ],
     "attributes": {
       "容量": "30L",
       "功率": "1800W",
@@ -1669,8 +1971,10 @@
     "description": "配備高效濾網，能有效去除空氣中的PM2.5、花粉和異味。內建智慧感應器，可自動調節風速，並可透過手機App遠程控制，隨時掌握空氣品質。",
     "price": 6000,
     "category": "家電",
-    "subcategories": ["空氣清淨機"],
-    "brand": "清新",
+    "subcategories": [
+      "空氣清淨機"
+    ],
+    "brand": "清新空氣",
     "color": "白色",
     "size": "50cm x 30cm x 30cm",
     "material": "ABS塑膠",
@@ -1679,7 +1983,11 @@
       "https://example.com/air_purifier1.jpg",
       "https://example.com/air_purifier2.jpg"
     ],
-    "tags": ["空氣清淨", "智慧控制", "高效濾網"],
+    "tags": [
+      "空氣清淨",
+      "智慧控制",
+      "高效濾網"
+    ],
     "attributes": {
       "適用坪數": "10-15坪",
       "濾網類型": "HEPA濾網",
@@ -1704,7 +2012,10 @@
     "description": "享受長榮飯店三天兩夜的豪華住宿體驗，適用於全台各地的長榮飯店分店，包含每日雙人早餐，讓您盡情放鬆身心。",
     "price": 9999,
     "category": "旅遊",
-    "subcategories": ["住宿", "優惠券"],
+    "subcategories": [
+      "住宿",
+      "優惠券"
+    ],
     "brand": "長榮飯店",
     "color": "綠色",
     "size": "電子票券",
@@ -1714,7 +2025,12 @@
       "https://example.com/evergreen_hotel_voucher1.jpg",
       "https://example.com/evergreen_hotel_voucher2.jpg"
     ],
-    "tags": ["長榮飯店", "住宿", "優惠券", "三日兩夜"],
+    "tags": [
+      "長榮飯店",
+      "住宿",
+      "優惠券",
+      "三日兩夜"
+    ],
     "attributes": {
       "適用地點": "全台長榮飯店",
       "有效期限": "2025-12-31",
@@ -1739,7 +2055,10 @@
     "description": "搭乘長榮航空，享受台灣至日本各大城市的來回優惠機票，提供舒適的座椅與優質的機上服務，讓您的旅程更加愉快。",
     "price": 15000,
     "category": "旅遊",
-    "subcategories": ["機票", "優惠券"],
+    "subcategories": [
+      "機票",
+      "優惠券"
+    ],
     "brand": "長榮航空",
     "color": "N/A",
     "size": "電子票券",
@@ -1749,7 +2068,12 @@
       "https://example.com/evaair_japan_ticket1.jpg",
       "https://example.com/evaair_japan_ticket2.jpg"
     ],
-    "tags": ["長榮航空", "日本", "來回機票", "優惠"],
+    "tags": [
+      "長榮航空",
+      "日本",
+      "來回機票",
+      "優惠"
+    ],
     "attributes": {
       "出發地": "台灣",
       "目的地": "日本各大城市",
@@ -1774,8 +2098,11 @@
     "name": "長榮飯店白黑大廚自助餐優惠券",
     "description": "持此優惠券可於長榮飯店享受白黑大廚主題自助餐，品嚐各式精緻美食，適合家庭聚餐或好友相約，共度美好時光。",
     "price": 2000,
-    "category": "餐飲",
-    "subcategories": ["自助餐", "優惠券"],
+    "category": "旅遊",
+    "subcategories": [
+      "自助餐",
+      "優惠券"
+    ],
     "brand": "長榮飯店",
     "color": "N/A",
     "size": "電子票券",
@@ -1785,7 +2112,12 @@
       "https://example.com/evergreen_buffet_voucher1.jpg",
       "https://example.com/evergreen_buffet_voucher2.jpg"
     ],
-    "tags": ["長榮飯店", "自助餐", "優惠券", "白黑大廚"],
+    "tags": [
+      "長榮飯店",
+      "自助餐",
+      "優惠券",
+      "白黑大廚"
+    ],
     "attributes": {
       "適用地點": "全台長榮飯店",
       "有效期限": "2025-12-31",
@@ -1810,7 +2142,10 @@
     "description": "持此優惠券可將長榮航空國際航班經濟艙升等至豪華經濟艙，享受更寬敞的座位與優質服務，提升您的飛行體驗。",
     "price": 5000,
     "category": "旅遊",
-    "subcategories": ["機票", "升等券"],
+    "subcategories": [
+      "機票",
+      "升等券"
+    ],
     "brand": "長榮航空",
     "color": "N/A",
     "size": "電子票券",
@@ -1820,7 +2155,12 @@
       "https://example.com/evaair_upgrade_voucher1.jpg",
       "https://example.com/evaair_upgrade_voucher2.jpg"
     ],
-    "tags": ["長榮航空", "升等", "優惠券", "豪華經濟艙"],
+    "tags": [
+      "長榮航空",
+      "升等",
+      "優惠券",
+      "豪華經濟艙"
+    ],
     "attributes": {
       "適用航線": "長榮航空國際航班",
       "有效期限": "2025-06-30",
@@ -1844,8 +2184,11 @@
     "name": "長榮航空機上免稅商品優惠券",
     "description": "使用此優惠券可在長榮航空機上購買免稅商品時享受折扣，讓您的空中購物體驗更加實惠。",
     "price": 1000,
-    "category": "購物",
-    "subcategories": ["免稅商品", "優惠券"],
+    "category": "旅遊",
+    "subcategories": [
+      "免稅商品",
+      "優惠券"
+    ],
     "brand": "長榮航空",
     "color": "N/A",
     "size": "電子票券",
@@ -1855,7 +2198,12 @@
       "https://example.com/evaair_dutyfree_voucher1.jpg",
       "https://example.com/evaair_dutyfree_voucher2.jpg"
     ],
-    "tags": ["長榮航空", "免稅商品", "優惠券", "機上購物"],
+    "tags": [
+      "長榮航空",
+      "免稅商品",
+      "優惠券",
+      "機上購物"
+    ],
     "attributes": {
       "適用範圍": "長榮航空機上免稅商品",
       "有效期限": "2025-12-31",
@@ -1879,8 +2227,11 @@
     "name": "長榮航空機上餐飲升級優惠券",
     "description": "持此優惠券可在長榮航空航班上將經濟艙餐點升級為特選餐，享受更豐富的美食選擇，提升您的飛行餐飲體驗。",
     "price": 800,
-    "category": "餐飲",
-    "subcategories": ["機上餐飲", "升級券"],
+    "category": "旅遊",
+    "subcategories": [
+      "機上餐飲",
+      "升級券"
+    ],
     "brand": "長榮航空",
     "color": "N/A",
     "size": "電子票券",
@@ -1890,7 +2241,12 @@
       "https://example.com/evaair_meal_upgrade1.jpg",
       "https://example.com/evaair_meal_upgrade2.jpg"
     ],
-    "tags": ["長榮航空", "機上餐飲", "升級", "優惠券"],
+    "tags": [
+      "長榮航空",
+      "機上餐飲",
+      "升級",
+      "優惠券"
+    ],
     "attributes": {
       "適用航線": "長榮航空國際航班",
       "有效期限": "2025-06-30",
@@ -1915,7 +2271,10 @@
     "description": "此優惠券可讓您在搭乘長榮航空航班時，使用機場貴賓室，享受舒適的休息環境與精緻餐點，提升您的候機體驗。",
     "price": 1500,
     "category": "旅遊",
-    "subcategories": ["貴賓室", "優惠券"],
+    "subcategories": [
+      "貴賓室",
+      "優惠券"
+    ],
     "brand": "長榮航空",
     "color": "N/A",
     "size": "電子票券",
@@ -1925,7 +2284,12 @@
       "https://example.com/evaair_lounge_voucher1.jpg",
       "https://example.com/evaair_lounge_voucher2.jpg"
     ],
-    "tags": ["長榮航空", "貴賓室", "優惠券", "機場休息"],
+    "tags": [
+      "長榮航空",
+      "貴賓室",
+      "優惠券",
+      "機場休息"
+    ],
     "attributes": {
       "適用地點": "長榮航空各地貴賓室",
       "有效期限": "2025-12-31",
@@ -1950,7 +2314,10 @@
     "description": "最新一代的蘋果 iPhone 16 Pro，配備 6.1 吋 OLED 螢幕、A18 仿生晶片和三鏡頭相機系統，提供卓越的性能和拍攝體驗。支援 5G 網路，讓您隨時隨地享受高速連線。",
     "price": 35900,
     "category": "電子產品",
-    "subcategories": ["手機", "智慧型手機"],
+    "subcategories": [
+      "手機",
+      "智慧型手機"
+    ],
     "brand": "蘋果",
     "color": "太空灰",
     "size": "6.1 吋",
@@ -1960,7 +2327,12 @@
       "https://example.com/iphone16pro_1.jpg",
       "https://example.com/iphone16pro_2.jpg"
     ],
-    "tags": ["蘋果", "iPhone", "智慧型手機", "5G"],
+    "tags": [
+      "蘋果",
+      "iPhone",
+      "智慧型手機",
+      "5G"
+    ],
     "attributes": {
       "儲存容量": "256GB",
       "作業系統": "iOS 18",
@@ -1985,7 +2357,10 @@
     "description": "來自有機農場的新鮮蘋果，無農藥殘留，口感香甜多汁，富含維他命C和膳食纖維，是日常健康飲食的理想選擇。",
     "price": 150,
     "category": "食品",
-    "subcategories": ["水果", "有機食品"],
+    "subcategories": [
+      "水果",
+      "有機食品"
+    ],
     "brand": "綠色農場",
     "color": "紅色",
     "size": "每顆約 200 克",
@@ -1995,7 +2370,12 @@
       "https://example.com/organic_apple_1.jpg",
       "https://example.com/organic_apple_2.jpg"
     ],
-    "tags": ["蘋果", "有機", "水果", "健康"],
+    "tags": [
+      "蘋果",
+      "有機",
+      "水果",
+      "健康"
+    ],
     "attributes": {
       "產地": "台灣",
       "包裝": "每袋 5 顆",
@@ -2019,9 +2399,12 @@
     "name": "蘋果牌天然蘋果汁",
     "description": "由蘋果公司出品的 100% 純天然蘋果汁，無添加糖和防腐劑，保留蘋果的原始風味和營養，是全家人都喜愛的健康飲品。",
     "price": 120,
-    "category": "飲料",
-    "subcategories": ["果汁", "健康飲品"],
-    "brand": "蘋果",
+    "category": "食品",
+    "subcategories": [
+      "果汁",
+      "健康飲品"
+    ],
+    "brand": "綠色農場",
     "color": "金黃色",
     "size": "500 毫升",
     "material": "N/A",
@@ -2030,7 +2413,12 @@
       "https://example.com/apple_juice_1.jpg",
       "https://example.com/apple_juice_2.jpg"
     ],
-    "tags": ["蘋果", "果汁", "健康", "飲品"],
+    "tags": [
+      "蘋果",
+      "果汁",
+      "健康",
+      "飲品"
+    ],
     "attributes": {
       "成分": "100% 蘋果汁",
       "保存期限": "6 個月",
@@ -2055,8 +2443,10 @@
     "description": "亞馬遜 Kindle Paperwhite 配備 6.8 吋防眩光螢幕，內建可調節暖光，提供舒適的閱讀體驗。輕薄設計，單手即可輕鬆握持，防水功能讓您在浴室或泳池邊也能安心閱讀。",
     "price": 139.99,
     "category": "電子產品",
-    "subcategories": ["電子書閱讀器"],
-    "brand": "亞馬遜",
+    "subcategories": [
+      "電子書閱讀器"
+    ],
+    "brand": "智能音響",
     "color": "黑色",
     "size": "6.8 吋",
     "material": "塑膠",
@@ -2065,7 +2455,12 @@
       "https://example.com/kindle_paperwhite1.jpg",
       "https://example.com/kindle_paperwhite2.jpg"
     ],
-    "tags": ["亞馬遜", "Kindle", "電子書", "閱讀器"],
+    "tags": [
+      "亞馬遜",
+      "Kindle",
+      "電子書",
+      "閱讀器"
+    ],
     "attributes": {
       "儲存容量": "8GB",
       "防水等級": "IPX8",
@@ -2090,7 +2485,9 @@
     "description": "參加為期 7 天的亞馬遜熱帶雨林探險之旅，深入世界最大的熱帶雨林，體驗豐富的生態系統，觀察多樣的野生動植物，並與當地原住民交流，了解他們的文化與生活方式。",
     "price": 2500,
     "category": "旅遊",
-    "subcategories": ["探險旅遊"],
+    "subcategories": [
+      "探險旅遊"
+    ],
     "brand": "環球探險",
     "color": "N/A",
     "size": "7 天",
@@ -2100,7 +2497,12 @@
       "https://example.com/amazon_rainforest_tour1.jpg",
       "https://example.com/amazon_rainforest_tour2.jpg"
     ],
-    "tags": ["亞馬遜", "熱帶雨林", "探險", "旅遊"],
+    "tags": [
+      "亞馬遜",
+      "熱帶雨林",
+      "探險",
+      "旅遊"
+    ],
     "attributes": {
       "行程天數": "7 天",
       "包含項目": "住宿、餐點、導遊",
@@ -2125,8 +2527,10 @@
     "description": "來自亞馬遜河流域的精品咖啡豆，採用有機種植方式，手工採摘，經中度烘焙，呈現豐富的風味層次，帶有巧克力和堅果的香氣，口感順滑，餘韻悠長。",
     "price": 25,
     "category": "食品",
-    "subcategories": ["咖啡豆"],
-    "brand": "亞馬遜咖啡",
+    "subcategories": [
+      "咖啡豆"
+    ],
+    "brand": "綠色農場",
     "color": "深棕色",
     "size": "500 克",
     "material": "N/A",
@@ -2135,7 +2539,12 @@
       "https://example.com/amazon_coffee_beans1.jpg",
       "https://example.com/amazon_coffee_beans2.jpg"
     ],
-    "tags": ["亞馬遜", "咖啡豆", "有機", "食品"],
+    "tags": [
+      "亞馬遜",
+      "咖啡豆",
+      "有機",
+      "食品"
+    ],
     "attributes": {
       "產地": "巴西",
       "烘焙程度": "中度",
@@ -2160,7 +2569,10 @@
     "description": "星星造型的牛奶餅乾，口感酥脆，適合小朋友當點心。",
     "price": 79,
     "category": "食品",
-    "subcategories": ["餅乾", "零食"],
+    "subcategories": [
+      "餅乾",
+      "零食"
+    ],
     "brand": "童趣餅工坊",
     "color": "米白色",
     "size": "150g",
@@ -2170,7 +2582,12 @@
       "https://example.com/cookie_kid_milk1.jpg",
       "https://example.com/cookie_kid_milk2.jpg"
     ],
-    "tags": ["餅乾", "兒童", "牛奶", "點心"],
+    "tags": [
+      "餅乾",
+      "兒童",
+      "牛奶",
+      "點心"
+    ],
     "attributes": {
       "口味": "牛奶",
       "適合對象": "兒童",
@@ -2191,7 +2608,10 @@
     "description": "富含蛋白質與堅果的燕麥餅乾，適合健身族當健康零食。",
     "price": 129,
     "category": "食品",
-    "subcategories": ["餅乾", "健康零食"],
+    "subcategories": [
+      "餅乾",
+      "健康零食"
+    ],
     "brand": "健身補給站",
     "color": "棕色",
     "size": "180g",
@@ -2201,7 +2621,12 @@
       "https://example.com/cookie_protein_oat1.jpg",
       "https://example.com/cookie_protein_oat2.jpg"
     ],
-    "tags": ["餅乾", "高蛋白", "健身", "低糖"],
+    "tags": [
+      "餅乾",
+      "高蛋白",
+      "健身",
+      "低糖"
+    ],
     "attributes": {
       "口味": "堅果燕麥",
       "適合對象": "健身族",
@@ -2222,8 +2647,11 @@
     "description": "以黑白芝麻與全麥麵粉製成的薄餅，香氣十足，適合長輩養生點心。",
     "price": 89,
     "category": "食品",
-    "subcategories": ["餅乾", "養生食品"],
-    "brand": "養生點心館",
+    "subcategories": [
+      "餅乾",
+      "養生食品"
+    ],
+    "brand": "健身補給站",
     "color": "棕色",
     "size": "140g",
     "material": "全麥麵粉、黑芝麻、白芝麻",
@@ -2232,7 +2660,12 @@
       "https://example.com/cookie_sesame_thin1.jpg",
       "https://example.com/cookie_sesame_thin2.jpg"
     ],
-    "tags": ["餅乾", "芝麻", "養生", "高纖"],
+    "tags": [
+      "餅乾",
+      "芝麻",
+      "養生",
+      "高纖"
+    ],
     "attributes": {
       "口味": "芝麻",
       "適合對象": "中高齡族群",
@@ -2253,8 +2686,11 @@
     "description": "加入咖啡粉與黑巧克力的濃郁餅乾，陪伴你熬夜加班或玩遊戲。",
     "price": 99,
     "category": "食品",
-    "subcategories": ["餅乾", "零食"],
-    "brand": "夜貓小食",
+    "subcategories": [
+      "餅乾",
+      "零食"
+    ],
+    "brand": "童趣餅工坊",
     "color": "深棕色",
     "size": "160g",
     "material": "小麥麵粉、咖啡粉、黑巧克力",
@@ -2263,7 +2699,12 @@
       "https://example.com/cookie_coffee_choco1.jpg",
       "https://example.com/cookie_coffee_choco2.jpg"
     ],
-    "tags": ["餅乾", "咖啡", "巧克力", "夜貓"],
+    "tags": [
+      "餅乾",
+      "咖啡",
+      "巧克力",
+      "夜貓"
+    ],
     "attributes": {
       "口味": "咖啡巧克力",
       "適合對象": "上班族、學生",
@@ -2284,8 +2725,11 @@
     "description": "使用米粉與杏仁製作的無麩質餅乾，適合對麩質敏感的族群。",
     "price": 139,
     "category": "食品",
-    "subcategories": ["餅乾", "健康零食"],
-    "brand": "敏感安心食",
+    "subcategories": [
+      "餅乾",
+      "健康零食"
+    ],
+    "brand": "健身補給站",
     "color": "金黃色",
     "size": "120g",
     "material": "米粉、杏仁粉、雞蛋",
@@ -2294,7 +2738,12 @@
       "https://example.com/cookie_gluten_free_almond1.jpg",
       "https://example.com/cookie_gluten_free_almond2.jpg"
     ],
-    "tags": ["餅乾", "無麩質", "杏仁", "敏感族群"],
+    "tags": [
+      "餅乾",
+      "無麩質",
+      "杏仁",
+      "敏感族群"
+    ],
     "attributes": {
       "口味": "杏仁",
       "適合對象": "麩質不耐、輕食族",
@@ -2315,8 +2764,11 @@
     "description": "鹹香起司搭配黑胡椒風味的蘇打餅，適合搭配啤酒或起司盤。",
     "price": 109,
     "category": "食品",
-    "subcategories": ["餅乾", "鹹食"],
-    "brand": "聚會小食堂",
+    "subcategories": [
+      "餅乾",
+      "鹹食"
+    ],
+    "brand": "和風點心舖",
     "color": "金黃色",
     "size": "170g",
     "material": "小麥麵粉、起司粉、黑胡椒",
@@ -2325,7 +2777,12 @@
       "https://example.com/cookie_cheese_pepper1.jpg",
       "https://example.com/cookie_cheese_pepper2.jpg"
     ],
-    "tags": ["餅乾", "起司", "鹹食", "聚會"],
+    "tags": [
+      "餅乾",
+      "起司",
+      "鹹食",
+      "聚會"
+    ],
     "attributes": {
       "口味": "起司胡椒",
       "適合對象": "聚會、下酒菜",
@@ -2346,8 +2803,11 @@
     "description": "降低糖分並添加膳食纖維的消化餅，適合控制飲食的族群。",
     "price": 119,
     "category": "食品",
-    "subcategories": ["餅乾", "健康零食"],
-    "brand": "纖活生活",
+    "subcategories": [
+      "餅乾",
+      "健康零食"
+    ],
+    "brand": "健身補給站",
     "color": "淺棕色",
     "size": "200g",
     "material": "全麥麵粉、燕麥纖維",
@@ -2356,7 +2816,12 @@
       "https://example.com/cookie_digestive_low_sugar1.jpg",
       "https://example.com/cookie_digestive_low_sugar2.jpg"
     ],
-    "tags": ["餅乾", "低糖", "高纖", "控制體重"],
+    "tags": [
+      "餅乾",
+      "低糖",
+      "高纖",
+      "控制體重"
+    ],
     "attributes": {
       "口味": "原味全麥",
       "適合對象": "減糖飲食、上班族",
@@ -2377,8 +2842,11 @@
     "description": "以玉米片製成的香辣風味餅乾，口感酥脆，適合喜歡重口味的人。",
     "price": 89,
     "category": "食品",
-    "subcategories": ["餅乾", "零食"],
-    "brand": "辣味俱樂部",
+    "subcategories": [
+      "餅乾",
+      "零食"
+    ],
+    "brand": "童趣餅工坊",
     "color": "金黃色",
     "size": "130g",
     "material": "玉米粉、辣椒粉",
@@ -2387,7 +2855,12 @@
       "https://example.com/cookie_spicy_corn1.jpg",
       "https://example.com/cookie_spicy_corn2.jpg"
     ],
-    "tags": ["餅乾", "辣味", "玉米", "重口味"],
+    "tags": [
+      "餅乾",
+      "辣味",
+      "玉米",
+      "重口味"
+    ],
     "attributes": {
       "口味": "香辣玉米",
       "適合對象": "嗜辣者、聚會",
@@ -2408,7 +2881,10 @@
     "description": "抹茶風味餅乾夾入綿密紅豆餡，日系風味甜點首選。",
     "price": 129,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
     "brand": "和風點心舖",
     "color": "綠色",
     "size": "140g",
@@ -2418,7 +2894,12 @@
       "https://example.com/cookie_matcha_redbean1.jpg",
       "https://example.com/cookie_matcha_redbean2.jpg"
     ],
-    "tags": ["餅乾", "抹茶", "紅豆", "日系點心"],
+    "tags": [
+      "餅乾",
+      "抹茶",
+      "紅豆",
+      "日系點心"
+    ],
     "attributes": {
       "口味": "抹茶紅豆",
       "適合對象": "日系甜點愛好者",
@@ -2439,8 +2920,11 @@
     "description": "香濃奶油餅乾搭配海鹽焦糖風味，甜中帶鹹的口感層次。",
     "price": 119,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "甜鹹工坊",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "童趣餅工坊",
     "color": "金黃色",
     "size": "150g",
     "material": "小麥麵粉、奶油、焦糖醬、海鹽",
@@ -2449,7 +2933,12 @@
       "https://example.com/cookie_salted_caramel1.jpg",
       "https://example.com/cookie_salted_caramel2.jpg"
     ],
-    "tags": ["餅乾", "海鹽焦糖", "奶油", "下午茶"],
+    "tags": [
+      "餅乾",
+      "海鹽焦糖",
+      "奶油",
+      "下午茶"
+    ],
     "attributes": {
       "口味": "海鹽焦糖奶油",
       "適合對象": "甜點控、下午茶",
@@ -2470,8 +2959,11 @@
     "description": "加入大量黑巧克力豆的酥脆餅乾，適合巧克力重度愛好者。",
     "price": 129,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "巧克力研究室",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "童趣餅工坊",
     "color": "深棕色",
     "size": "160g",
     "material": "小麥麵粉、黑巧克力豆、可可粉",
@@ -2480,7 +2972,12 @@
       "https://example.com/cookie_dark_choco_chip1.jpg",
       "https://example.com/cookie_dark_choco_chip2.jpg"
     ],
-    "tags": ["餅乾", "黑巧克力", "濃郁", "甜點"],
+    "tags": [
+      "餅乾",
+      "黑巧克力",
+      "濃郁",
+      "甜點"
+    ],
     "attributes": {
       "口味": "黑巧克力",
       "適合對象": "巧克力愛好者",
@@ -2501,8 +2998,11 @@
     "description": "上下兩片巧克力餅乾中夾入柔滑焦糖餡，口感豐富。",
     "price": 139,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "甜點工房",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "童趣餅工坊",
     "color": "棕色",
     "size": "150g",
     "material": "小麥麵粉、巧克力、焦糖餡",
@@ -2511,7 +3011,12 @@
       "https://example.com/cookie_caramel_sandwich1.jpg",
       "https://example.com/cookie_caramel_sandwich2.jpg"
     ],
-    "tags": ["餅乾", "焦糖", "巧克力", "夾心"],
+    "tags": [
+      "餅乾",
+      "焦糖",
+      "巧克力",
+      "夾心"
+    ],
     "attributes": {
       "口味": "焦糖巧克力",
       "適合對象": "甜點控",
@@ -2532,7 +3037,10 @@
     "description": "以濃郁抹茶搭配白巧克力豆，苦甜風味平衡。",
     "price": 139,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
     "brand": "和風點心舖",
     "color": "深綠色",
     "size": "150g",
@@ -2542,7 +3050,12 @@
       "https://example.com/cookie_matcha_chip1.jpg",
       "https://example.com/cookie_matcha_chip2.jpg"
     ],
-    "tags": ["餅乾", "抹茶", "巧克力", "日系點心"],
+    "tags": [
+      "餅乾",
+      "抹茶",
+      "巧克力",
+      "日系點心"
+    ],
     "attributes": {
       "口味": "濃抹茶",
       "適合對象": "抹茶愛好者",
@@ -2563,8 +3076,11 @@
     "description": "加入大量榛果碎與可可粉的脆餅，口感香脆扎實。",
     "price": 129,
     "category": "食品",
-    "subcategories": ["餅乾", "零食"],
-    "brand": "堅果時光",
+    "subcategories": [
+      "餅乾",
+      "零食"
+    ],
+    "brand": "健身補給站",
     "color": "棕色",
     "size": "140g",
     "material": "小麥麵粉、榛果、可可粉",
@@ -2573,7 +3089,12 @@
       "https://example.com/cookie_hazelnut_cocoa1.jpg",
       "https://example.com/cookie_hazelnut_cocoa2.jpg"
     ],
-    "tags": ["餅乾", "榛果", "可可", "香脆"],
+    "tags": [
+      "餅乾",
+      "榛果",
+      "可可",
+      "香脆"
+    ],
     "attributes": {
       "口味": "榛果可可",
       "適合對象": "堅果愛好者",
@@ -2594,8 +3115,11 @@
     "description": "厚實曲奇餅乾搭配岩鹽與可可，帶點鹹味的甜點選擇。",
     "price": 149,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "曲奇小鋪",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "童趣餅工坊",
     "color": "深棕色",
     "size": "180g",
     "material": "小麥麵粉、奶油、可可粉、岩鹽",
@@ -2604,7 +3128,12 @@
       "https://example.com/cookie_cocoa_salt1.jpg",
       "https://example.com/cookie_cocoa_salt2.jpg"
     ],
-    "tags": ["餅乾", "曲奇", "岩鹽", "可可"],
+    "tags": [
+      "餅乾",
+      "曲奇",
+      "岩鹽",
+      "可可"
+    ],
     "attributes": {
       "口味": "岩鹽可可",
       "適合對象": "甜鹹控",
@@ -2625,8 +3154,11 @@
     "description": "介於布朗尼與餅乾之間的紮實口感，偏軟嫩、巧克力味濃。",
     "price": 159,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "布朗尼工坊",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "童趣餅工坊",
     "color": "深棕色",
     "size": "180g",
     "material": "小麥麵粉、可可粉、巧克力塊",
@@ -2635,7 +3167,12 @@
       "https://example.com/cookie_brownie_style1.jpg",
       "https://example.com/cookie_brownie_style2.jpg"
     ],
-    "tags": ["餅乾", "布朗尼", "巧克力", "軟餅"],
+    "tags": [
+      "餅乾",
+      "布朗尼",
+      "巧克力",
+      "軟餅"
+    ],
     "attributes": {
       "口味": "濃巧克力",
       "適合對象": "甜點控",
@@ -2656,8 +3193,11 @@
     "description": "酥脆捲心餅內夾榛果巧克力醬，適合當下午茶點心。",
     "price": 139,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "下午茶時光",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "和風點心舖",
     "color": "棕色",
     "size": "120g",
     "material": "小麥麵粉、榛果醬、可可粉",
@@ -2666,7 +3206,12 @@
       "https://example.com/cookie_hazelnut_wafer_roll1.jpg",
       "https://example.com/cookie_hazelnut_wafer_roll2.jpg"
     ],
-    "tags": ["餅乾", "榛果", "捲心餅", "下午茶"],
+    "tags": [
+      "餅乾",
+      "榛果",
+      "捲心餅",
+      "下午茶"
+    ],
     "attributes": {
       "口味": "榛果巧克力",
       "適合對象": "下午茶、聚會",
@@ -2687,8 +3232,11 @@
     "description": "帶有咖啡香氣與核桃碎的軟餅乾，口感鬆軟。",
     "price": 149,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "摩卡點心",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "和風點心舖",
     "color": "棕色",
     "size": "160g",
     "material": "小麥麵粉、咖啡粉、核桃",
@@ -2697,7 +3245,12 @@
       "https://example.com/cookie_mocha_walnut1.jpg",
       "https://example.com/cookie_mocha_walnut2.jpg"
     ],
-    "tags": ["餅乾", "摩卡", "核桃", "軟餅"],
+    "tags": [
+      "餅乾",
+      "摩卡",
+      "核桃",
+      "軟餅"
+    ],
     "attributes": {
       "口味": "摩卡核桃",
       "適合對象": "咖啡愛好者",
@@ -2718,8 +3271,11 @@
     "description": "使用黑糖與可可搭配燕麥，甜度較低，口感紮實。",
     "price": 129,
     "category": "食品",
-    "subcategories": ["餅乾", "健康零食"],
-    "brand": "慢食生活",
+    "subcategories": [
+      "餅乾",
+      "健康零食"
+    ],
+    "brand": "健身補給站",
     "color": "棕色",
     "size": "170g",
     "material": "燕麥片、黑糖、可可粉",
@@ -2728,7 +3284,12 @@
       "https://example.com/cookie_brown_sugar_cocoa1.jpg",
       "https://example.com/cookie_brown_sugar_cocoa2.jpg"
     ],
-    "tags": ["餅乾", "燕麥", "黑糖", "可可"],
+    "tags": [
+      "餅乾",
+      "燕麥",
+      "黑糖",
+      "可可"
+    ],
     "attributes": {
       "口味": "黑糖可可",
       "適合對象": "控制糖分者",
@@ -2749,8 +3310,11 @@
     "description": "以檸檬香氣中和可可的厚重感，帶點清爽酸味的巧克力餅乾。",
     "price": 119,
     "category": "食品",
-    "subcategories": ["餅乾", "甜點"],
-    "brand": "清新甜點屋",
+    "subcategories": [
+      "餅乾",
+      "甜點"
+    ],
+    "brand": "和風點心舖",
     "color": "棕色",
     "size": "140g",
     "material": "小麥麵粉、檸檬皮屑、可可粉",
@@ -2759,7 +3323,12 @@
       "https://example.com/cookie_lemon_cocoa1.jpg",
       "https://example.com/cookie_lemon_cocoa2.jpg"
     ],
-    "tags": ["餅乾", "檸檬", "可可", "清爽"],
+    "tags": [
+      "餅乾",
+      "檸檬",
+      "可可",
+      "清爽"
+    ],
     "attributes": {
       "口味": "檸檬可可",
       "適合對象": "喜歡酸甜口味者",
@@ -2780,7 +3349,10 @@
     "description": "專為防災儲備設計的高能量壓縮餅乾，小體積大熱量。",
     "price": 199,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
     "brand": "防災糧倉",
     "color": "米黃色",
     "size": "400g",
@@ -2790,7 +3362,12 @@
       "https://example.com/emergency_compressed_biscuit1.jpg",
       "https://example.com/emergency_compressed_biscuit2.jpg"
     ],
-    "tags": ["防災", "壓縮餅乾", "高熱量", "長效保存"],
+    "tags": [
+      "防災",
+      "壓縮餅乾",
+      "高熱量",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "原味",
       "保存期限": "5年",
@@ -2811,7 +3388,10 @@
     "description": "起司風味壓縮餅乾，兼具防災儲糧與基本口感。",
     "price": 219,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
     "brand": "防災糧倉",
     "color": "淡黃色",
     "size": "380g",
@@ -2821,7 +3401,12 @@
       "https://example.com/emergency_cheese_biscuit1.jpg",
       "https://example.com/emergency_cheese_biscuit2.jpg"
     ],
-    "tags": ["防災", "壓縮餅乾", "起司", "長效保存"],
+    "tags": [
+      "防災",
+      "壓縮餅乾",
+      "起司",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "起司",
       "保存期限": "5年",
@@ -2842,8 +3427,11 @@
     "description": "以燕麥與穀物製作的防災高纖餅乾，提供基本營養。",
     "price": 189,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
-    "brand": "安心備糧",
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
+    "brand": "防災糧倉",
     "color": "棕色",
     "size": "350g",
     "material": "燕麥片、小麥麵粉、植物油",
@@ -2852,7 +3440,12 @@
       "https://example.com/emergency_oat_biscuit1.jpg",
       "https://example.com/emergency_oat_biscuit2.jpg"
     ],
-    "tags": ["防災", "高纖", "燕麥", "乾糧"],
+    "tags": [
+      "防災",
+      "高纖",
+      "燕麥",
+      "乾糧"
+    ],
     "attributes": {
       "口味": "穀物燕麥",
       "保存期限": "4年",
@@ -2873,8 +3466,11 @@
     "description": "帶有巧克力風味的防災餅乾，增加長期儲存食品的接受度。",
     "price": 199,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
-    "brand": "安心備糧",
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
+    "brand": "防災糧倉",
     "color": "棕色",
     "size": "360g",
     "material": "小麥麵粉、可可粉、植物油",
@@ -2883,7 +3479,12 @@
       "https://example.com/emergency_choco_biscuit1.jpg",
       "https://example.com/emergency_choco_biscuit2.jpg"
     ],
-    "tags": ["防災", "巧克力", "長效保存", "即食"],
+    "tags": [
+      "防災",
+      "巧克力",
+      "長效保存",
+      "即食"
+    ],
     "attributes": {
       "口味": "巧克力",
       "保存期限": "5年",
@@ -2904,7 +3505,10 @@
     "description": "加強包裝與配方調整的奶油蘇打餅，適合作為防災備糧。",
     "price": 159,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
     "brand": "防災糧倉",
     "color": "金黃色",
     "size": "320g",
@@ -2914,7 +3518,12 @@
       "https://example.com/emergency_butter_soda1.jpg",
       "https://example.com/emergency_butter_soda2.jpg"
     ],
-    "tags": ["防災", "蘇打餅", "奶油", "長效保存"],
+    "tags": [
+      "防災",
+      "蘇打餅",
+      "奶油",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "奶油鹹香",
       "保存期限": "4年",
@@ -2935,8 +3544,11 @@
     "description": "單包裝條狀防災餅乾，方便放入背包或防災包。",
     "price": 169,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
-    "brand": "隨行防災",
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
+    "brand": "防災糧倉",
     "color": "米色",
     "size": "300g",
     "material": "小麥麵粉、植物油、糖",
@@ -2945,7 +3557,12 @@
       "https://example.com/emergency_bar_biscuit1.jpg",
       "https://example.com/emergency_bar_biscuit2.jpg"
     ],
-    "tags": ["防災", "條狀餅乾", "隨身", "長效保存"],
+    "tags": [
+      "防災",
+      "條狀餅乾",
+      "隨身",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "原味",
       "保存期限": "5年",
@@ -2966,8 +3583,11 @@
     "description": "針對兒童設計的防災餅乾，使用可愛包裝與巧克力口味。",
     "price": 189,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
-    "brand": "安心童樂",
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
+    "brand": "童趣餅工坊",
     "color": "多色",
     "size": "280g",
     "material": "小麥麵粉、可可粉、奶粉",
@@ -2976,7 +3596,12 @@
       "https://example.com/emergency_kid_choco_biscuit1.jpg",
       "https://example.com/emergency_kid_choco_biscuit2.jpg"
     ],
-    "tags": ["防災", "兒童", "巧克力", "長效保存"],
+    "tags": [
+      "防災",
+      "兒童",
+      "巧克力",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "巧克力牛奶",
       "保存期限": "4年",
@@ -2997,7 +3622,10 @@
     "description": "椰子風味的高熱量防災餅乾，適合長時間避難使用。",
     "price": 209,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
     "brand": "防災糧倉",
     "color": "淡棕色",
     "size": "380g",
@@ -3007,7 +3635,12 @@
       "https://example.com/emergency_coconut_biscuit1.jpg",
       "https://example.com/emergency_coconut_biscuit2.jpg"
     ],
-    "tags": ["防災", "椰子", "高熱量", "長效保存"],
+    "tags": [
+      "防災",
+      "椰子",
+      "高熱量",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "椰子",
       "保存期限": "5年",
@@ -3028,8 +3661,11 @@
     "description": "全素配方的防災壓縮餅乾，適合素食者備糧。",
     "price": 199,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
-    "brand": "安心備糧",
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
+    "brand": "防災糧倉",
     "color": "米黃色",
     "size": "360g",
     "material": "小麥麵粉、植物油、糖",
@@ -3038,7 +3674,12 @@
       "https://example.com/emergency_vegan_biscuit1.jpg",
       "https://example.com/emergency_vegan_biscuit2.jpg"
     ],
-    "tags": ["防災", "素食", "壓縮餅乾", "長效保存"],
+    "tags": [
+      "防災",
+      "素食",
+      "壓縮餅乾",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "原味",
       "保存期限": "5年",
@@ -3059,8 +3700,11 @@
     "description": "同時兼具露營零食與防災儲糧功能的餅乾組合包。",
     "price": 229,
     "category": "食品",
-    "subcategories": ["餅乾", "防災食品"],
-    "brand": "戶外糧備",
+    "subcategories": [
+      "餅乾",
+      "防災食品"
+    ],
+    "brand": "防災糧倉",
     "color": "多色",
     "size": "420g",
     "material": "小麥麵粉、植物油、糖、鹽",
@@ -3069,7 +3713,12 @@
       "https://example.com/emergency_camp_biscuit1.jpg",
       "https://example.com/emergency_camp_biscuit2.jpg"
     ],
-    "tags": ["防災", "露營", "即食", "長效保存"],
+    "tags": [
+      "防災",
+      "露營",
+      "即食",
+      "長效保存"
+    ],
     "attributes": {
       "口味": "綜合口味",
       "保存期限": "4年",
@@ -3090,8 +3739,10 @@
     "description": "質地清爽不黏膩，適合每天通勤與上班使用的高防護防曬凝乳。",
     "price": 320,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "日常守護",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "日常防護",
     "color": "白色",
     "size": "40ml",
     "material": "化學防曬配方、玻尿酸",
@@ -3100,7 +3751,12 @@
       "https://example.com/sunscreen_commuter1.jpg",
       "https://example.com/sunscreen_commuter2.jpg"
     ],
-    "tags": ["防曬", "清爽", "通勤", "SPF50"],
+    "tags": [
+      "防曬",
+      "清爽",
+      "通勤",
+      "SPF50"
+    ],
     "attributes": {
       "適用膚質": "混合性、油性",
       "功能": "高效防曬、不黏膩",
@@ -3121,8 +3777,11 @@
     "description": "帶有淡淡潤色效果的防曬乳，可當作妝前打底使用。",
     "price": 350,
     "category": "美妝",
-    "subcategories": ["防曬", "底妝"],
-    "brand": "素顏光",
+    "subcategories": [
+      "防曬",
+      "底妝"
+    ],
+    "brand": "日常防護",
     "color": "自然膚色",
     "size": "30ml",
     "material": "防曬配方、潤色粉體",
@@ -3131,7 +3790,11 @@
       "https://example.com/sunscreen_tone_up1.jpg",
       "https://example.com/sunscreen_tone_up2.jpg"
     ],
-    "tags": ["防曬", "潤色", "妝前乳"],
+    "tags": [
+      "防曬",
+      "潤色",
+      "妝前乳"
+    ],
     "attributes": {
       "適用膚質": "中性、乾性",
       "功能": "防曬、提亮膚色",
@@ -3152,8 +3815,10 @@
     "description": "專為戶外運動設計，具備強效防水防汗功能。",
     "price": 420,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "戶外盾牌",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "陽光防護",
     "color": "白色",
     "size": "60ml",
     "material": "高效防曬配方、防水聚合物",
@@ -3162,7 +3827,12 @@
       "https://example.com/sunscreen_sport_waterproof1.jpg",
       "https://example.com/sunscreen_sport_waterproof2.jpg"
     ],
-    "tags": ["防曬", "運動", "防水", "長效"],
+    "tags": [
+      "防曬",
+      "運動",
+      "防水",
+      "長效"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "功能": "強效防曬、防水防汗",
@@ -3183,8 +3853,10 @@
     "description": "棒狀設計方便補擦，適合登山與長時間戶外活動。",
     "price": 380,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "山系守護",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "陽光防護",
     "color": "白色",
     "size": "18g",
     "material": "物理與化學複合防曬配方",
@@ -3193,7 +3865,12 @@
       "https://example.com/sunscreen_hiking_stick1.jpg",
       "https://example.com/sunscreen_hiking_stick2.jpg"
     ],
-    "tags": ["防曬", "棒狀", "登山", "補擦方便"],
+    "tags": [
+      "防曬",
+      "棒狀",
+      "登山",
+      "補擦方便"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "功能": "高效防曬、隨時補擦",
@@ -3214,7 +3891,9 @@
     "description": "採用物理性防曬成分，不含酒精與香料，適合敏感肌。",
     "price": 450,
     "category": "美妝",
-    "subcategories": ["防曬"],
+    "subcategories": [
+      "防曬"
+    ],
     "brand": "溫和安心",
     "color": "白色",
     "size": "50ml",
@@ -3224,7 +3903,12 @@
       "https://example.com/sunscreen_physical_sensitive1.jpg",
       "https://example.com/sunscreen_physical_sensitive2.jpg"
     ],
-    "tags": ["防曬", "物理性", "敏感肌", "無酒精"],
+    "tags": [
+      "防曬",
+      "物理性",
+      "敏感肌",
+      "無酒精"
+    ],
     "attributes": {
       "適用膚質": "敏感性、乾性",
       "功能": "物理性防曬、舒緩保濕",
@@ -3245,8 +3929,10 @@
     "description": "專為嬰幼兒設計的低刺激防曬乳，外出散步也能安心。",
     "price": 380,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "小小守護者",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "溫和安心",
     "color": "白色",
     "size": "40ml",
     "material": "溫和防曬成分、植物舒緩萃取",
@@ -3255,7 +3941,11 @@
       "https://example.com/sunscreen_baby1.jpg",
       "https://example.com/sunscreen_baby2.jpg"
     ],
-    "tags": ["防曬", "嬰幼兒", "低刺激"],
+    "tags": [
+      "防曬",
+      "嬰幼兒",
+      "低刺激"
+    ],
     "attributes": {
       "適用膚質": "嬰幼兒、敏感肌",
       "功能": "溫和防曬、舒緩保濕",
@@ -3276,8 +3966,11 @@
     "description": "帶有輕微潤色與控油效果，適合辦公室族群。",
     "price": 360,
     "category": "美妝",
-    "subcategories": ["防曬", "底妝"],
-    "brand": "上班日常",
+    "subcategories": [
+      "防曬",
+      "底妝"
+    ],
+    "brand": "日常防護",
     "color": "自然膚色",
     "size": "35ml",
     "material": "防曬配方、控油粉末",
@@ -3286,7 +3979,12 @@
       "https://example.com/sunscreen_office_oilcontrol1.jpg",
       "https://example.com/sunscreen_office_oilcontrol2.jpg"
     ],
-    "tags": ["防曬", "控油", "潤色", "上班族"],
+    "tags": [
+      "防曬",
+      "控油",
+      "潤色",
+      "上班族"
+    ],
     "attributes": {
       "適用膚質": "混合性、油性",
       "功能": "防曬、控油、提亮",
@@ -3307,8 +4005,10 @@
     "description": "大範圍噴霧型防曬，適合海邊戲水與泳池使用。",
     "price": 420,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "海灘守護",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "陽光防護",
     "color": "透明",
     "size": "150ml",
     "material": "防曬噴霧配方、防水成分",
@@ -3317,7 +4017,12 @@
       "https://example.com/sunscreen_spray_beach1.jpg",
       "https://example.com/sunscreen_spray_beach2.jpg"
     ],
-    "tags": ["防曬", "噴霧", "防水", "海邊"],
+    "tags": [
+      "防曬",
+      "噴霧",
+      "防水",
+      "海邊"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "功能": "全身防曬、速乾",
@@ -3338,8 +4043,10 @@
     "description": "適合醫美術後與脆弱肌膚使用的低刺激防曬乳。",
     "price": 520,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "修復之光",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "溫和安心",
     "color": "白色",
     "size": "40ml",
     "material": "物理性防曬成分、修復保濕成分",
@@ -3348,7 +4055,12 @@
       "https://example.com/sunscreen_post_treatment1.jpg",
       "https://example.com/sunscreen_post_treatment2.jpg"
     ],
-    "tags": ["防曬", "醫美術後", "敏感肌", "修復"],
+    "tags": [
+      "防曬",
+      "醫美術後",
+      "敏感肌",
+      "修復"
+    ],
     "attributes": {
       "適用膚質": "脆弱肌、醫美術後",
       "功能": "物理性防曬、屏障修護",
@@ -3369,8 +4081,10 @@
     "description": "兼具防曬與抗空汙功能，適合都市生活者。",
     "price": 430,
     "category": "美妝",
-    "subcategories": ["防曬"],
-    "brand": "城市防護網",
+    "subcategories": [
+      "防曬"
+    ],
+    "brand": "日常防護",
     "color": "白色",
     "size": "50ml",
     "material": "防曬成分、抗氧化配方",
@@ -3379,7 +4093,11 @@
       "https://example.com/sunscreen_anti_pollution1.jpg",
       "https://example.com/sunscreen_anti_pollution2.jpg"
     ],
-    "tags": ["防曬", "抗空汙", "都市生活"],
+    "tags": [
+      "防曬",
+      "抗空汙",
+      "都市生活"
+    ],
     "attributes": {
       "適用膚質": "所有膚質",
       "功能": "防曬、抗氧化、隔離髒空氣",
@@ -3400,8 +4118,10 @@
     "description": "專為線上會議設計的入耳式降噪耳機，收音清晰。",
     "price": 3590,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "辦公聲學",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "智能音響",
     "color": "黑色",
     "size": "標準",
     "material": "塑膠、矽膠",
@@ -3410,7 +4130,12 @@
       "https://example.com/headset_business_anc1.jpg",
       "https://example.com/headset_business_anc2.jpg"
     ],
-    "tags": ["耳機", "降噪", "藍牙", "商務通話"],
+    "tags": [
+      "耳機",
+      "降噪",
+      "藍牙",
+      "商務通話"
+    ],
     "attributes": {
       "連接方式": "藍牙",
       "功能": "主動降噪、雙麥克風收音",
@@ -3431,8 +4156,10 @@
     "description": "針對通勤環境調校的降噪耳機，隔絕車廂噪音。",
     "price": 4990,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "靜旅",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "深灰色",
     "size": "耳罩式",
     "material": "塑膠、合成皮革",
@@ -3441,7 +4168,12 @@
       "https://example.com/headset_commute_anc1.jpg",
       "https://example.com/headset_commute_anc2.jpg"
     ],
-    "tags": ["耳機", "降噪", "通勤", "無線"],
+    "tags": [
+      "耳機",
+      "降噪",
+      "通勤",
+      "無線"
+    ],
     "attributes": {
       "連接方式": "藍牙",
       "功能": "主動降噪、環境聲模式",
@@ -3462,8 +4194,10 @@
     "description": "可同時連接筆電與手機，一鍵切換裝置通話。",
     "price": 3290,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "會議好夥伴",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "智能音響",
     "color": "黑色",
     "size": "頭戴式",
     "material": "塑膠",
@@ -3472,7 +4206,12 @@
       "https://example.com/headset_multi_device1.jpg",
       "https://example.com/headset_multi_device2.jpg"
     ],
-    "tags": ["耳機", "藍牙", "商務", "多點連線"],
+    "tags": [
+      "耳機",
+      "藍牙",
+      "商務",
+      "多點連線"
+    ],
     "attributes": {
       "連接方式": "藍牙、多點連線",
       "功能": "降噪麥克風、裝置切換",
@@ -3493,8 +4232,10 @@
     "description": "針對人聲優化的耳機，讓語音會議更清晰。",
     "price": 2890,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "遠距聲線",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "智能音響",
     "color": "黑色",
     "size": "頭戴式",
     "material": "塑膠、合成皮革",
@@ -3503,7 +4244,11 @@
       "https://example.com/headset_remote_work1.jpg",
       "https://example.com/headset_remote_work2.jpg"
     ],
-    "tags": ["耳機", "遠端工作", "通話清晰"],
+    "tags": [
+      "耳機",
+      "遠端工作",
+      "通話清晰"
+    ],
     "attributes": {
       "連接方式": "USB、有線",
       "功能": "降噪麥克風、人聲增強",
@@ -3524,8 +4269,10 @@
     "description": "同時兼顧音樂表現與會議通話品質的混合降噪耳機。",
     "price": 5690,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "雙模聲學",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "白色",
     "size": "耳罩式",
     "material": "塑膠、金屬",
@@ -3534,7 +4281,12 @@
       "https://example.com/headset_hybrid_anc1.jpg",
       "https://example.com/headset_hybrid_anc2.jpg"
     ],
-    "tags": ["耳機", "降噪", "音樂", "會議"],
+    "tags": [
+      "耳機",
+      "降噪",
+      "音樂",
+      "會議"
+    ],
     "attributes": {
       "連接方式": "藍牙、有線",
       "功能": "主動降噪、音場模式切換",
@@ -3555,8 +4307,10 @@
     "description": "主打運動使用，但內建通話降噪，跑步時講電話也清楚。",
     "price": 2490,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "動能聲學",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "藍色",
     "size": "入耳式",
     "material": "塑膠、矽膠",
@@ -3565,7 +4319,11 @@
       "https://example.com/headset_sport_talk1.jpg",
       "https://example.com/headset_sport_talk2.jpg"
     ],
-    "tags": ["耳機", "運動", "通話降噪"],
+    "tags": [
+      "耳機",
+      "運動",
+      "通話降噪"
+    ],
     "attributes": {
       "連接方式": "藍牙",
       "功能": "防汗、防潑水、通話降噪",
@@ -3586,8 +4344,10 @@
     "description": "專為開放式辦公空間設計，強調環境噪音抑制。",
     "price": 5390,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "OfficeQuiet",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "黑色",
     "size": "耳罩式",
     "material": "塑膠、合成皮革",
@@ -3596,7 +4356,12 @@
       "https://example.com/headset_open_office1.jpg",
       "https://example.com/headset_open_office2.jpg"
     ],
-    "tags": ["耳機", "降噪", "辦公室", "專注"],
+    "tags": [
+      "耳機",
+      "降噪",
+      "辦公室",
+      "專注"
+    ],
     "attributes": {
       "連接方式": "藍牙",
       "功能": "強效ANC、語音增強",
@@ -3617,8 +4382,10 @@
     "description": "插上就能用的有線入耳式耳機，適合臨時開會。",
     "price": 1290,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "即時會議",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "智能音響",
     "color": "白色",
     "size": "入耳式",
     "material": "塑膠",
@@ -3627,7 +4394,12 @@
       "https://example.com/headset_usbc_conference1.jpg",
       "https://example.com/headset_usbc_conference2.jpg"
     ],
-    "tags": ["耳機", "有線", "USB-C", "會議"],
+    "tags": [
+      "耳機",
+      "有線",
+      "USB-C",
+      "會議"
+    ],
     "attributes": {
       "連接方式": "USB-C",
       "功能": "降噪麥克風、隨插即用",
@@ -3648,8 +4420,10 @@
     "description": "可折疊收納的頭戴式耳機，方便放入背包隨身攜帶。",
     "price": 2990,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "行旅聲學",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "黑色",
     "size": "頭戴式",
     "material": "塑膠、金屬",
@@ -3658,7 +4432,12 @@
       "https://example.com/headset_foldable_business1.jpg",
       "https://example.com/headset_foldable_business2.jpg"
     ],
-    "tags": ["耳機", "藍牙", "折疊", "會議"],
+    "tags": [
+      "耳機",
+      "藍牙",
+      "折疊",
+      "會議"
+    ],
     "attributes": {
       "連接方式": "藍牙、有線",
       "功能": "降噪麥克風、可折疊收納",
@@ -3679,8 +4458,10 @@
     "description": "著重頭梁與耳墊舒適度設計，適合長時間開會。",
     "price": 3190,
     "category": "電子產品",
-    "subcategories": ["耳機"],
-    "brand": "ComfortTalk",
+    "subcategories": [
+      "耳機"
+    ],
+    "brand": "靜謐科技",
     "color": "灰色",
     "size": "頭戴式",
     "material": "塑膠、記憶泡棉",
@@ -3689,7 +4470,12 @@
       "https://example.com/headset_longwear1.jpg",
       "https://example.com/headset_longwear2.jpg"
     ],
-    "tags": ["耳機", "舒適", "會議", "長時間配戴"],
+    "tags": [
+      "耳機",
+      "舒適",
+      "會議",
+      "長時間配戴"
+    ],
     "attributes": {
       "連接方式": "藍牙",
       "功能": "軟墊設計、輕量化",
@@ -3710,7 +4496,10 @@
     "description": "包含來回機票與三晚飯店，適合自行安排行程的賞櫻旅遊。",
     "price": 28900,
     "category": "旅遊",
-    "subcategories": ["自由行", "日本"],
+    "subcategories": [
+      "自由行",
+      "日本"
+    ],
     "brand": "櫻花旅遊社",
     "color": "N/A",
     "size": "5天",
@@ -3720,7 +4509,12 @@
       "https://example.com/japan_kansai_sakura1.jpg",
       "https://example.com/japan_kansai_sakura2.jpg"
     ],
-    "tags": ["日本", "賞櫻", "自由行", "關西"],
+    "tags": [
+      "日本",
+      "賞櫻",
+      "自由行",
+      "關西"
+    ],
     "attributes": {
       "出發地": "台北",
       "目的地": "大阪、京都",
@@ -3741,8 +4535,11 @@
     "description": "結合溫泉、雪景與美食的六日行程，適合冬季出遊。",
     "price": 38900,
     "category": "旅遊",
-    "subcategories": ["團體旅遊", "日本"],
-    "brand": "北國假期",
+    "subcategories": [
+      "團體旅遊",
+      "日本"
+    ],
+    "brand": "櫻花旅遊社",
     "color": "N/A",
     "size": "6天",
     "material": "N/A",
@@ -3751,7 +4548,12 @@
       "https://example.com/hokkaido_onsen_tour1.jpg",
       "https://example.com/hokkaido_onsen_tour2.jpg"
     ],
-    "tags": ["日本", "溫泉", "雪景", "團體旅遊"],
+    "tags": [
+      "日本",
+      "溫泉",
+      "雪景",
+      "團體旅遊"
+    ],
     "attributes": {
       "出發地": "台北",
       "目的地": "北海道",
@@ -3772,7 +4574,10 @@
     "description": "以親子為主的東京行程，安排主題樂園與科學館。",
     "price": 33500,
     "category": "旅遊",
-    "subcategories": ["親子旅遊", "日本"],
+    "subcategories": [
+      "親子旅遊",
+      "日本"
+    ],
     "brand": "親子行旅",
     "color": "N/A",
     "size": "5天",
@@ -3782,7 +4587,12 @@
       "https://example.com/tokyo_family_themepark1.jpg",
       "https://example.com/tokyo_family_themepark2.jpg"
     ],
-    "tags": ["日本", "親子", "樂園", "東京"],
+    "tags": [
+      "日本",
+      "親子",
+      "樂園",
+      "東京"
+    ],
     "attributes": {
       "出發地": "台北",
       "目的地": "東京",
@@ -3803,8 +4613,10 @@
     "description": "安排前往最佳觀測地點的日全食主題旅遊，附專業講解。",
     "price": 45900,
     "category": "旅遊",
-    "subcategories": ["主題旅遊"],
-    "brand": "星空探險隊",
+    "subcategories": [
+      "主題旅遊"
+    ],
+    "brand": "環球探險",
     "color": "N/A",
     "size": "7天",
     "material": "N/A",
@@ -3813,7 +4625,11 @@
       "https://example.com/solar_eclipse_tour1.jpg",
       "https://example.com/solar_eclipse_tour2.jpg"
     ],
-    "tags": ["日全食", "天文", "主題旅遊"],
+    "tags": [
+      "日全食",
+      "天文",
+      "主題旅遊"
+    ],
     "attributes": {
       "包含項目": "專業導遊、觀測眼鏡、講座",
       "行程天數": "7天"
@@ -3833,8 +4649,11 @@
     "description": "結合觀光與防災教育的一日行程，造訪東京防災館。",
     "price": 4200,
     "category": "旅遊",
-    "subcategories": ["一日遊", "教育旅遊"],
-    "brand": "安全學習遊",
+    "subcategories": [
+      "一日遊",
+      "教育旅遊"
+    ],
+    "brand": "親子行旅",
     "color": "N/A",
     "size": "1天",
     "material": "N/A",
@@ -3843,7 +4662,12 @@
       "https://example.com/tokyo_bosai_tour1.jpg",
       "https://example.com/tokyo_bosai_tour2.jpg"
     ],
-    "tags": ["防災", "教育旅遊", "日本", "一日遊"],
+    "tags": [
+      "防災",
+      "教育旅遊",
+      "日本",
+      "一日遊"
+    ],
     "attributes": {
       "出發地": "東京市區集合",
       "行程天數": "1天"
@@ -3863,8 +4687,11 @@
     "description": "秋季限定的京都賞楓行程，造訪多處古寺與庭園。",
     "price": 27800,
     "category": "旅遊",
-    "subcategories": ["日本", "季節旅遊"],
-    "brand": "楓紅之旅",
+    "subcategories": [
+      "日本",
+      "季節旅遊"
+    ],
+    "brand": "櫻花旅遊社",
     "color": "N/A",
     "size": "4天",
     "material": "N/A",
@@ -3873,7 +4700,12 @@
       "https://example.com/kyoto_autumn_leaves1.jpg",
       "https://example.com/kyoto_autumn_leaves2.jpg"
     ],
-    "tags": ["日本", "賞楓", "京都", "古寺"],
+    "tags": [
+      "日本",
+      "賞楓",
+      "京都",
+      "古寺"
+    ],
     "attributes": {
       "行程天數": "4天",
       "適合對象": "喜歡景色與文化者"
@@ -3893,8 +4725,11 @@
     "description": "以親子活動為主的沖繩旅遊，安排水族館與海灘活動。",
     "price": 31500,
     "category": "旅遊",
-    "subcategories": ["親子旅遊", "海島"],
-    "brand": "海島玩樂家",
+    "subcategories": [
+      "親子旅遊",
+      "海島"
+    ],
+    "brand": "親子行旅",
     "color": "N/A",
     "size": "5天",
     "material": "N/A",
@@ -3903,7 +4738,12 @@
       "https://example.com/okinawa_family_beach1.jpg",
       "https://example.com/okinawa_family_beach2.jpg"
     ],
-    "tags": ["日本", "沖繩", "親子", "海灘"],
+    "tags": [
+      "日本",
+      "沖繩",
+      "親子",
+      "海灘"
+    ],
     "attributes": {
       "行程天數": "5天",
       "包含項目": "飯店、早餐、指定活動門票"
@@ -3923,8 +4763,10 @@
     "description": "結合台鐵與指定住宿的環島慢旅行方案。",
     "price": 19800,
     "category": "旅遊",
-    "subcategories": ["國內旅遊"],
-    "brand": "慢步台灣",
+    "subcategories": [
+      "國內旅遊"
+    ],
+    "brand": "櫻花旅遊社",
     "color": "N/A",
     "size": "7天",
     "material": "電子票券",
@@ -3933,7 +4775,12 @@
       "https://example.com/taiwan_round_island_rail1.jpg",
       "https://example.com/taiwan_round_island_rail2.jpg"
     ],
-    "tags": ["台灣", "環島", "鐵道", "慢旅行"],
+    "tags": [
+      "台灣",
+      "環島",
+      "鐵道",
+      "慢旅行"
+    ],
     "attributes": {
       "行程天數": "7天",
       "適合對象": "喜歡慢遊、鐵道迷"
@@ -3953,8 +4800,11 @@
     "description": "鎖定夏日煙火祭典的短天數行程，安排觀賞位置。",
     "price": 22500,
     "category": "旅遊",
-    "subcategories": ["主題旅遊", "日本"],
-    "brand": "夏祭旅行社",
+    "subcategories": [
+      "主題旅遊",
+      "日本"
+    ],
+    "brand": "櫻花旅遊社",
     "color": "N/A",
     "size": "3天",
     "material": "N/A",
@@ -3963,7 +4813,12 @@
       "https://example.com/tokyo_fireworks_festival1.jpg",
       "https://example.com/tokyo_fireworks_festival2.jpg"
     ],
-    "tags": ["日本", "煙火祭", "夏日", "主題旅遊"],
+    "tags": [
+      "日本",
+      "煙火祭",
+      "夏日",
+      "主題旅遊"
+    ],
     "attributes": {
       "行程天數": "3天",
       "包含項目": "觀賞席位、導遊帶領"
@@ -3983,8 +4838,11 @@
     "description": "安排清晨參拜與傳統早餐的在地體驗行程。",
     "price": 5200,
     "category": "旅遊",
-    "subcategories": ["在地體驗", "日本"],
-    "brand": "深度京都",
+    "subcategories": [
+      "在地體驗",
+      "日本"
+    ],
+    "brand": "櫻花旅遊社",
     "color": "N/A",
     "size": "半日",
     "material": "N/A",
@@ -3993,7 +4851,12 @@
       "https://example.com/kyoto_morning_experience1.jpg",
       "https://example.com/kyoto_morning_experience2.jpg"
     ],
-    "tags": ["日本", "京都", "在地體驗", "清晨行程"],
+    "tags": [
+      "日本",
+      "京都",
+      "在地體驗",
+      "清晨行程"
+    ],
     "attributes": {
       "行程時間": "約4小時",
       "適合對象": "喜歡文化與清幽氛圍者"
