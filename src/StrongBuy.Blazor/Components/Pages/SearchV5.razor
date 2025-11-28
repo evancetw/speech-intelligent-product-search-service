@@ -1,0 +1,1577 @@
+@page "/searchv5"
+@using Azure.Search.Documents.Models
+@using Microsoft.EntityFrameworkCore
+@using OpenAI.Embeddings
+@using StrongBuy.Blazor.Components.Layout
+@using StrongBuy.Blazor.Models
+@using StrongBuy.Blazor.Services
+@using StrongBuy.Core.Models
+@inject StrongBuyContext Context
+@inject NavigationManager Navigation
+@inject AzureSearchService AzureSearchService
+@inject EmbeddingClient EmbeddingClient
+@inject PersonaService PersonaService
+@rendermode InteractiveServer
+
+<PageTitle>商品搜尋個人化推薦 - Azure AI Search Hybrid Search</PageTitle>
+<p>商品搜尋個人化推薦</p>
+
+<div class="persona-selector">
+    <div class="persona-search-form">
+        <div class="persona-controls">
+            <div class="control-group">
+                <label>
+                    <span>選擇 Persona：</span>
+                    <select @bind="PersonaSearchModelObject.SelectedPersonaId" @bind:after="OnPersonaSelectionChanged" class="persona-select">
+                        <option value="">無（一般搜尋）</option>
+                        @foreach (var persona in AvailablePersonas)
+                        {
+                            <option value="@persona.Id">@persona.Occupation - @persona.Description</option>
+                        }
+                    </select>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>選擇訂單（可多選）：</span>
+                    <div class="checkbox-list">
+                        @if (AvailableOrders.Any())
+                        {
+                            @foreach (var order in AvailableOrders)
+                            {
+                                <div class="checkbox-item">
+                                    <input type="checkbox" 
+                                           id="order-@order.Id"
+                                           checked="@PersonaSearchModelObject.SelectedOrderIds.Contains(order.Id)"
+                                           @onchange="(e) => ToggleOrderSelection(order.Id, e.Value is bool isChecked && isChecked)"/>
+                                    <label for="order-@order.Id" class="checkbox-label-item">
+                                        @order.ProductName (@order.Timestamp.ToString("yyyy-MM-dd"))
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="empty-message">請先選擇 Persona</div>
+                        }
+                    </div>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label>
+                    <span>選擇事件（可多選）：</span>
+                    <div class="checkbox-list">
+                        @if (AvailableEvents.Any())
+                        {
+                            @foreach (var evt in AvailableEvents)
+                            {
+                                var eventDescription = evt.ActionType switch
+                                {
+                                    UserActionType.SearchQuery => $"搜尋: {evt.SearchQuery}",
+                                    UserActionType.ClickProduct => $"點擊: {evt.ProductName}",
+                                    UserActionType.ViewProduct => $"瀏覽: {evt.ProductName}",
+                                    UserActionType.AddToCart => $"加入購物車: {evt.ProductName}",
+                                    UserActionType.Checkout => $"結帳: {evt.ProductName}",
+                                    _ => evt.ProductName ?? evt.SearchQuery ?? "未知"
+                                };
+                                <div class="checkbox-item">
+                                    <input type="checkbox" 
+                                           id="event-@evt.Id"
+                                           checked="@PersonaSearchModelObject.SelectedEventIds.Contains(evt.Id)"
+                                           @onchange="(e) => ToggleEventSelection(evt.Id, e.Value is bool isChecked && isChecked)"/>
+                                    <label for="event-@evt.Id" class="checkbox-label-item">
+                                        @eventDescription (@evt.Timestamp.ToString("yyyy-MM-dd"))
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="empty-message">請先選擇 Persona</div>
+                        }
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    @if (CurrentUserProfile?.Persona != null)
+    {
+        <div class="persona-info">
+            <strong>當前 Persona：</strong>@CurrentUserProfile.Persona.Occupation
+            <br/>
+            <small>@CurrentUserProfile.Persona.Description</small>
+        </div>
+    }
+    @if (RecommendedCategories.Any())
+    {
+        <div class="recommended-categories">
+            <strong>推薦分類：</strong>
+            @foreach (var category in RecommendedCategories)
+            {
+                <span class="category-tag" @onclick="() => RedirectWithNewCategory(category)">@category</span>
+            }
+        </div>
+    }
+</div>
+
+<div class="search-container">
+    <div class="search-sidebar">
+        <div class="filter-section">
+            <h3>所有分類</h3>
+            <div class="filter-list">
+                @foreach (var category in Categories)
+                {
+                    <div class="filter-item">
+                        <input type="button" value="@category (@CategoryCounts.GetValueOrDefault(category, 0))"
+                               @onclick="() => RedirectWithNewCategory(category)"
+                               class="filter-button @(SearchModelObj.SelectedCategory == category ? "selected" : "")"/>
+                        @if (SearchModelObj.SelectedCategory == category)
+                        {
+                            <button class="clear-filter" @onclick="() => RedirectWithNewCategory(null)">x</button>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>品牌</h3>
+            <div class="filter-list">
+                @foreach (var brand in Brands)
+                {
+                    <div class="filter-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked="@(SearchModelObj?.FilterBrands?.Contains(brand) ?? false)"
+                                   @onchange="(e) => ToggleBrandFilter(brand)"/>
+                            <span class="brand-name">@brand (@BrandCounts.GetValueOrDefault(brand, 0))</span>
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="search-results">
+        <div class="results-header">
+            <span>1-@ProductsList.Count 件，共 @(TotalCount > 0 ? TotalCount : ProductsList.Count) 件</span>
+            <select class="sort-select" value="@(SearchModelObj?.SortOption ?? "")" @onchange="@((ChangeEventArgs e) => OnSortOptionChanged(e.Value?.ToString() ?? ""))">
+                <option value="">精選</option>
+                <option value="price_asc">價格：由低到高</option>
+                <option value="price_desc">價格：由高到低</option>
+            </select>
+        </div>
+
+        <div class="products-grid">
+            @foreach (var product in ProductsList)
+            {
+                <div class="product-card">
+                    <div class="product-image">
+                        <img
+                            src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
+                            alt="@product.Name">
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title">
+                            <a href="/product/@product.Id" @onclick="() => RecordProductClick(product)">@product.Name</a>
+                        </h2>
+                        <div class="product-brand">
+                            <span class="brand">@product.Brand</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="currency">NT$</span>
+                            <span class="amount">@product.Price.ToString("N0")</span>
+                        </div>
+                        <div class="product-description">
+                            @product.Description
+                        </div>
+                        <button class="show-reviews-btn" @onclick="() => ShowReviews(product)">
+                            顯示評論 (@(product.Reviews?.Count ?? 0))
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (selectedProduct != null)
+        {
+            <div class="reviews-modal @(isReviewsVisible ? "show" : "")">
+                <div class="reviews-content">
+                    <div class="reviews-header">
+                        <h3>@selectedProduct.Name 的評論</h3>
+                        <button class="close-reviews" @onclick="HideReviews">×</button>
+                    </div>
+                    <div class="reviews-list">
+                        @if (selectedProduct.Reviews != null && selectedProduct.Reviews.Any())
+                        {
+                            @foreach (var review in selectedProduct.Reviews)
+                            {
+                                <div class="review-item">
+                                    <div class="review-rating">
+                                        @for (int i = 0; i < review.Rating; i++)
+                                        {
+                                            <span class="star">★</span>
+                                        }
+                                    </div>
+                                    <div class="review-content">@review.Comment</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-reviews">目前沒有評論</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .search-container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+    .search-sidebar {
+        width: 240px;
+        flex-shrink: 0;
+    }
+
+    .filter-section {
+        margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .filter-list {
+        font-size: 14px;
+    }
+
+    .filter-item {
+        margin: 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .clear-filter {
+        background: none;
+        border: 1px solid #d5d9d9;
+        color: #333;
+        cursor: pointer;
+        padding: 2px 6px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+    }
+
+    .clear-filter:hover {
+        color: #fff;
+        background-color: #c45500;
+        border-color: #c45500;
+    }
+
+    .filter-button {
+        width: auto;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: 4px 8px;
+        cursor: pointer;
+        color: #0066c0;
+        font-size: 14px;
+    }
+
+    .filter-button:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .filter-button.selected {
+        color: #c45500;
+        font-weight: bold;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 4px 0;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .brand-name {
+        color: #0066c0;
+    }
+
+    .checkbox-label:hover .brand-name {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .search-results {
+        flex-grow: 1;
+    }
+
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sort-select {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+        background: white;
+        border: 1px solid #ddd;
+        height: 210px;
+    }
+
+    .product-image {
+        width: 180px;
+        height: 180px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .product-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        width: 0;
+    }
+
+    .product-title {
+        font-size: 16px;
+        margin: 0 0 8px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .product-title a {
+        color: #0066c0;
+        text-decoration: none;
+    }
+
+    .product-title a:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .product-price {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .currency {
+        font-size: 12px;
+        position: relative;
+        top: -5px;
+    }
+
+    .product-brand {
+        margin-bottom: 8px;
+        color: #565959;
+        font-size: 14px;
+    }
+
+    .product-description {
+        color: #565959;
+        font-size: 14px;
+        margin: 8px 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+        max-height: 2.8em;
+        flex-shrink: 0;
+    }
+
+    .show-reviews-btn {
+        background-color: #f0f2f2;
+        border: 1px solid #d5d9d9;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: auto;
+    }
+
+    .show-reviews-btn:hover {
+        background-color: #e3e6e6;
+    }
+
+    .reviews-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .reviews-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .reviews-content {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reviews-header {
+        padding: 16px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .reviews-header h3 {
+        margin: 0;
+    }
+
+    .close-reviews {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0 8px;
+    }
+
+    .reviews-list {
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .review-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .review-item:last-child {
+        border-bottom: none;
+    }
+
+    .review-rating {
+        color: #ffa41c;
+        margin-bottom: 8px;
+    }
+
+    .review-content {
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .no-reviews {
+        text-align: center;
+        color: #565959;
+        padding: 20px;
+    }
+
+    .facet-mode-toggle {
+        padding: 10px 20px;
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .facet-mode-toggle label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .facet-mode-toggle input[type="checkbox"] {
+        cursor: pointer;
+    }
+
+    .facet-mode-toggle small {
+        display: block;
+        margin-top: 4px;
+        color: #666;
+        font-size: 12px;
+        margin-left: 24px;
+    }
+
+    .persona-selector {
+        padding: 15px 20px;
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .persona-selector label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+    }
+
+    .persona-select {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        font-size: 14px;
+        min-width: 300px;
+    }
+
+    .persona-info {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #e8f4f8;
+        border-left: 3px solid #0066c0;
+        border-radius: 3px;
+    }
+
+    .persona-info small {
+        color: #666;
+        font-size: 12px;
+    }
+
+    .recommended-categories {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #fff3cd;
+        border-left: 3px solid #ffc107;
+        border-radius: 3px;
+    }
+
+    .category-tag {
+        display: inline-block;
+        padding: 4px 8px;
+        margin: 4px 4px 0 0;
+        background-color: #fff;
+        border: 1px solid #ffc107;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #856404;
+        transition: all 0.2s ease;
+    }
+
+    .category-tag:hover {
+        background-color: #ffc107;
+        color: #fff;
+    }
+
+    .persona-search-form {
+        width: 100%;
+    }
+
+    .persona-controls {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .control-group label {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        font-size: 14px;
+    }
+
+    .control-group span {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .persona-select {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        font-size: 14px;
+        min-width: 300px;
+    }
+
+    .checkbox-list {
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+        min-width: 300px;
+        background-color: white;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        padding: 4px 0;
+        gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        margin: 0;
+        cursor: pointer;
+    }
+
+    .checkbox-label-item {
+        cursor: pointer;
+        font-size: 14px;
+        color: #333;
+        margin: 0;
+        flex: 1;
+    }
+
+    .checkbox-label-item:hover {
+        color: #0066c0;
+    }
+
+    .empty-message {
+        padding: 10px;
+        color: #999;
+        font-size: 14px;
+        text-align: center;
+    }
+
+</style>
+
+@code {
+    private List<ProductV2> ProductsList = new();
+    private Dictionary<string, long> CategoryCounts = new();
+    private Dictionary<string, long> BrandCounts = new();
+    private int TotalCount = 0;
+
+    private NavMenu.SearchModel SearchModelObj { get; set; } = new NavMenu.SearchModel();
+
+    private ProductV2? selectedProduct;
+    private bool isReviewsVisible;
+
+    // Facet 模式開關：false = 一次查詢（使用過濾後的 facet count，預設），true = 兩次查詢（完整 facet count）
+    private bool UseFullFacetCount { get; set; } = false;
+
+    // 計算屬性：從字典中獲取排序後的列表
+    private List<string> Categories => CategoryCounts.Keys.OrderBy(k => k).ToList();
+    private List<string> Brands => BrandCounts.Keys.OrderBy(k => k).ToList();
+
+    // 個人化推薦相關
+    private string UserId { get; set; } = string.Empty; // 使用 Session ID 或實際 User ID
+    private string SelectedPersonaId { get; set; } = string.Empty;
+    private List<Persona> AvailablePersonas { get; set; } = new();
+    private UserProfile? CurrentUserProfile { get; set; }
+    private List<string> RecommendedCategories { get; set; } = new();
+    
+    // Persona 搜尋表單模型
+    private PersonaSearchModel PersonaSearchModelObject { get; set; } = new();
+    private List<UserAction> AvailableOrders { get; set; } = new();
+    private List<UserAction> AvailableEvents { get; set; } = new();
+    
+
+    private bool _isInitialized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // 初始化用戶 ID（使用 Session ID 或從 Cookie 取得）
+        UserId = Guid.NewGuid().ToString(); // 簡化版本，實際應該從 Session 或 Cookie 取得
+
+        // 載入可用的 Personas
+        AvailablePersonas = PersonaService.GetAllPersonas();
+
+        // 從 Query String 取得參數
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        
+        var personaId = queryString["persona"];
+        var orderIds = queryString["orderIds"];
+        var eventIds = queryString["eventIds"];
+        
+        if (!string.IsNullOrEmpty(personaId))
+        {
+            PersonaSearchModelObject.SelectedPersonaId = personaId;
+            SelectedPersonaId = personaId;
+            LoadPersonaData(personaId);
+        }
+        
+        if (!string.IsNullOrEmpty(orderIds))
+        {
+            PersonaSearchModelObject.SelectedOrderIds = orderIds.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+        
+        if (!string.IsNullOrEmpty(eventIds))
+        {
+            PersonaSearchModelObject.SelectedEventIds = eventIds.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+        
+        // 如果選擇了 Persona，載入對應的訂單和事件
+        if (!string.IsNullOrEmpty(personaId))
+        {
+            LoadPersonaData(personaId);
+        }
+
+        // 第一次初始化時執行搜尋
+        await LoadParametersAndSearchAsync();
+        _isInitialized = true;
+    }
+    
+    /// <summary>
+    /// 載入 Persona 的訂單和事件資料
+    /// </summary>
+    private void LoadPersonaData(string personaId)
+    {
+        if (string.IsNullOrEmpty(personaId))
+        {
+            AvailableOrders = new List<UserAction>();
+            AvailableEvents = new List<UserAction>();
+            return;
+        }
+        
+        AvailableOrders = PersonaService.GetPersonaOrders(personaId);
+        AvailableEvents = PersonaService.GetPersonaEvents(personaId);
+    }
+    
+    /// <summary>
+    /// Persona 選擇變更處理
+    /// </summary>
+    private void OnPersonaSelectionChanged()
+    {
+        var personaId = PersonaSearchModelObject.SelectedPersonaId;
+        SelectedPersonaId = personaId ?? string.Empty;
+        
+        // 載入對應的訂單和事件
+        LoadPersonaData(personaId ?? string.Empty);
+        
+        // 清空已選擇的訂單和事件
+        PersonaSearchModelObject.SelectedOrderIds = new List<string>();
+        PersonaSearchModelObject.SelectedEventIds = new List<string>();
+        
+        // 更新 URL 參數（不觸發頁面重新載入，只更新 URL）
+        UpdateUrlWithPersonaParams();
+        
+        StateHasChanged();
+    }
+    
+    /// <summary>
+    /// 更新 URL 參數（包含 Persona、訂單、事件）
+    /// </summary>
+    private void UpdateUrlWithPersonaParams()
+    {
+        var queryParams = new List<string>();
+        
+        // 加入搜尋文字
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.SearchText))
+        {
+            queryParams.Add($"q={Uri.EscapeDataString(SearchModelObj.SearchText)}");
+        }
+        
+        // 加入分類
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.SelectedCategory))
+        {
+            queryParams.Add($"category={Uri.EscapeDataString(SearchModelObj.SelectedCategory)}");
+        }
+        
+        // 加入品牌
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.FilterBrands))
+        {
+            queryParams.Add($"brands={Uri.EscapeDataString(SearchModelObj.FilterBrands)}");
+        }
+        
+        // 加入排序
+        if (!string.IsNullOrWhiteSpace(SearchModelObj.SortOption))
+        {
+            queryParams.Add($"sort={Uri.EscapeDataString(SearchModelObj.SortOption)}");
+        }
+        
+        // 加入 Persona
+        if (!string.IsNullOrWhiteSpace(PersonaSearchModelObject.SelectedPersonaId))
+        {
+            queryParams.Add($"persona={Uri.EscapeDataString(PersonaSearchModelObject.SelectedPersonaId)}");
+        }
+        
+        // 加入訂單 IDs
+        if (PersonaSearchModelObject.SelectedOrderIds != null && PersonaSearchModelObject.SelectedOrderIds.Any())
+        {
+            queryParams.Add($"orderIds={Uri.EscapeDataString(string.Join(",", PersonaSearchModelObject.SelectedOrderIds))}");
+        }
+        
+        // 加入事件 IDs
+        if (PersonaSearchModelObject.SelectedEventIds != null && PersonaSearchModelObject.SelectedEventIds.Any())
+        {
+            queryParams.Add($"eventIds={Uri.EscapeDataString(string.Join(",", PersonaSearchModelObject.SelectedEventIds))}");
+        }
+        
+        var queryString = queryParams.Any() ? "?" + string.Join("&", queryParams) : "";
+        Navigation.NavigateTo($"/searchv5{queryString}", replace: true);
+    }
+    
+    /// <summary>
+    /// 切換訂單選擇
+    /// </summary>
+    private void ToggleOrderSelection(string orderId, bool isChecked)
+    {
+        if (isChecked)
+        {
+            if (!PersonaSearchModelObject.SelectedOrderIds.Contains(orderId))
+            {
+                PersonaSearchModelObject.SelectedOrderIds.Add(orderId);
+            }
+        }
+        else
+        {
+            PersonaSearchModelObject.SelectedOrderIds.Remove(orderId);
+        }
+        
+        // 立即更新 URL 參數
+        UpdateUrlWithPersonaParams();
+    }
+    
+    /// <summary>
+    /// 切換事件選擇
+    /// </summary>
+    private void ToggleEventSelection(string eventId, bool isChecked)
+    {
+        if (isChecked)
+        {
+            if (!PersonaSearchModelObject.SelectedEventIds.Contains(eventId))
+            {
+                PersonaSearchModelObject.SelectedEventIds.Add(eventId);
+            }
+        }
+        else
+        {
+            PersonaSearchModelObject.SelectedEventIds.Remove(eventId);
+        }
+        
+        // 立即更新 URL 參數
+        UpdateUrlWithPersonaParams();
+    }
+    
+    
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // 只有在初始化完成後才檢查參數變化
+        if (_isInitialized)
+        {
+            await LoadParametersAndSearchAsync();
+        }
+    }
+
+    /// <summary>
+    /// 載入參數並執行搜尋（避免重複查詢）
+    /// </summary>
+    private async Task LoadParametersAndSearchAsync()
+    {
+        // Get parameters from query string
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        var newSearchText = queryString["q"];
+        var newCategory = queryString["category"];
+        var newBrands = queryString["brands"];
+        var newSort = queryString["sort"];
+        var newPersonaId = queryString["persona"];
+        var newOrderIds = queryString["orderIds"];
+        var newEventIds = queryString["eventIds"];
+
+        // 檢查參數是否改變，避免重複查詢
+        var parametersChanged = 
+            SearchModelObj.SearchText != newSearchText ||
+            SearchModelObj.SelectedCategory != newCategory ||
+            SearchModelObj.FilterBrands != newBrands ||
+            SearchModelObj.SortOption != newSort ||
+            PersonaSearchModelObject.SelectedPersonaId != newPersonaId ||
+            (newOrderIds != null && string.Join(",", PersonaSearchModelObject.SelectedOrderIds) != newOrderIds) ||
+            (newEventIds != null && string.Join(",", PersonaSearchModelObject.SelectedEventIds) != newEventIds);
+
+        if (parametersChanged || !_isInitialized)
+        {
+            SearchModelObj.SearchText = newSearchText;
+            SearchModelObj.SelectedCategory = newCategory;
+            SearchModelObj.FilterBrands = newBrands;
+            SearchModelObj.SortOption = newSort;
+            
+            // 更新 Persona 相關參數
+            if (newPersonaId != PersonaSearchModelObject.SelectedPersonaId)
+            {
+                PersonaSearchModelObject.SelectedPersonaId = newPersonaId;
+                if (!string.IsNullOrEmpty(newPersonaId))
+                {
+                    SelectedPersonaId = newPersonaId;
+                    LoadPersonaData(newPersonaId);
+                }
+            }
+            
+            // 更新訂單選擇：只有在 URL 中有明確的 orderIds 參數時才更新
+            // 如果 URL 中沒有 orderIds 參數，保持現有的選擇（不清空）
+            if (!string.IsNullOrEmpty(newOrderIds))
+            {
+                PersonaSearchModelObject.SelectedOrderIds = newOrderIds.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            // 注意：如果 newOrderIds 為 null 或空字串，不應該清空選擇，應該保持現有選擇
+            
+            // 更新事件選擇：只有在 URL 中有明確的 eventIds 參數時才更新
+            // 如果 URL 中沒有 eventIds 參數，保持現有的選擇（不清空）
+            if (!string.IsNullOrEmpty(newEventIds))
+            {
+                PersonaSearchModelObject.SelectedEventIds = newEventIds.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            // 注意：如果 newEventIds 為 null 或空字串，不應該清空選擇，應該保持現有選擇
+
+            // 執行搜尋（會同時獲取 facets）
+            await PerformSearchAsync();
+        }
+    }
+
+    private async Task PerformSearchAsync()
+    {
+        ReadOnlyMemory<float>? searchVector = null;
+        List<string>? filterBrands = null;
+
+        // 從 PersonaSearchModelObject 取得 Persona、訂單、事件參數（而不是從 URL 重新讀取）
+        // 因為這些值已經在 LoadParametersAndSearchAsync 中更新過了
+        var personaId = PersonaSearchModelObject.SelectedPersonaId;
+        var selectedOrderIds = PersonaSearchModelObject.SelectedOrderIds != null && PersonaSearchModelObject.SelectedOrderIds.Any()
+            ? PersonaSearchModelObject.SelectedOrderIds.ToList() 
+            : null;
+        var selectedEventIds = PersonaSearchModelObject.SelectedEventIds != null && PersonaSearchModelObject.SelectedEventIds.Any()
+            ? PersonaSearchModelObject.SelectedEventIds.ToList() 
+            : null;
+
+        // 兩階段搜尋策略：
+        // 1. 商品向量（搜尋文字）用於過濾候選結果
+        // 2. 使用者向量（Persona）用於 ranking（排序）
+        // 注意：Semantic Ranker 已在 AzureSearchService 中啟用，用於改善繁體中文搜尋效果
+        
+        // 生成商品向量（用於過濾）
+        ReadOnlyMemory<float>? productVector = null;
+        if (!string.IsNullOrEmpty(SearchModelObj.SearchText))
+        {
+            var searchTextKnnResult = await EmbeddingClient.GenerateEmbeddingAsync(SearchModelObj.SearchText);
+            productVector = searchTextKnnResult.Value.ToFloats();
+        }
+        
+        // 生成使用者向量（用於 ranking）
+        float[]? userVector = null;
+        if (!string.IsNullOrEmpty(personaId))
+        {
+            // 構建使用者偏好文字（包含 Persona、訂單、事件資訊）
+            var userPreferenceText = new List<string>();
+            
+            var persona = PersonaService.GetPersona(personaId);
+            if (persona != null)
+            {
+                userPreferenceText.Add(persona.Description);
+                @* userPreferenceText.AddRange(persona.PreferredKeywords); *@
+            }
+            
+            // 如果選擇了訂單，加入訂單資訊
+            if (selectedOrderIds != null && selectedOrderIds.Any())
+            {
+                var orders = PersonaService.GetPersonaOrders(personaId);
+                var selectedOrders = orders.Where(o => selectedOrderIds.Contains(o.Id)).ToList();
+                foreach (var order in selectedOrders)
+                {
+                    if (!string.IsNullOrEmpty(order.ProductName))
+                    {
+                        userPreferenceText.Add(order.ProductName);
+                    }
+                    if (!string.IsNullOrEmpty(order.ProductCategory))
+                    {
+                        userPreferenceText.Add(order.ProductCategory);
+                    }
+                }
+            }
+            
+            // 如果選擇了事件，加入事件資訊
+            if (selectedEventIds != null && selectedEventIds.Any())
+            {
+                var events = PersonaService.GetPersonaEvents(personaId);
+                var selectedEvents = events.Where(e => selectedEventIds.Contains(e.Id)).ToList();
+                foreach (var evt in selectedEvents)
+                {
+                    if (!string.IsNullOrEmpty(evt.ProductName))
+                    {
+                        userPreferenceText.Add(evt.ProductName);
+                    }
+                    if (!string.IsNullOrEmpty(evt.ProductCategory))
+                    {
+                        userPreferenceText.Add(evt.ProductCategory);
+                    }
+                    if (!string.IsNullOrEmpty(evt.SearchQuery))
+                    {
+                        userPreferenceText.Add(evt.SearchQuery);
+                    }
+                }
+            }
+            
+            // 生成使用者向量
+            if (userPreferenceText.Any())
+            {
+                var userPreferenceCombined = string.Join(" ", userPreferenceText);
+                var userVectorResult = await EmbeddingClient.GenerateEmbeddingAsync(userPreferenceCombined);
+                userVector = userVectorResult.Value.ToFloats().ToArray();
+            }
+        }
+        
+        // 決定使用哪個向量作為主要搜尋向量
+        // 如果有商品向量，使用商品向量（用於過濾）
+        // 如果沒有商品向量但有使用者向量，使用使用者向量
+        if (productVector != null)
+        {
+            searchVector = productVector;
+        }
+        else if (userVector != null)
+        {
+            searchVector = userVector;
+        }
+
+        // 解析品牌過濾條件
+        if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
+        {
+            filterBrands = SearchModelObj.FilterBrands.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(b => b.Trim())
+                .ToList();
+        }
+
+        // 執行兩階段搜尋：
+        // 1. 商品向量用於過濾候選結果
+        // 2. 使用者向量用於 ranking（如果有使用者向量）
+        SearchResults<ProductV2SearchDocument> searchResults;
+
+        if (productVector != null && userVector != null)
+        {
+            // 兩階段搜尋：商品向量過濾 + 使用者向量 ranking
+            if (UseFullFacetCount)
+            {
+                // 模式 1：兩次查詢
+                // 第一次：使用商品向量過濾 + 使用者向量 ranking，獲取實際結果（不包含 facets）
+                searchResults = await AzureSearchService.TwoStageHybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    productVector.Value.ToArray(), // 商品向量（用於過濾）
+                    userVector, // 使用者向量（用於 ranking）
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: false
+                );
+
+                // 第二次：不帶 filter，只獲取 facets，只受關鍵字影響
+                var facetsResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    productVector.Value.ToArray(), // 使用商品向量獲取 facets
+                    null,
+                    null,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(facetsResults);
+            }
+            else
+            {
+                // 模式 2：一次查詢（預設）
+                // 使用商品向量過濾 + 使用者向量 ranking
+                searchResults = await AzureSearchService.TwoStageHybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    productVector.Value.ToArray(), // 商品向量（用於過濾）
+                    userVector, // 使用者向量（用於 ranking）
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(searchResults);
+            }
+        }
+        else if (productVector != null)
+        {
+            // 只有商品向量：執行單階段搜尋（使用商品向量）
+            if (UseFullFacetCount)
+            {
+                // 模式 1：兩次查詢
+                searchResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    productVector.Value.ToArray(),
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: false
+                );
+
+                var facetsResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    productVector.Value.ToArray(),
+                    null,
+                    null,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(facetsResults);
+            }
+            else
+            {
+                // 模式 2：一次查詢（預設）
+                searchResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    productVector.Value.ToArray(),
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(searchResults);
+            }
+        }
+        else if (userVector != null)
+        {
+            // 只有使用者向量：執行一般文字搜尋 + 使用者向量 ranking
+            if (UseFullFacetCount)
+            {
+                // 模式 1：兩次查詢
+                // 第一次：一般文字搜尋（不使用向量），獲取候選結果
+                searchResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    null, // 不使用向量，只使用文字搜尋
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: false
+                );
+
+                // 第二次：不帶 filter，只獲取 facets
+                var facetsResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    null, // 不使用向量
+                    null,
+                    null,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(facetsResults);
+            }
+            else
+            {
+                // 模式 2：一次查詢（預設）
+                // 一般文字搜尋（不使用向量）
+                searchResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    null, // 不使用向量，只使用文字搜尋
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(searchResults);
+            }
+            
+            // 使用使用者向量對結果進行 ranking（在應用層）
+            // 這將在後續的結果處理中完成
+        }
+        else
+        {
+            // 都沒有：執行一般文字搜尋
+            if (UseFullFacetCount)
+            {
+                // 模式 1：兩次查詢
+                searchResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    null,
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: false
+                );
+
+                var facetsResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    null,
+                    null,
+                    null,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(facetsResults);
+            }
+            else
+            {
+                // 模式 2：一次查詢（預設）
+                searchResults = await AzureSearchService.HybridSearchAsync(
+                    SearchModelObj.SearchText,
+                    null,
+                    SearchModelObj.SelectedCategory,
+                    filterBrands,
+                    top: 1000,
+                    includeFacets: true
+                );
+
+                ExtractFacetsFromResults(searchResults);
+            }
+        }
+
+        // 轉換結果：從 ProductV2SearchDocument 轉換為 ProductV2
+        // 如果有使用者向量，需要根據使用者向量重新排序（ranking）
+        var results = searchResults.GetResults().ToList();
+        
+        // 判斷是否使用了 TwoStageHybridSearchAsync（當 productVector 和 userVector 都存在時）
+        bool usedTwoStageSearch = productVector != null && userVector != null;
+        
+        if (userVector != null && !usedTwoStageSearch)
+        {
+            // 只有在沒有使用 TwoStageHybridSearchAsync 時才進行 reranking
+            // TwoStageHybridSearchAsync 已經在內部完成了 reranking，不需要再次處理
+            // 使用使用者向量對結果進行 ranking（重新排序）
+            var resultsWithUserScores = results.Select(result =>
+            {
+                var document = result.Document;
+                var originalScore = result.Score ?? 0.0; // 原始分數（文字搜尋或商品向量分數）
+                
+                // 計算使用者向量與商品向量的相似度
+                double userSimilarity = 0.0;
+                if (document.CombinedEmbedding != null && userVector != null)
+                {
+                    userSimilarity = CalculateCosineSimilarity(userVector, document.CombinedEmbedding);
+                }
+                
+                return new
+                {
+                    Result = result,
+                    Document = document,
+                    OriginalScore = originalScore,
+                    UserScore = userSimilarity
+                };
+            }).ToList();
+            
+            // 根據使用者向量相似度重新排序（用於 ranking）
+            results = resultsWithUserScores
+                .OrderByDescending(r => r.UserScore) // 主要排序：使用者向量相似度
+                .ThenByDescending(r => r.OriginalScore) // 次要排序：原始分數（文字搜尋或商品向量分數）
+                .Select(r => r.Result)
+                .ToList();
+        }
+        else if (usedTwoStageSearch)
+        {
+            // 使用 TwoStageHybridSearchAsync 時，結果已經在服務層完成了 reranking
+            // 但由於 SearchResults 是不可變的，我們需要在應用層再次進行 reranking
+            // 對所有候選結果進行 reranking（不限制數量），userVector 只用於 reranking/boosting
+            // 第一階段返回多少商品，最終也要返回多少商品
+            var resultsWithUserScores = results.Select(result =>
+            {
+                var document = result.Document;
+                var originalScore = result.Score ?? 0.0; // 原始分數（商品向量分數）
+                
+                // 計算使用者向量與商品向量的相似度
+                double userSimilarity = 0.0;
+                if (document.CombinedEmbedding != null && userVector != null)
+                {
+                    userSimilarity = CalculateCosineSimilarity(userVector, document.CombinedEmbedding);
+                }
+                
+                return new
+                {
+                    Result = result,
+                    Document = document,
+                    OriginalScore = originalScore,
+                    UserScore = userSimilarity
+                };
+            }).ToList();
+            
+            // 根據使用者向量相似度重新排序（用於 ranking）
+            // 不限制結果數量，返回所有候選結果（已按 userVector 排序）
+            results = resultsWithUserScores
+                .OrderByDescending(r => r.UserScore) // 主要排序：使用者向量相似度
+                .ThenByDescending(r => r.OriginalScore) // 次要排序：商品向量相似度
+                .Select(r => r.Result)
+                .ToList();
+        }
+        
+        ProductsList = results.Select(r =>
+        {
+            var document = r.Document;
+            var product = document.ToProductV2();
+            // 確保 Reviews 不為 null，優先使用原始文檔中的 Reviews（Azure Search 可能沒有正確反序列化）
+            if (document.Reviews != null && document.Reviews.Any())
+            {
+                product.Reviews = document.Reviews;
+            }
+            else if (product.Reviews == null)
+            {
+                product.Reviews = new List<ProductReview>();
+            }
+
+            return product;
+        }).ToList();
+        TotalCount = searchResults.TotalCount.HasValue ? (int)searchResults.TotalCount.Value : 0;
+
+        // 應用排序（價格排序會在使用者向量 ranking 之後應用）
+        if (!string.IsNullOrEmpty(SearchModelObj.SortOption))
+        {
+            ProductsList = SearchModelObj.SortOption switch
+            {
+                "price_asc" => ProductsList.OrderBy(p => p.Price).ToList(),
+                "price_desc" => ProductsList.OrderByDescending(p => p.Price).ToList(),
+                _ => ProductsList
+            };
+        }
+    }
+
+    /// <summary>
+    /// 從搜尋結果中提取 facets（category 和 brand 的數量）
+    /// </summary>
+    private void ExtractFacetsFromResults(SearchResults<ProductV2SearchDocument> searchResults)
+    {
+        CategoryCounts.Clear();
+        BrandCounts.Clear();
+
+        // 提取 category facets
+        if (searchResults.Facets != null && searchResults.Facets.ContainsKey("category"))
+        {
+            foreach (var facet in searchResults.Facets["category"])
+            {
+                var categoryName = facet.Value.ToString() ?? string.Empty;
+                if (!string.IsNullOrEmpty(categoryName))
+                {
+                    CategoryCounts[categoryName] = facet.Count ?? 0;
+                }
+            }
+        }
+
+        // 提取 brand facets
+        if (searchResults.Facets != null && searchResults.Facets.ContainsKey("brand"))
+        {
+            foreach (var facet in searchResults.Facets["brand"])
+            {
+                var brandName = facet.Value.ToString() ?? string.Empty;
+                if (!string.IsNullOrEmpty(brandName))
+                {
+                    BrandCounts[brandName] = facet.Count ?? 0;
+                }
+            }
+        }
+    }
+
+    private void RedirectWithNewCategory(string? value)
+    {
+        RedirectWithNewQuery("category", value);
+    }
+
+    private void RedirectWithNewQuery(string key, string? value)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        if (string.IsNullOrEmpty(value))
+        {
+            queryString.Remove(key);
+        }
+        else
+        {
+            queryString[key] = value;
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void ToggleBrandFilter(string brand)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        var currentBrands = queryString["brands"]?.Split(',')
+            .Where(b => !string.IsNullOrEmpty(b))
+            .ToList() ?? new List<string>();
+
+        if (currentBrands.Contains(brand))
+        {
+            currentBrands.Remove(brand);
+        }
+        else
+        {
+            currentBrands.Add(brand);
+        }
+
+        if (currentBrands.Any())
+        {
+            queryString["brands"] = string.Join(",", currentBrands);
+        }
+        else
+        {
+            queryString.Remove("brands");
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void OnSortOptionChanged(string? value)
+    {
+        SearchModelObj.SortOption = value;
+        RedirectWithNewQuery("sort", value);
+    }
+
+    private void ShowReviews(ProductV2 product)
+    {
+        // 從 ProductsList 中重新獲取完整的產品資料（確保評論資料完整）
+        selectedProduct = ProductsList.FirstOrDefault(p => p.Id == product.Id) ?? product;
+
+        // 確保 Reviews 不為 null
+        if (selectedProduct.Reviews == null)
+        {
+            selectedProduct.Reviews = new List<ProductReview>();
+        }
+
+        // 調試：輸出評論數量
+        Console.WriteLine($"Showing reviews for product {selectedProduct.Id}: {selectedProduct.Reviews.Count} reviews");
+
+        isReviewsVisible = true;
+        StateHasChanged(); // 確保 UI 更新
+    }
+
+    private void HideReviews()
+    {
+        isReviewsVisible = false;
+        selectedProduct = null;
+    }
+
+
+    /// <summary>
+    /// 記錄商品點擊
+    /// </summary>
+    private void RecordProductClick(ProductV2 product)
+    {
+        PersonaService.RecordUserAction(new UserAction
+        {
+            UserId = UserId,
+            PersonaId = SelectedPersonaId,
+            ActionType = UserActionType.ClickProduct,
+            ProductId = product.Id,
+            ProductName = product.Name,
+            ProductCategory = product.Category,
+            ProductBrand = product.Brand,
+            Timestamp = DateTime.UtcNow
+        });
+
+        // 更新推薦分類
+        CurrentUserProfile = PersonaService.GetUserProfile(UserId);
+        if (CurrentUserProfile != null)
+        {
+            RecommendedCategories = PersonaService.GetRecommendedCategories(UserId);
+        }
+    }
+
+    /// <summary>
+    /// 計算兩個向量的餘弦相似度
+    /// </summary>
+    private double CalculateCosineSimilarity(float[] vector1, float[] vector2)
+    {
+        if (vector1 == null || vector2 == null || vector1.Length != vector2.Length)
+        {
+            return 0.0;
+        }
+
+        double dotProduct = 0.0;
+        double magnitude1 = 0.0;
+        double magnitude2 = 0.0;
+
+        for (int i = 0; i < vector1.Length; i++)
+        {
+            dotProduct += vector1[i] * vector2[i];
+            magnitude1 += vector1[i] * vector1[i];
+            magnitude2 += vector2[i] * vector2[i];
+        }
+
+        magnitude1 = Math.Sqrt(magnitude1);
+        magnitude2 = Math.Sqrt(magnitude2);
+
+        if (magnitude1 == 0.0 || magnitude2 == 0.0)
+        {
+            return 0.0;
+        }
+
+        return dotProduct / (magnitude1 * magnitude2);
+    }
+
+    /// <summary>
+    /// Persona 搜尋表單模型
+    /// </summary>
+    public class PersonaSearchModel
+    {
+        public string? SelectedPersonaId { get; set; }
+        public List<string> SelectedOrderIds { get; set; } = new();
+        public List<string> SelectedEventIds { get; set; } = new();
+    }
+
+}
+

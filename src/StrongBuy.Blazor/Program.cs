@@ -42,6 +42,9 @@ public class Program
         // Add OpenAI
         builder.Services.AddOpenAi(builder.Configuration);
 
+        // Add Persona Service
+        builder.Services.AddScoped<PersonaService>();
+
         var app = builder.Build();
 
         // Initialize Database
@@ -525,7 +528,7 @@ public class Program
 
                 // 1. 檢查索引是否存在
                 var indexExists = await azureSearchService.IndexExistsAsync(indexName);
-                
+
                 if (!indexExists)
                 {
                     // 索引不存在，創建索引
@@ -600,7 +603,7 @@ public class Program
 
                         // 批量匯入資料到 Azure AI Search
                         await azureSearchService.UploadProductV2DocumentsAsync(batch);
-                        loggerAzure.LogInformation("Imported batch {BatchNumber} ({Start}-{End} of {Total})", 
+                        loggerAzure.LogInformation("Imported batch {BatchNumber} ({Start}-{End} of {Total})",
                             i / batchSize + 1, i + 1, Math.Min(i + batchSize, products.Count), products.Count);
                     }
 

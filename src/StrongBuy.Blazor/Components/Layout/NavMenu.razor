@@ -26,6 +26,7 @@
                 <option value="v2">精準搜尋</option>
                 <option value="v3">向量搜尋 (Elasticsearch)</option>
                 <option value="v4">Hybrid Search (Azure AI Search)</option>
+                <option value="v5">個人化推薦 (Azure AI Search)</option>
             </InputSelect>
 
             <button type="submit" class="search-button">
@@ -119,6 +120,28 @@
         if (!string.IsNullOrWhiteSpace(SearchModelObj.FilterBrands))
         {
             queryParams.Add($"brands={Uri.EscapeDataString(SearchModelObj.FilterBrands)}");
+        }
+
+        // 如果是 SearchV5，保留 Persona 相關參數（從當前 URL 讀取）
+        if (SearchModelObj.SearchVersion == "v5")
+        {
+            var currentUri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+            var currentQuery = QueryHelpers.ParseQuery(currentUri.Query);
+            
+            if (currentQuery.TryGetValue("persona", out var persona) && !string.IsNullOrWhiteSpace(persona))
+            {
+                queryParams.Add($"persona={Uri.EscapeDataString(persona)}");
+            }
+            
+            if (currentQuery.TryGetValue("orderIds", out var orderIds) && !string.IsNullOrWhiteSpace(orderIds))
+            {
+                queryParams.Add($"orderIds={Uri.EscapeDataString(orderIds)}");
+            }
+            
+            if (currentQuery.TryGetValue("eventIds", out var eventIds) && !string.IsNullOrWhiteSpace(eventIds))
+            {
+                queryParams.Add($"eventIds={Uri.EscapeDataString(eventIds)}");
+            }
         }
 
         // 組合 query string

@@ -121,6 +121,162 @@ public class AzureSearchService
     }
 
     /// <summary>
+    /// 執行兩階段搜尋：商品向量用於過濾，使用者向量用於 ranking
+    /// </summary>
+    public async Task<SearchResults<ProductV2SearchDocument>> TwoStageHybridSearchAsync(
+        string? searchText,
+        float[] productVector, // 商品向量（用於過濾候選結果）
+        float[] userVector,    // 使用者向量（用於 ranking）
+        string? category = null,
+        List<string>? brands = null,
+        int top = 10,
+        bool includeFacets = false)
+    {
+        // 第一階段：使用商品向量進行搜尋，獲取候選結果（用於過濾）
+        // 候選結果數量應該等於 top，因為 userVector 只用於 reranking/boosting，不應該減少結果數量
+        // 第一階段返回多少商品，最終也要返回多少商品
+        const int candidateKnnCount = 10; // 使用較小的 KNN 值，只獲取最相關的候選結果
+        int candidateSize = top; // 候選結果數量等於 top，確保第一階段和最終結果數量一致
+        
+        var candidateSearchOptions = new SearchOptions
+        {
+            VectorSearch = new VectorSearchOptions
+            {
+                Queries =
+                {
+                    new VectorizedQuery(productVector)
+                    {
+                        KNearestNeighborsCount = candidateKnnCount,
+                        Fields = { "combinedEmbedding" }
+                    }
+                }
+            },
+            Size = candidateSize, // 限制候選結果數量，只獲取最相關的結果
+            Select = { "*" },
+            IncludeTotalCount = true
+        };
+
+        // 啟用 Semantic Ranker（語意排序）作二次重排
+        // 對多語系有效，能將錯誤極性的結果往下壓
+        if (!string.IsNullOrEmpty(searchText) && searchText != "*")
+        {
+            candidateSearchOptions.QueryType = SearchQueryType.Semantic;
+            candidateSearchOptions.SemanticSearch = new SemanticSearchOptions
+            {
+                SemanticConfigurationName = "default",
+                QueryCaption = new QueryCaption(QueryCaptionType.Extractive),
+                QueryAnswer = new QueryAnswer(QueryAnswerType.Extractive)
+            };
+        }
+
+        // 添加過濾條件
+        var filters = new List<string>();
+        if (!string.IsNullOrEmpty(category))
+        {
+            var escapedCategory = category.Replace("'", "''");
+            filters.Add($"category eq '{escapedCategory}'");
+        }
+
+        if (brands != null && brands.Any())
+        {
+            var brandFilters = brands.Select(b =>
+            {
+                var escapedBrand = b.Replace("'", "''");
+                return $"brand eq '{escapedBrand}'";
+            });
+            filters.Add($"({string.Join(" or ", brandFilters)})");
+        }
+
+        if (filters.Any())
+        {
+            candidateSearchOptions.Filter = string.Join(" and ", filters);
+        }
+
+        var searchTextQuery = string.IsNullOrEmpty(searchText) ? "*" : searchText;
+        var candidateResponse = await _searchClient.SearchAsync<ProductV2SearchDocument>(searchTextQuery, candidateSearchOptions);
+        var candidateResults = candidateResponse.Value;
+
+        // 如果沒有候選結果，直接返回
+        if (!candidateResults.GetResults().Any())
+        {
+            return candidateResults;
+        }
+
+        // 第二階段：使用使用者向量對候選結果進行重新排序（在應用層）
+        // 計算每個候選結果與使用者向量的相似度
+        var resultsWithUserScores = candidateResults.GetResults().Select(result =>
+        {
+            var document = result.Document;
+            
+            // 計算使用者向量與商品向量的相似度（餘弦相似度）
+            double userSimilarity = 0.0;
+            if (document.CombinedEmbedding != null && userVector != null)
+            {
+                userSimilarity = CalculateCosineSimilarity(userVector, document.CombinedEmbedding);
+            }
+            
+            // 保留原始的商品向量相似度分數（用於過濾）
+            var productScore = result.Score ?? 0.0;
+            
+            return new
+            {
+                Result = result,
+                Document = document,
+                ProductScore = productScore, // 商品向量相似度（用於過濾）
+                UserScore = userSimilarity   // 使用者向量相似度（用於 ranking）
+            };
+        }).ToList();
+
+        // 根據使用者向量相似度重新排序（用於 ranking）
+        // 注意：不限制結果數量，返回所有候選結果（已按 userVector 排序）
+        // userVector 只用於 reranking/boosting，不應該減少結果數量
+        var rankedResults = resultsWithUserScores
+            .OrderByDescending(r => r.UserScore) // 主要排序：使用者向量相似度
+            .ThenByDescending(r => r.ProductScore) // 次要排序：商品向量相似度
+            .Select(r => r.Result)
+            .ToList();
+
+        // 注意：由於 Azure AI Search 的 SearchResults 是不可變的，我們無法直接修改結果順序
+        // 排序後的結果需要在 SearchV5.razor 中處理
+        // 這裡返回候選結果，實際的排序會在 SearchV5.razor 中完成
+        
+        // 返回候選結果，排序將在應用層完成
+        return candidateResults;
+    }
+
+    /// <summary>
+    /// 計算兩個向量的餘弦相似度
+    /// </summary>
+    private double CalculateCosineSimilarity(float[] vector1, float[] vector2)
+    {
+        if (vector1 == null || vector2 == null || vector1.Length != vector2.Length)
+        {
+            return 0.0;
+        }
+
+        double dotProduct = 0.0;
+        double magnitude1 = 0.0;
+        double magnitude2 = 0.0;
+
+        for (int i = 0; i < vector1.Length; i++)
+        {
+            dotProduct += vector1[i] * vector2[i];
+            magnitude1 += vector1[i] * vector1[i];
+            magnitude2 += vector2[i] * vector2[i];
+        }
+
+        magnitude1 = Math.Sqrt(magnitude1);
+        magnitude2 = Math.Sqrt(magnitude2);
+
+        if (magnitude1 == 0.0 || magnitude2 == 0.0)
+        {
+            return 0.0;
+        }
+
+        return dotProduct / (magnitude1 * magnitude2);
+    }
+
+    /// <summary>
     /// 執行混合搜尋（向量 + 關鍵字）
     /// 統一使用此方法進行所有搜尋，包括有 filter 的情況
     /// </summary>
@@ -149,7 +305,21 @@ public class AzureSearchService
             searchOptions.Facets.Add("brand");
         }
 
+        // 啟用 Semantic Ranker（語意排序）作二次重排
+        // 對多語系有效，能將錯誤極性的結果往下壓
+        if (!string.IsNullOrEmpty(searchText) && searchText != "*")
+        {
+            searchOptions.QueryType = SearchQueryType.Semantic;
+            searchOptions.SemanticSearch = new SemanticSearchOptions
+            {
+                SemanticConfigurationName = "default",
+                QueryCaption = new QueryCaption(QueryCaptionType.Extractive),
+                QueryAnswer = new QueryAnswer(QueryAnswerType.Extractive)
+            };
+        }
+
         // 向量搜尋（如果有向量，則添加向量搜尋）
+        // Hybrid 搜尋：同時使用關鍵字搜尋和向量搜尋，一次請求融合
         if (queryVector != null)
         {
             searchOptions.VectorSearch = new VectorSearchOptions
@@ -375,14 +545,24 @@ public class AzureSearchService
         var fields = new List<SearchField>
         {
             new SimpleField("id", SearchFieldDataType.String) { IsKey = true },
-            new SearchableField("name") { IsFilterable = false, IsFacetable = false },
+            new SearchableField("name") 
+            { 
+                IsFilterable = false, 
+                IsFacetable = false,
+                AnalyzerName = LexicalAnalyzerName.ZhHantMicrosoft
+            },
             new SearchField("nameEmbedding", SearchFieldDataType.Collection(SearchFieldDataType.Single))
             {
                 IsSearchable = true,
                 VectorSearchDimensions = 1536,
                 VectorSearchProfileName = "default"
             },
-            new SearchableField("description") { IsFilterable = false, IsFacetable = false },
+            new SearchableField("description") 
+            { 
+                IsFilterable = false, 
+                IsFacetable = false,
+                AnalyzerName = LexicalAnalyzerName.ZhHantMicrosoft
+            },
             new SearchField("descriptionEmbedding", SearchFieldDataType.Collection(SearchFieldDataType.Single))
             {
                 IsSearchable = true,
@@ -400,7 +580,12 @@ public class AzureSearchService
             new SimpleField("images", SearchFieldDataType.Collection(SearchFieldDataType.String)),
             new SimpleField("tags", SearchFieldDataType.Collection(SearchFieldDataType.String)) { IsFilterable = true },
             // attributes 序列化為 JSON 字串存儲（Azure AI Search 不直接支持 Dictionary）
-            new SearchableField("attributes") { IsFilterable = false, IsFacetable = false },
+            new SearchableField("attributes") 
+            { 
+                IsFilterable = false, 
+                IsFacetable = false,
+                AnalyzerName = LexicalAnalyzerName.ZhHantMicrosoft
+            },
             new SearchField("reviewsEmbedding", SearchFieldDataType.Collection(SearchFieldDataType.Single))
             {
                 IsSearchable = true,
@@ -420,8 +605,29 @@ public class AzureSearchService
         // 添加 reviews 複雜欄位（陣列）
         var reviewsField = new ComplexField("reviews", collection: true);
         reviewsField.Fields.Add(new SimpleField("rating", SearchFieldDataType.Int32) { IsFilterable = true });
-        reviewsField.Fields.Add(new SearchableField("comment") { IsFilterable = false });
+        reviewsField.Fields.Add(new SearchableField("comment") 
+        { 
+            IsFilterable = false,
+            AnalyzerName = LexicalAnalyzerName.ZhHantMicrosoft
+        });
         fields.Add(reviewsField);
+
+        // 創建 Semantic Configuration（用於 Semantic Ranker）
+        var semanticConfig = new SemanticConfiguration("default", new SemanticPrioritizedFields
+        {
+            TitleField = new SemanticField("name"),
+            ContentFields =
+            {
+                new SemanticField("description"),
+                new SemanticField("attributes")
+            },
+            KeywordsFields =
+            {
+                new SemanticField("tags"),
+                new SemanticField("category"),
+                new SemanticField("brand")
+            }
+        });
 
         var index = new SearchIndex(indexName)
         {
@@ -436,6 +642,10 @@ public class AzureSearchService
                 {
                     new HnswAlgorithmConfiguration("default-hnsw")
                 }
+            },
+            SemanticSearch = new SemanticSearch
+            {
+                Configurations = { semanticConfig }
             }
         };
 
