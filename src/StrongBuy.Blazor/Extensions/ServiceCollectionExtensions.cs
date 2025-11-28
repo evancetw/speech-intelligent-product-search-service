@@ -1,5 +1,7 @@
 using Azure;
 using Azure.AI.OpenAI;
+using Azure.Search.Documents;
+using Azure.Search.Documents.Indexes;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using StrongBuy.Blazor.Services;
@@ -68,6 +70,43 @@ public static class ServiceCollectionExtensions
             var embeddingClient = openAiClient.GetEmbeddingClient("text-embedding-3-small");
             return embeddingClient;
         });
+
+        return services;
+    }
+
+    public static IServiceCollection AddAzureSearchService(this IServiceCollection services, IConfiguration configuration)
+    {
+        var searchServiceEndpoint = configuration["AzureSearch:Endpoint"];
+        var searchServiceApiKey = configuration["AzureSearch:ApiKey"];
+        var indexName = configuration["AzureSearch:IndexName"] ?? "products-v2";
+
+        if (string.IsNullOrEmpty(searchServiceEndpoint))
+        {
+            throw new InvalidOperationException("AzureSearch:Endpoint is not configured");
+        }
+
+        if (string.IsNullOrEmpty(searchServiceApiKey))
+        {
+            throw new InvalidOperationException("AzureSearch:ApiKey is not configured");
+        }
+
+        services.AddScoped(provider =>
+        {
+            var endpoint = new Uri(searchServiceEndpoint);
+            var credential = new AzureKeyCredential(searchServiceApiKey);
+            var searchClient = new SearchClient(endpoint, indexName, credential);
+            return searchClient;
+        });
+
+        services.AddScoped(provider =>
+        {
+            var endpoint = new Uri(searchServiceEndpoint);
+            var credential = new AzureKeyCredential(searchServiceApiKey);
+            var indexClient = new SearchIndexClient(endpoint, credential);
+            return indexClient;
+        });
+
+        services.AddScoped<AzureSearchService>();
 
         return services;
     }

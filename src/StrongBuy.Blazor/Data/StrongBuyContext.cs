@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using StrongBuy.Blazor.Models;
+using StrongBuy.Core.Models;
 
 public class StrongBuyContext : DbContext
 {

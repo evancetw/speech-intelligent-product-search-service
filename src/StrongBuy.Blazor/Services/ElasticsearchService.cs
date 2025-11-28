@@ -2,6 +2,7 @@ using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.QueryDsl;
 using System.Threading.Tasks;
 using StrongBuy.Blazor.Models;
+using StrongBuy.Core.Models;
 
 namespace StrongBuy.Blazor.Services;
 

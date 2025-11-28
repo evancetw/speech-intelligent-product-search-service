@@ -2153,5 +2153,1858 @@
     ],
     "created_at": "2024-12-10",
     "updated_at": "2024-12-10"
+  },
+  {
+    "id": 67,
+    "name": "童趣星星牛奶餅乾",
+    "description": "星星造型的牛奶餅乾，口感酥脆，適合小朋友當點心。",
+    "price": 79,
+    "category": "食品",
+    "subcategories": ["餅乾", "零食"],
+    "brand": "童趣餅工坊",
+    "color": "米白色",
+    "size": "150g",
+    "material": "小麥麵粉、奶粉",
+    "image": "https://example.com/cookie_kid_milk.jpg",
+    "images": [
+      "https://example.com/cookie_kid_milk1.jpg",
+      "https://example.com/cookie_kid_milk2.jpg"
+    ],
+    "tags": ["餅乾", "兒童", "牛奶", "點心"],
+    "attributes": {
+      "口味": "牛奶",
+      "適合對象": "兒童",
+      "保存期限": "12個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "小孩超愛這個星星造型，每天都吵著要吃。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 68,
+    "name": "高蛋白堅果燕麥餅乾",
+    "description": "富含蛋白質與堅果的燕麥餅乾，適合健身族當健康零食。",
+    "price": 129,
+    "category": "食品",
+    "subcategories": ["餅乾", "健康零食"],
+    "brand": "健身補給站",
+    "color": "棕色",
+    "size": "180g",
+    "material": "燕麥片、杏仁、乳清蛋白",
+    "image": "https://example.com/cookie_protein_oat.jpg",
+    "images": [
+      "https://example.com/cookie_protein_oat1.jpg",
+      "https://example.com/cookie_protein_oat2.jpg"
+    ],
+    "tags": ["餅乾", "高蛋白", "健身", "低糖"],
+    "attributes": {
+      "口味": "堅果燕麥",
+      "適合對象": "健身族",
+      "保存期限": "10個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "蛋白質含量高，當下午茶很有飽足感。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 69,
+    "name": "養生芝麻薄餅",
+    "description": "以黑白芝麻與全麥麵粉製成的薄餅，香氣十足，適合長輩養生點心。",
+    "price": 89,
+    "category": "食品",
+    "subcategories": ["餅乾", "養生食品"],
+    "brand": "養生點心館",
+    "color": "棕色",
+    "size": "140g",
+    "material": "全麥麵粉、黑芝麻、白芝麻",
+    "image": "https://example.com/cookie_sesame_thin.jpg",
+    "images": [
+      "https://example.com/cookie_sesame_thin1.jpg",
+      "https://example.com/cookie_sesame_thin2.jpg"
+    ],
+    "tags": ["餅乾", "芝麻", "養生", "高纖"],
+    "attributes": {
+      "口味": "芝麻",
+      "適合對象": "中高齡族群",
+      "保存期限": "12個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "芝麻味很香又不太甜，家中長輩很喜歡。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 70,
+    "name": "夜貓族咖啡巧克力餅乾",
+    "description": "加入咖啡粉與黑巧克力的濃郁餅乾，陪伴你熬夜加班或玩遊戲。",
+    "price": 99,
+    "category": "食品",
+    "subcategories": ["餅乾", "零食"],
+    "brand": "夜貓小食",
+    "color": "深棕色",
+    "size": "160g",
+    "material": "小麥麵粉、咖啡粉、黑巧克力",
+    "image": "https://example.com/cookie_coffee_choco.jpg",
+    "images": [
+      "https://example.com/cookie_coffee_choco1.jpg",
+      "https://example.com/cookie_coffee_choco2.jpg"
+    ],
+    "tags": ["餅乾", "咖啡", "巧克力", "夜貓"],
+    "attributes": {
+      "口味": "咖啡巧克力",
+      "適合對象": "上班族、學生",
+      "保存期限": "9個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "咖啡味蠻濃的，搭配熱牛奶很好吃。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 71,
+    "name": "無麩質杏仁脆餅",
+    "description": "使用米粉與杏仁製作的無麩質餅乾，適合對麩質敏感的族群。",
+    "price": 139,
+    "category": "食品",
+    "subcategories": ["餅乾", "健康零食"],
+    "brand": "敏感安心食",
+    "color": "金黃色",
+    "size": "120g",
+    "material": "米粉、杏仁粉、雞蛋",
+    "image": "https://example.com/cookie_gluten_free_almond.jpg",
+    "images": [
+      "https://example.com/cookie_gluten_free_almond1.jpg",
+      "https://example.com/cookie_gluten_free_almond2.jpg"
+    ],
+    "tags": ["餅乾", "無麩質", "杏仁", "敏感族群"],
+    "attributes": {
+      "口味": "杏仁",
+      "適合對象": "麩質不耐、輕食族",
+      "保存期限": "8個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "無麩質又很好吃，不會有負擔的感覺。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 72,
+    "name": "起司胡椒蘇打餅",
+    "description": "鹹香起司搭配黑胡椒風味的蘇打餅，適合搭配啤酒或起司盤。",
+    "price": 109,
+    "category": "食品",
+    "subcategories": ["餅乾", "鹹食"],
+    "brand": "聚會小食堂",
+    "color": "金黃色",
+    "size": "170g",
+    "material": "小麥麵粉、起司粉、黑胡椒",
+    "image": "https://example.com/cookie_cheese_pepper.jpg",
+    "images": [
+      "https://example.com/cookie_cheese_pepper1.jpg",
+      "https://example.com/cookie_cheese_pepper2.jpg"
+    ],
+    "tags": ["餅乾", "起司", "鹹食", "聚會"],
+    "attributes": {
+      "口味": "起司胡椒",
+      "適合對象": "聚會、下酒菜",
+      "保存期限": "10個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "很適合追劇時吃，會一片接一片。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 73,
+    "name": "低糖高纖消化餅乾",
+    "description": "降低糖分並添加膳食纖維的消化餅，適合控制飲食的族群。",
+    "price": 119,
+    "category": "食品",
+    "subcategories": ["餅乾", "健康零食"],
+    "brand": "纖活生活",
+    "color": "淺棕色",
+    "size": "200g",
+    "material": "全麥麵粉、燕麥纖維",
+    "image": "https://example.com/cookie_digestive_low_sugar.jpg",
+    "images": [
+      "https://example.com/cookie_digestive_low_sugar1.jpg",
+      "https://example.com/cookie_digestive_low_sugar2.jpg"
+    ],
+    "tags": ["餅乾", "低糖", "高纖", "控制體重"],
+    "attributes": {
+      "口味": "原味全麥",
+      "適合對象": "減糖飲食、上班族",
+      "保存期限": "12個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "不會太甜，搭配無糖茶剛剛好。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 74,
+    "name": "香辣玉米脆片餅乾",
+    "description": "以玉米片製成的香辣風味餅乾，口感酥脆，適合喜歡重口味的人。",
+    "price": 89,
+    "category": "食品",
+    "subcategories": ["餅乾", "零食"],
+    "brand": "辣味俱樂部",
+    "color": "金黃色",
+    "size": "130g",
+    "material": "玉米粉、辣椒粉",
+    "image": "https://example.com/cookie_spicy_corn.jpg",
+    "images": [
+      "https://example.com/cookie_spicy_corn1.jpg",
+      "https://example.com/cookie_spicy_corn2.jpg"
+    ],
+    "tags": ["餅乾", "辣味", "玉米", "重口味"],
+    "attributes": {
+      "口味": "香辣玉米",
+      "適合對象": "嗜辣者、聚會",
+      "保存期限": "9個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "真的有辣，但很好吃，很適合配飲料。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 75,
+    "name": "抹茶紅豆夾心餅乾",
+    "description": "抹茶風味餅乾夾入綿密紅豆餡，日系風味甜點首選。",
+    "price": 129,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "和風點心舖",
+    "color": "綠色",
+    "size": "140g",
+    "material": "小麥麵粉、抹茶粉、紅豆餡",
+    "image": "https://example.com/cookie_matcha_redbean.jpg",
+    "images": [
+      "https://example.com/cookie_matcha_redbean1.jpg",
+      "https://example.com/cookie_matcha_redbean2.jpg"
+    ],
+    "tags": ["餅乾", "抹茶", "紅豆", "日系點心"],
+    "attributes": {
+      "口味": "抹茶紅豆",
+      "適合對象": "日系甜點愛好者",
+      "保存期限": "8個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "抹茶香氣很自然，紅豆餡也不會太甜。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 76,
+    "name": "海鹽焦糖奶油餅乾",
+    "description": "香濃奶油餅乾搭配海鹽焦糖風味，甜中帶鹹的口感層次。",
+    "price": 119,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "甜鹹工坊",
+    "color": "金黃色",
+    "size": "150g",
+    "material": "小麥麵粉、奶油、焦糖醬、海鹽",
+    "image": "https://example.com/cookie_salted_caramel.jpg",
+    "images": [
+      "https://example.com/cookie_salted_caramel1.jpg",
+      "https://example.com/cookie_salted_caramel2.jpg"
+    ],
+    "tags": ["餅乾", "海鹽焦糖", "奶油", "下午茶"],
+    "attributes": {
+      "口味": "海鹽焦糖奶油",
+      "適合對象": "甜點控、下午茶",
+      "保存期限": "10個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "甜度偏高但很香，很適合配黑咖啡。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 77,
+    "name": "濃厚黑巧克力豆餅乾",
+    "description": "加入大量黑巧克力豆的酥脆餅乾，適合巧克力重度愛好者。",
+    "price": 129,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "巧克力研究室",
+    "color": "深棕色",
+    "size": "160g",
+    "material": "小麥麵粉、黑巧克力豆、可可粉",
+    "image": "https://example.com/cookie_dark_choco_chip.jpg",
+    "images": [
+      "https://example.com/cookie_dark_choco_chip1.jpg",
+      "https://example.com/cookie_dark_choco_chip2.jpg"
+    ],
+    "tags": ["餅乾", "黑巧克力", "濃郁", "甜點"],
+    "attributes": {
+      "口味": "黑巧克力",
+      "適合對象": "巧克力愛好者",
+      "保存期限": "9個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "可可味很重，不會太甜，剛好是我喜歡的口感。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 78,
+    "name": "雙層焦糖巧克力夾心餅",
+    "description": "上下兩片巧克力餅乾中夾入柔滑焦糖餡，口感豐富。",
+    "price": 139,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "甜點工房",
+    "color": "棕色",
+    "size": "150g",
+    "material": "小麥麵粉、巧克力、焦糖餡",
+    "image": "https://example.com/cookie_caramel_sandwich.jpg",
+    "images": [
+      "https://example.com/cookie_caramel_sandwich1.jpg",
+      "https://example.com/cookie_caramel_sandwich2.jpg"
+    ],
+    "tags": ["餅乾", "焦糖", "巧克力", "夾心"],
+    "attributes": {
+      "口味": "焦糖巧克力",
+      "適合對象": "甜點控",
+      "保存期限": "8個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "非常罪惡的小點心，一下子就吃完一包。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 79,
+    "name": "濃抹茶巧克力豆餅乾",
+    "description": "以濃郁抹茶搭配白巧克力豆，苦甜風味平衡。",
+    "price": 139,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "和風點心舖",
+    "color": "深綠色",
+    "size": "150g",
+    "material": "小麥麵粉、抹茶粉、白巧克力豆",
+    "image": "https://example.com/cookie_matcha_chip.jpg",
+    "images": [
+      "https://example.com/cookie_matcha_chip1.jpg",
+      "https://example.com/cookie_matcha_chip2.jpg"
+    ],
+    "tags": ["餅乾", "抹茶", "巧克力", "日系點心"],
+    "attributes": {
+      "口味": "濃抹茶",
+      "適合對象": "抹茶愛好者",
+      "保存期限": "8個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "抹茶味很明顯，配白巧克力不會過苦。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 80,
+    "name": "榛果可可脆餅",
+    "description": "加入大量榛果碎與可可粉的脆餅，口感香脆扎實。",
+    "price": 129,
+    "category": "食品",
+    "subcategories": ["餅乾", "零食"],
+    "brand": "堅果時光",
+    "color": "棕色",
+    "size": "140g",
+    "material": "小麥麵粉、榛果、可可粉",
+    "image": "https://example.com/cookie_hazelnut_cocoa.jpg",
+    "images": [
+      "https://example.com/cookie_hazelnut_cocoa1.jpg",
+      "https://example.com/cookie_hazelnut_cocoa2.jpg"
+    ],
+    "tags": ["餅乾", "榛果", "可可", "香脆"],
+    "attributes": {
+      "口味": "榛果可可",
+      "適合對象": "堅果愛好者",
+      "保存期限": "9個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "榛果香氣很明顯，咬起來很過癮。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 81,
+    "name": "岩鹽可可曲奇餅乾",
+    "description": "厚實曲奇餅乾搭配岩鹽與可可，帶點鹹味的甜點選擇。",
+    "price": 149,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "曲奇小鋪",
+    "color": "深棕色",
+    "size": "180g",
+    "material": "小麥麵粉、奶油、可可粉、岩鹽",
+    "image": "https://example.com/cookie_cocoa_salt.jpg",
+    "images": [
+      "https://example.com/cookie_cocoa_salt1.jpg",
+      "https://example.com/cookie_cocoa_salt2.jpg"
+    ],
+    "tags": ["餅乾", "曲奇", "岩鹽", "可可"],
+    "attributes": {
+      "口味": "岩鹽可可",
+      "適合對象": "甜鹹控",
+      "保存期限": "7個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "厚實口感很滿足，就是份量有點少。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 82,
+    "name": "濃厚布朗尼餅乾",
+    "description": "介於布朗尼與餅乾之間的紮實口感，偏軟嫩、巧克力味濃。",
+    "price": 159,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "布朗尼工坊",
+    "color": "深棕色",
+    "size": "180g",
+    "material": "小麥麵粉、可可粉、巧克力塊",
+    "image": "https://example.com/cookie_brownie_style.jpg",
+    "images": [
+      "https://example.com/cookie_brownie_style1.jpg",
+      "https://example.com/cookie_brownie_style2.jpg"
+    ],
+    "tags": ["餅乾", "布朗尼", "巧克力", "軟餅"],
+    "attributes": {
+      "口味": "濃巧克力",
+      "適合對象": "甜點控",
+      "保存期限": "6個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "介於蛋糕和餅乾之間的口感，很特別。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 83,
+    "name": "榛果巧克力夾心捲心餅",
+    "description": "酥脆捲心餅內夾榛果巧克力醬，適合當下午茶點心。",
+    "price": 139,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "下午茶時光",
+    "color": "棕色",
+    "size": "120g",
+    "material": "小麥麵粉、榛果醬、可可粉",
+    "image": "https://example.com/cookie_hazelnut_wafer_roll.jpg",
+    "images": [
+      "https://example.com/cookie_hazelnut_wafer_roll1.jpg",
+      "https://example.com/cookie_hazelnut_wafer_roll2.jpg"
+    ],
+    "tags": ["餅乾", "榛果", "捲心餅", "下午茶"],
+    "attributes": {
+      "口味": "榛果巧克力",
+      "適合對象": "下午茶、聚會",
+      "保存期限": "9個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "配咖啡剛好，一口一根很順口。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 84,
+    "name": "摩卡核桃軟餅乾",
+    "description": "帶有咖啡香氣與核桃碎的軟餅乾，口感鬆軟。",
+    "price": 149,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "摩卡點心",
+    "color": "棕色",
+    "size": "160g",
+    "material": "小麥麵粉、咖啡粉、核桃",
+    "image": "https://example.com/cookie_mocha_walnut.jpg",
+    "images": [
+      "https://example.com/cookie_mocha_walnut1.jpg",
+      "https://example.com/cookie_mocha_walnut2.jpg"
+    ],
+    "tags": ["餅乾", "摩卡", "核桃", "軟餅"],
+    "attributes": {
+      "口味": "摩卡核桃",
+      "適合對象": "咖啡愛好者",
+      "保存期限": "6個月"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "咖啡香配核桃很搭，偏軟的口感我很喜歡。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 85,
+    "name": "黑糖可可燕麥餅乾",
+    "description": "使用黑糖與可可搭配燕麥，甜度較低，口感紮實。",
+    "price": 129,
+    "category": "食品",
+    "subcategories": ["餅乾", "健康零食"],
+    "brand": "慢食生活",
+    "color": "棕色",
+    "size": "170g",
+    "material": "燕麥片、黑糖、可可粉",
+    "image": "https://example.com/cookie_brown_sugar_cocoa.jpg",
+    "images": [
+      "https://example.com/cookie_brown_sugar_cocoa1.jpg",
+      "https://example.com/cookie_brown_sugar_cocoa2.jpg"
+    ],
+    "tags": ["餅乾", "燕麥", "黑糖", "可可"],
+    "attributes": {
+      "口味": "黑糖可可",
+      "適合對象": "控制糖分者",
+      "保存期限": "10個月"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "甜度剛好，不會膩口，當早餐也可以。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 86,
+    "name": "檸檬可可脆餅",
+    "description": "以檸檬香氣中和可可的厚重感，帶點清爽酸味的巧克力餅乾。",
+    "price": 119,
+    "category": "食品",
+    "subcategories": ["餅乾", "甜點"],
+    "brand": "清新甜點屋",
+    "color": "棕色",
+    "size": "140g",
+    "material": "小麥麵粉、檸檬皮屑、可可粉",
+    "image": "https://example.com/cookie_lemon_cocoa.jpg",
+    "images": [
+      "https://example.com/cookie_lemon_cocoa1.jpg",
+      "https://example.com/cookie_lemon_cocoa2.jpg"
+    ],
+    "tags": ["餅乾", "檸檬", "可可", "清爽"],
+    "attributes": {
+      "口味": "檸檬可可",
+      "適合對象": "喜歡酸甜口味者",
+      "保存期限": "8個月"
+    },
+    "reviews": [
+      {
+        "rating": 3,
+        "comment": "口味很特別，但可能不是每個人都習慣。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 87,
+    "name": "防災用高能量壓縮餅乾",
+    "description": "專為防災儲備設計的高能量壓縮餅乾，小體積大熱量。",
+    "price": 199,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "防災糧倉",
+    "color": "米黃色",
+    "size": "400g",
+    "material": "小麥麵粉、植物油、糖",
+    "image": "https://example.com/emergency_compressed_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_compressed_biscuit1.jpg",
+      "https://example.com/emergency_compressed_biscuit2.jpg"
+    ],
+    "tags": ["防災", "壓縮餅乾", "高熱量", "長效保存"],
+    "attributes": {
+      "口味": "原味",
+      "保存期限": "5年",
+      "適用情境": "緊急避難、防災備糧"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "口感偏乾但可以接受，當防災糧很方便。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 88,
+    "name": "長效保存起司風味壓縮餅乾",
+    "description": "起司風味壓縮餅乾，兼具防災儲糧與基本口感。",
+    "price": 219,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "防災糧倉",
+    "color": "淡黃色",
+    "size": "380g",
+    "material": "小麥麵粉、起司粉、植物油",
+    "image": "https://example.com/emergency_cheese_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_cheese_biscuit1.jpg",
+      "https://example.com/emergency_cheese_biscuit2.jpg"
+    ],
+    "tags": ["防災", "壓縮餅乾", "起司", "長效保存"],
+    "attributes": {
+      "口味": "起司",
+      "保存期限": "5年",
+      "適用情境": "居家防災包、車用備糧"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "比一般壓縮餅乾好吃一些，起司味蠻明顯。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 89,
+    "name": "防災用高纖燕麥餅乾包",
+    "description": "以燕麥與穀物製作的防災高纖餅乾，提供基本營養。",
+    "price": 189,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "安心備糧",
+    "color": "棕色",
+    "size": "350g",
+    "material": "燕麥片、小麥麵粉、植物油",
+    "image": "https://example.com/emergency_oat_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_oat_biscuit1.jpg",
+      "https://example.com/emergency_oat_biscuit2.jpg"
+    ],
+    "tags": ["防災", "高纖", "燕麥", "乾糧"],
+    "attributes": {
+      "口味": "穀物燕麥",
+      "保存期限": "4年",
+      "適用情境": "緊急避難、儲糧"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "比想像中好吃很多，當平常點心也可以。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 90,
+    "name": "即食巧克力風味防災餅乾",
+    "description": "帶有巧克力風味的防災餅乾，增加長期儲存食品的接受度。",
+    "price": 199,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "安心備糧",
+    "color": "棕色",
+    "size": "360g",
+    "material": "小麥麵粉、可可粉、植物油",
+    "image": "https://example.com/emergency_choco_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_choco_biscuit1.jpg",
+      "https://example.com/emergency_choco_biscuit2.jpg"
+    ],
+    "tags": ["防災", "巧克力", "長效保存", "即食"],
+    "attributes": {
+      "口味": "巧克力",
+      "保存期限": "5年",
+      "適用情境": "地震包、防災箱"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "對小朋友來說比較能接受的防災餅乾口味。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 91,
+    "name": "長效保存奶油蘇打餅",
+    "description": "加強包裝與配方調整的奶油蘇打餅，適合作為防災備糧。",
+    "price": 159,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "防災糧倉",
+    "color": "金黃色",
+    "size": "320g",
+    "material": "小麥麵粉、奶油、鹽",
+    "image": "https://example.com/emergency_butter_soda.jpg",
+    "images": [
+      "https://example.com/emergency_butter_soda1.jpg",
+      "https://example.com/emergency_butter_soda2.jpg"
+    ],
+    "tags": ["防災", "蘇打餅", "奶油", "長效保存"],
+    "attributes": {
+      "口味": "奶油鹹香",
+      "保存期限": "4年",
+      "適用情境": "家庭防災備糧"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "日常當零食也不錯吃，覺得很實用。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 92,
+    "name": "個人隨身防災餅乾條組合",
+    "description": "單包裝條狀防災餅乾，方便放入背包或防災包。",
+    "price": 169,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "隨行防災",
+    "color": "米色",
+    "size": "300g",
+    "material": "小麥麵粉、植物油、糖",
+    "image": "https://example.com/emergency_bar_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_bar_biscuit1.jpg",
+      "https://example.com/emergency_bar_biscuit2.jpg"
+    ],
+    "tags": ["防災", "條狀餅乾", "隨身", "長效保存"],
+    "attributes": {
+      "口味": "原味",
+      "保存期限": "5年",
+      "適用情境": "隨身防災包、出差備糧"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "包裝很方便，一條一條分裝不怕受潮。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 93,
+    "name": "兒童防災巧克力餅乾組",
+    "description": "針對兒童設計的防災餅乾，使用可愛包裝與巧克力口味。",
+    "price": 189,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "安心童樂",
+    "color": "多色",
+    "size": "280g",
+    "material": "小麥麵粉、可可粉、奶粉",
+    "image": "https://example.com/emergency_kid_choco_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_kid_choco_biscuit1.jpg",
+      "https://example.com/emergency_kid_choco_biscuit2.jpg"
+    ],
+    "tags": ["防災", "兒童", "巧克力", "長效保存"],
+    "attributes": {
+      "口味": "巧克力牛奶",
+      "保存期限": "4年",
+      "適用情境": "親子防災包"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "小孩願意吃的防災食品，家長比較放心。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 94,
+    "name": "高熱量椰子風味防災餅乾",
+    "description": "椰子風味的高熱量防災餅乾，適合長時間避難使用。",
+    "price": 209,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "防災糧倉",
+    "color": "淡棕色",
+    "size": "380g",
+    "material": "小麥麵粉、椰子粉、植物油",
+    "image": "https://example.com/emergency_coconut_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_coconut_biscuit1.jpg",
+      "https://example.com/emergency_coconut_biscuit2.jpg"
+    ],
+    "tags": ["防災", "椰子", "高熱量", "長效保存"],
+    "attributes": {
+      "口味": "椰子",
+      "保存期限": "5年",
+      "適用情境": "長期避難、船舶備糧"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "椰子香氣蠻明顯的，配水吃還可以。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 95,
+    "name": "素食防災壓縮餅乾",
+    "description": "全素配方的防災壓縮餅乾，適合素食者備糧。",
+    "price": 199,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "安心備糧",
+    "color": "米黃色",
+    "size": "360g",
+    "material": "小麥麵粉、植物油、糖",
+    "image": "https://example.com/emergency_vegan_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_vegan_biscuit1.jpg",
+      "https://example.com/emergency_vegan_biscuit2.jpg"
+    ],
+    "tags": ["防災", "素食", "壓縮餅乾", "長效保存"],
+    "attributes": {
+      "口味": "原味",
+      "保存期限": "5年",
+      "適用情境": "素食者防災備糧"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "素食也有防災選擇，家中長輩很放心。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 96,
+    "name": "露營用即食防災餅乾組",
+    "description": "同時兼具露營零食與防災儲糧功能的餅乾組合包。",
+    "price": 229,
+    "category": "食品",
+    "subcategories": ["餅乾", "防災食品"],
+    "brand": "戶外糧備",
+    "color": "多色",
+    "size": "420g",
+    "material": "小麥麵粉、植物油、糖、鹽",
+    "image": "https://example.com/emergency_camp_biscuit.jpg",
+    "images": [
+      "https://example.com/emergency_camp_biscuit1.jpg",
+      "https://example.com/emergency_camp_biscuit2.jpg"
+    ],
+    "tags": ["防災", "露營", "即食", "長效保存"],
+    "attributes": {
+      "口味": "綜合口味",
+      "保存期限": "4年",
+      "適用情境": "露營、居家防災"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "露營時帶一包很方便，吃不完也可以當防災備糧。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 97,
+    "name": "通勤族清爽防曬凝乳 SPF50+",
+    "description": "質地清爽不黏膩，適合每天通勤與上班使用的高防護防曬凝乳。",
+    "price": 320,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "日常守護",
+    "color": "白色",
+    "size": "40ml",
+    "material": "化學防曬配方、玻尿酸",
+    "image": "https://example.com/sunscreen_commuter.jpg",
+    "images": [
+      "https://example.com/sunscreen_commuter1.jpg",
+      "https://example.com/sunscreen_commuter2.jpg"
+    ],
+    "tags": ["防曬", "清爽", "通勤", "SPF50"],
+    "attributes": {
+      "適用膚質": "混合性、油性",
+      "功能": "高效防曬、不黏膩",
+      "SPF": "50+"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "上班每天擦也不悶痘，上妝前用也很OK。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 98,
+    "name": "潤色妝前防曬乳 SPF30",
+    "description": "帶有淡淡潤色效果的防曬乳，可當作妝前打底使用。",
+    "price": 350,
+    "category": "美妝",
+    "subcategories": ["防曬", "底妝"],
+    "brand": "素顏光",
+    "color": "自然膚色",
+    "size": "30ml",
+    "material": "防曬配方、潤色粉體",
+    "image": "https://example.com/sunscreen_tone_up.jpg",
+    "images": [
+      "https://example.com/sunscreen_tone_up1.jpg",
+      "https://example.com/sunscreen_tone_up2.jpg"
+    ],
+    "tags": ["防曬", "潤色", "妝前乳"],
+    "attributes": {
+      "適用膚質": "中性、乾性",
+      "功能": "防曬、提亮膚色",
+      "SPF": "30"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "輕度修飾膚色就夠用，不想上粉底時很方便。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 99,
+    "name": "戶外運動極效防水防曬乳 SPF50+ PA++++",
+    "description": "專為戶外運動設計，具備強效防水防汗功能。",
+    "price": 420,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "戶外盾牌",
+    "color": "白色",
+    "size": "60ml",
+    "material": "高效防曬配方、防水聚合物",
+    "image": "https://example.com/sunscreen_sport_waterproof.jpg",
+    "images": [
+      "https://example.com/sunscreen_sport_waterproof1.jpg",
+      "https://example.com/sunscreen_sport_waterproof2.jpg"
+    ],
+    "tags": ["防曬", "運動", "防水", "長效"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "功能": "強效防曬、防水防汗",
+      "SPF": "50+"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "去海邊玩一整天也不會曬傷，真的很持久。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 100,
+    "name": "登山專用防曬棒 SPF50",
+    "description": "棒狀設計方便補擦，適合登山與長時間戶外活動。",
+    "price": 380,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "山系守護",
+    "color": "白色",
+    "size": "18g",
+    "material": "物理與化學複合防曬配方",
+    "image": "https://example.com/sunscreen_hiking_stick.jpg",
+    "images": [
+      "https://example.com/sunscreen_hiking_stick1.jpg",
+      "https://example.com/sunscreen_hiking_stick2.jpg"
+    ],
+    "tags": ["防曬", "棒狀", "登山", "補擦方便"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "功能": "高效防曬、隨時補擦",
+      "SPF": "50"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "背包裡帶一支很方便，不用沾手。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 101,
+    "name": "敏感肌物理性防曬霜 SPF30",
+    "description": "採用物理性防曬成分，不含酒精與香料，適合敏感肌。",
+    "price": 450,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "溫和安心",
+    "color": "白色",
+    "size": "50ml",
+    "material": "氧化鋅、二氧化鈦、保濕因子",
+    "image": "https://example.com/sunscreen_physical_sensitive.jpg",
+    "images": [
+      "https://example.com/sunscreen_physical_sensitive1.jpg",
+      "https://example.com/sunscreen_physical_sensitive2.jpg"
+    ],
+    "tags": ["防曬", "物理性", "敏感肌", "無酒精"],
+    "attributes": {
+      "適用膚質": "敏感性、乾性",
+      "功能": "物理性防曬、舒緩保濕",
+      "SPF": "30"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "不刺激也不會刺痛眼睛，敏感肌用起來很安心。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 102,
+    "name": "寶寶專用溫和防曬乳 SPF25",
+    "description": "專為嬰幼兒設計的低刺激防曬乳，外出散步也能安心。",
+    "price": 380,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "小小守護者",
+    "color": "白色",
+    "size": "40ml",
+    "material": "溫和防曬成分、植物舒緩萃取",
+    "image": "https://example.com/sunscreen_baby.jpg",
+    "images": [
+      "https://example.com/sunscreen_baby1.jpg",
+      "https://example.com/sunscreen_baby2.jpg"
+    ],
+    "tags": ["防曬", "嬰幼兒", "低刺激"],
+    "attributes": {
+      "適用膚質": "嬰幼兒、敏感肌",
+      "功能": "溫和防曬、舒緩保濕",
+      "SPF": "25"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "味道很淡，寶寶皮膚也沒出現紅腫。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 103,
+    "name": "辦公室族潤色控油防曬霜 SPF35",
+    "description": "帶有輕微潤色與控油效果，適合辦公室族群。",
+    "price": 360,
+    "category": "美妝",
+    "subcategories": ["防曬", "底妝"],
+    "brand": "上班日常",
+    "color": "自然膚色",
+    "size": "35ml",
+    "material": "防曬配方、控油粉末",
+    "image": "https://example.com/sunscreen_office_oilcontrol.jpg",
+    "images": [
+      "https://example.com/sunscreen_office_oilcontrol1.jpg",
+      "https://example.com/sunscreen_office_oilcontrol2.jpg"
+    ],
+    "tags": ["防曬", "控油", "潤色", "上班族"],
+    "attributes": {
+      "適用膚質": "混合性、油性",
+      "功能": "防曬、控油、提亮",
+      "SPF": "35"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "T字部位比較不出油了，上妝也更服貼。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 104,
+    "name": "海邊戲水專用全身防曬噴霧 SPF50",
+    "description": "大範圍噴霧型防曬，適合海邊戲水與泳池使用。",
+    "price": 420,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "海灘守護",
+    "color": "透明",
+    "size": "150ml",
+    "material": "防曬噴霧配方、防水成分",
+    "image": "https://example.com/sunscreen_spray_beach.jpg",
+    "images": [
+      "https://example.com/sunscreen_spray_beach1.jpg",
+      "https://example.com/sunscreen_spray_beach2.jpg"
+    ],
+    "tags": ["防曬", "噴霧", "防水", "海邊"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "功能": "全身防曬、速乾",
+      "SPF": "50"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "噴起來很快，帶小孩去海邊時很好用。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 105,
+    "name": "醫美修復型防曬乳 SPF30",
+    "description": "適合醫美術後與脆弱肌膚使用的低刺激防曬乳。",
+    "price": 520,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "修復之光",
+    "color": "白色",
+    "size": "40ml",
+    "material": "物理性防曬成分、修復保濕成分",
+    "image": "https://example.com/sunscreen_post_treatment.jpg",
+    "images": [
+      "https://example.com/sunscreen_post_treatment1.jpg",
+      "https://example.com/sunscreen_post_treatment2.jpg"
+    ],
+    "tags": ["防曬", "醫美術後", "敏感肌", "修復"],
+    "attributes": {
+      "適用膚質": "脆弱肌、醫美術後",
+      "功能": "物理性防曬、屏障修護",
+      "SPF": "30"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "醫美診所推薦，用起來不會刺痛，很溫和。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 106,
+    "name": "都市防護抗汙防曬乳 SPF50",
+    "description": "兼具防曬與抗空汙功能，適合都市生活者。",
+    "price": 430,
+    "category": "美妝",
+    "subcategories": ["防曬"],
+    "brand": "城市防護網",
+    "color": "白色",
+    "size": "50ml",
+    "material": "防曬成分、抗氧化配方",
+    "image": "https://example.com/sunscreen_anti_pollution.jpg",
+    "images": [
+      "https://example.com/sunscreen_anti_pollution1.jpg",
+      "https://example.com/sunscreen_anti_pollution2.jpg"
+    ],
+    "tags": ["防曬", "抗空汙", "都市生活"],
+    "attributes": {
+      "適用膚質": "所有膚質",
+      "功能": "防曬、抗氧化、隔離髒空氣",
+      "SPF": "50"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "上臉不悶，心理上也覺得多一層保護感。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 107,
+    "name": "商務降噪藍牙耳機組",
+    "description": "專為線上會議設計的入耳式降噪耳機，收音清晰。",
+    "price": 3590,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "辦公聲學",
+    "color": "黑色",
+    "size": "標準",
+    "material": "塑膠、矽膠",
+    "image": "https://example.com/headset_business_anc.jpg",
+    "images": [
+      "https://example.com/headset_business_anc1.jpg",
+      "https://example.com/headset_business_anc2.jpg"
+    ],
+    "tags": ["耳機", "降噪", "藍牙", "商務通話"],
+    "attributes": {
+      "連接方式": "藍牙",
+      "功能": "主動降噪、雙麥克風收音",
+      "電池續航": "8小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "開會時對方都說聲音很清楚，降噪也很有感。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 108,
+    "name": "通勤用主動降噪耳罩式耳機",
+    "description": "針對通勤環境調校的降噪耳機，隔絕車廂噪音。",
+    "price": 4990,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "靜旅",
+    "color": "深灰色",
+    "size": "耳罩式",
+    "material": "塑膠、合成皮革",
+    "image": "https://example.com/headset_commute_anc.jpg",
+    "images": [
+      "https://example.com/headset_commute_anc1.jpg",
+      "https://example.com/headset_commute_anc2.jpg"
+    ],
+    "tags": ["耳機", "降噪", "通勤", "無線"],
+    "attributes": {
+      "連接方式": "藍牙",
+      "功能": "主動降噪、環境聲模式",
+      "電池續航": "30小時"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "捷運上戴著幾乎聽不到背景聲，很安靜。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 109,
+    "name": "多裝置切換商務藍牙耳機",
+    "description": "可同時連接筆電與手機，一鍵切換裝置通話。",
+    "price": 3290,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "會議好夥伴",
+    "color": "黑色",
+    "size": "頭戴式",
+    "material": "塑膠",
+    "image": "https://example.com/headset_multi_device.jpg",
+    "images": [
+      "https://example.com/headset_multi_device1.jpg",
+      "https://example.com/headset_multi_device2.jpg"
+    ],
+    "tags": ["耳機", "藍牙", "商務", "多點連線"],
+    "attributes": {
+      "連接方式": "藍牙、多點連線",
+      "功能": "降噪麥克風、裝置切換",
+      "電池續航": "20小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "在電腦開會時手機來電也能馬上接聽，很方便。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 110,
+    "name": "遠端工作專用會議耳機",
+    "description": "針對人聲優化的耳機，讓語音會議更清晰。",
+    "price": 2890,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "遠距聲線",
+    "color": "黑色",
+    "size": "頭戴式",
+    "material": "塑膠、合成皮革",
+    "image": "https://example.com/headset_remote_work.jpg",
+    "images": [
+      "https://example.com/headset_remote_work1.jpg",
+      "https://example.com/headset_remote_work2.jpg"
+    ],
+    "tags": ["耳機", "遠端工作", "通話清晰"],
+    "attributes": {
+      "連接方式": "USB、有線",
+      "功能": "降噪麥克風、人聲增強",
+      "電池續航": "無（有線）"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "有線雖然不方便但穩定度很好，聲音很清楚。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 111,
+    "name": "Hybrid ANC 音樂與會議兩用耳機",
+    "description": "同時兼顧音樂表現與會議通話品質的混合降噪耳機。",
+    "price": 5690,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "雙模聲學",
+    "color": "白色",
+    "size": "耳罩式",
+    "material": "塑膠、金屬",
+    "image": "https://example.com/headset_hybrid_anc.jpg",
+    "images": [
+      "https://example.com/headset_hybrid_anc1.jpg",
+      "https://example.com/headset_hybrid_anc2.jpg"
+    ],
+    "tags": ["耳機", "降噪", "音樂", "會議"],
+    "attributes": {
+      "連接方式": "藍牙、有線",
+      "功能": "主動降噪、音場模式切換",
+      "電池續航": "28小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "聽歌、開會一副搞定，對通勤族很友善。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 112,
+    "name": "輕量運動藍牙耳機（具通話降噪）",
+    "description": "主打運動使用，但內建通話降噪，跑步時講電話也清楚。",
+    "price": 2490,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "動能聲學",
+    "color": "藍色",
+    "size": "入耳式",
+    "material": "塑膠、矽膠",
+    "image": "https://example.com/headset_sport_talk.jpg",
+    "images": [
+      "https://example.com/headset_sport_talk1.jpg",
+      "https://example.com/headset_sport_talk2.jpg"
+    ],
+    "tags": ["耳機", "運動", "通話降噪"],
+    "attributes": {
+      "連接方式": "藍牙",
+      "功能": "防汗、防潑水、通話降噪",
+      "電池續航": "10小時"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "跑步時電話聲音都還是聽得很清楚。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 113,
+    "name": "辦公室開放空間專用降噪耳機",
+    "description": "專為開放式辦公空間設計，強調環境噪音抑制。",
+    "price": 5390,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "OfficeQuiet",
+    "color": "黑色",
+    "size": "耳罩式",
+    "material": "塑膠、合成皮革",
+    "image": "https://example.com/headset_open_office.jpg",
+    "images": [
+      "https://example.com/headset_open_office1.jpg",
+      "https://example.com/headset_open_office2.jpg"
+    ],
+    "tags": ["耳機", "降噪", "辦公室", "專注"],
+    "attributes": {
+      "連接方式": "藍牙",
+      "功能": "強效ANC、語音增強",
+      "電池續航": "25小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "同事聊天聲幾乎聽不到，專注度提升超多。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 114,
+    "name": "USB-C 會議專用入耳式耳機麥克風",
+    "description": "插上就能用的有線入耳式耳機，適合臨時開會。",
+    "price": 1290,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "即時會議",
+    "color": "白色",
+    "size": "入耳式",
+    "material": "塑膠",
+    "image": "https://example.com/headset_usbc_conference.jpg",
+    "images": [
+      "https://example.com/headset_usbc_conference1.jpg",
+      "https://example.com/headset_usbc_conference2.jpg"
+    ],
+    "tags": ["耳機", "有線", "USB-C", "會議"],
+    "attributes": {
+      "連接方式": "USB-C",
+      "功能": "降噪麥克風、隨插即用",
+      "電池續航": "無（有線）"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "出門臨時要開會時很好用，不用擔心沒電。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 115,
+    "name": "折疊式藍牙會議耳機",
+    "description": "可折疊收納的頭戴式耳機，方便放入背包隨身攜帶。",
+    "price": 2990,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "行旅聲學",
+    "color": "黑色",
+    "size": "頭戴式",
+    "material": "塑膠、金屬",
+    "image": "https://example.com/headset_foldable_business.jpg",
+    "images": [
+      "https://example.com/headset_foldable_business1.jpg",
+      "https://example.com/headset_foldable_business2.jpg"
+    ],
+    "tags": ["耳機", "藍牙", "折疊", "會議"],
+    "attributes": {
+      "連接方式": "藍牙、有線",
+      "功能": "降噪麥克風、可折疊收納",
+      "電池續航": "22小時"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "出差開會必備，收起來不占空間。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 116,
+    "name": "長時間配戴舒適會議耳機",
+    "description": "著重頭梁與耳墊舒適度設計，適合長時間開會。",
+    "price": 3190,
+    "category": "電子產品",
+    "subcategories": ["耳機"],
+    "brand": "ComfortTalk",
+    "color": "灰色",
+    "size": "頭戴式",
+    "material": "塑膠、記憶泡棉",
+    "image": "https://example.com/headset_longwear.jpg",
+    "images": [
+      "https://example.com/headset_longwear1.jpg",
+      "https://example.com/headset_longwear2.jpg"
+    ],
+    "tags": ["耳機", "舒適", "會議", "長時間配戴"],
+    "attributes": {
+      "連接方式": "藍牙",
+      "功能": "軟墊設計、輕量化",
+      "電池續航": "26小時"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "每天好幾場會議也不會覺得耳朵痛或壓頭。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 117,
+    "name": "日本關西賞櫻五日自由行套票",
+    "description": "包含來回機票與三晚飯店，適合自行安排行程的賞櫻旅遊。",
+    "price": 28900,
+    "category": "旅遊",
+    "subcategories": ["自由行", "日本"],
+    "brand": "櫻花旅遊社",
+    "color": "N/A",
+    "size": "5天",
+    "material": "電子票券",
+    "image": "https://example.com/japan_kansai_sakura.jpg",
+    "images": [
+      "https://example.com/japan_kansai_sakura1.jpg",
+      "https://example.com/japan_kansai_sakura2.jpg"
+    ],
+    "tags": ["日本", "賞櫻", "自由行", "關西"],
+    "attributes": {
+      "出發地": "台北",
+      "目的地": "大阪、京都",
+      "行程天數": "5天"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "櫻花季價格合理，飯店位置也不錯。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 118,
+    "name": "北海道溫泉與雪景六日團體旅遊",
+    "description": "結合溫泉、雪景與美食的六日行程，適合冬季出遊。",
+    "price": 38900,
+    "category": "旅遊",
+    "subcategories": ["團體旅遊", "日本"],
+    "brand": "北國假期",
+    "color": "N/A",
+    "size": "6天",
+    "material": "N/A",
+    "image": "https://example.com/hokkaido_onsen_tour.jpg",
+    "images": [
+      "https://example.com/hokkaido_onsen_tour1.jpg",
+      "https://example.com/hokkaido_onsen_tour2.jpg"
+    ],
+    "tags": ["日本", "溫泉", "雪景", "團體旅遊"],
+    "attributes": {
+      "出發地": "台北",
+      "目的地": "北海道",
+      "行程天數": "6天"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "泡溫泉看雪景超療癒，餐食也很豐盛。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 119,
+    "name": "東京親子主題樂園五日遊",
+    "description": "以親子為主的東京行程，安排主題樂園與科學館。",
+    "price": 33500,
+    "category": "旅遊",
+    "subcategories": ["親子旅遊", "日本"],
+    "brand": "親子行旅",
+    "color": "N/A",
+    "size": "5天",
+    "material": "N/A",
+    "image": "https://example.com/tokyo_family_themepark.jpg",
+    "images": [
+      "https://example.com/tokyo_family_themepark1.jpg",
+      "https://example.com/tokyo_family_themepark2.jpg"
+    ],
+    "tags": ["日本", "親子", "樂園", "東京"],
+    "attributes": {
+      "出發地": "台北",
+      "目的地": "東京",
+      "行程天數": "5天"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "小朋友玩得很開心，但行程有點緊湊。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 120,
+    "name": "日全食特別觀測團七日行程",
+    "description": "安排前往最佳觀測地點的日全食主題旅遊，附專業講解。",
+    "price": 45900,
+    "category": "旅遊",
+    "subcategories": ["主題旅遊"],
+    "brand": "星空探險隊",
+    "color": "N/A",
+    "size": "7天",
+    "material": "N/A",
+    "image": "https://example.com/solar_eclipse_tour.jpg",
+    "images": [
+      "https://example.com/solar_eclipse_tour1.jpg",
+      "https://example.com/solar_eclipse_tour2.jpg"
+    ],
+    "tags": ["日全食", "天文", "主題旅遊"],
+    "attributes": {
+      "包含項目": "專業導遊、觀測眼鏡、講座",
+      "行程天數": "7天"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "一生一次的體驗，導遊講解很專業。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 121,
+    "name": "關東地震防災館體驗一日遊",
+    "description": "結合觀光與防災教育的一日行程，造訪東京防災館。",
+    "price": 4200,
+    "category": "旅遊",
+    "subcategories": ["一日遊", "教育旅遊"],
+    "brand": "安全學習遊",
+    "color": "N/A",
+    "size": "1天",
+    "material": "N/A",
+    "image": "https://example.com/tokyo_bosai_tour.jpg",
+    "images": [
+      "https://example.com/tokyo_bosai_tour1.jpg",
+      "https://example.com/tokyo_bosai_tour2.jpg"
+    ],
+    "tags": ["防災", "教育旅遊", "日本", "一日遊"],
+    "attributes": {
+      "出發地": "東京市區集合",
+      "行程天數": "1天"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "內容很有教育意義，小孩也覺得新奇。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 122,
+    "name": "京都賞楓與古寺巡禮四日遊",
+    "description": "秋季限定的京都賞楓行程，造訪多處古寺與庭園。",
+    "price": 27800,
+    "category": "旅遊",
+    "subcategories": ["日本", "季節旅遊"],
+    "brand": "楓紅之旅",
+    "color": "N/A",
+    "size": "4天",
+    "material": "N/A",
+    "image": "https://example.com/kyoto_autumn_leaves.jpg",
+    "images": [
+      "https://example.com/kyoto_autumn_leaves1.jpg",
+      "https://example.com/kyoto_autumn_leaves2.jpg"
+    ],
+    "tags": ["日本", "賞楓", "京都", "古寺"],
+    "attributes": {
+      "行程天數": "4天",
+      "適合對象": "喜歡景色與文化者"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "楓葉季節真的很美，行程節奏也不會太趕。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 123,
+    "name": "沖繩親子海島度假五日遊",
+    "description": "以親子活動為主的沖繩旅遊，安排水族館與海灘活動。",
+    "price": 31500,
+    "category": "旅遊",
+    "subcategories": ["親子旅遊", "海島"],
+    "brand": "海島玩樂家",
+    "color": "N/A",
+    "size": "5天",
+    "material": "N/A",
+    "image": "https://example.com/okinawa_family_beach.jpg",
+    "images": [
+      "https://example.com/okinawa_family_beach1.jpg",
+      "https://example.com/okinawa_family_beach2.jpg"
+    ],
+    "tags": ["日本", "沖繩", "親子", "海灘"],
+    "attributes": {
+      "行程天數": "5天",
+      "包含項目": "飯店、早餐、指定活動門票"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "小孩最愛水族館，整體行程很輕鬆。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 124,
+    "name": "台灣環島鐵道慢旅行七日券",
+    "description": "結合台鐵與指定住宿的環島慢旅行方案。",
+    "price": 19800,
+    "category": "旅遊",
+    "subcategories": ["國內旅遊"],
+    "brand": "慢步台灣",
+    "color": "N/A",
+    "size": "7天",
+    "material": "電子票券",
+    "image": "https://example.com/taiwan_round_island_rail.jpg",
+    "images": [
+      "https://example.com/taiwan_round_island_rail1.jpg",
+      "https://example.com/taiwan_round_island_rail2.jpg"
+    ],
+    "tags": ["台灣", "環島", "鐵道", "慢旅行"],
+    "attributes": {
+      "行程天數": "7天",
+      "適合對象": "喜歡慢遊、鐵道迷"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "一路看遍台灣風景，很值得的旅程。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 125,
+    "name": "東京夏日煙火祭典三日遊",
+    "description": "鎖定夏日煙火祭典的短天數行程，安排觀賞位置。",
+    "price": 22500,
+    "category": "旅遊",
+    "subcategories": ["主題旅遊", "日本"],
+    "brand": "夏祭旅行社",
+    "color": "N/A",
+    "size": "3天",
+    "material": "N/A",
+    "image": "https://example.com/tokyo_fireworks_festival.jpg",
+    "images": [
+      "https://example.com/tokyo_fireworks_festival1.jpg",
+      "https://example.com/tokyo_fireworks_festival2.jpg"
+    ],
+    "tags": ["日本", "煙火祭", "夏日", "主題旅遊"],
+    "attributes": {
+      "行程天數": "3天",
+      "包含項目": "觀賞席位、導遊帶領"
+    },
+    "reviews": [
+      {
+        "rating": 4,
+        "comment": "看煙火的視野很好，就是人潮真的很多。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
+  },
+  {
+    "id": 126,
+    "name": "京都清水寺清晨參拜與早餐體驗",
+    "description": "安排清晨參拜與傳統早餐的在地體驗行程。",
+    "price": 5200,
+    "category": "旅遊",
+    "subcategories": ["在地體驗", "日本"],
+    "brand": "深度京都",
+    "color": "N/A",
+    "size": "半日",
+    "material": "N/A",
+    "image": "https://example.com/kyoto_morning_experience.jpg",
+    "images": [
+      "https://example.com/kyoto_morning_experience1.jpg",
+      "https://example.com/kyoto_morning_experience2.jpg"
+    ],
+    "tags": ["日本", "京都", "在地體驗", "清晨行程"],
+    "attributes": {
+      "行程時間": "約4小時",
+      "適合對象": "喜歡文化與清幽氛圍者"
+    },
+    "reviews": [
+      {
+        "rating": 5,
+        "comment": "清晨的清水寺很安靜，早餐也很好吃。"
+      }
+    ],
+    "created_at": "2024-12-11",
+    "updated_at": "2024-12-11"
   }
 ]

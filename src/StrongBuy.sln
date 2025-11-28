@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrongBuy.Blazor", "StrongBuy.Blazor\StrongBuy.Blazor.csproj", "{C2D4E59A-6629-48CF-B7DE-15E623597E08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrongBuy.Core", "StrongBuy.Core\StrongBuy.Core.csproj", "{DA9C0840-3253-4AC4-BB4C-9B7FB3F4549B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrongBuy.DataSeedFeeder", "StrongBuy.DataSeedFeeder\StrongBuy.DataSeedFeeder.csproj", "{1E09B1C1-9FF4-437D-8D37-C3D5BF4BE8E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{C2D4E59A-6629-48CF-B7DE-15E623597E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2D4E59A-6629-48CF-B7DE-15E623597E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2D4E59A-6629-48CF-B7DE-15E623597E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA9C0840-3253-4AC4-BB4C-9B7FB3F4549B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9C0840-3253-4AC4-BB4C-9B7FB3F4549B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9C0840-3253-4AC4-BB4C-9B7FB3F4549B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9C0840-3253-4AC4-BB4C-9B7FB3F4549B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E09B1C1-9FF4-437D-8D37-C3D5BF4BE8E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E09B1C1-9FF4-437D-8D37-C3D5BF4BE8E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E09B1C1-9FF4-437D-8D37-C3D5BF4BE8E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E09B1C1-9FF4-437D-8D37-C3D5BF4BE8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

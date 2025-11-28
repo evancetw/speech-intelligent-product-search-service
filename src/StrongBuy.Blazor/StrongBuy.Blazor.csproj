@@ -8,12 +8,17 @@
 
     <ItemGroup>
         <PackageReference Include="Azure.AI.OpenAI" Version="2.1.0"/>
+        <PackageReference Include="Azure.Search.Documents" Version="11.5.1"/>
         <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.16.3"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\StrongBuy.Core\StrongBuy.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,762 @@
+@page "/searchv4"
+@using Azure.Search.Documents.Models
+@using Microsoft.EntityFrameworkCore
+@using OpenAI.Embeddings
+@using StrongBuy.Blazor.Components.Layout
+@using StrongBuy.Blazor.Models
+@using StrongBuy.Blazor.Services
+@using StrongBuy.Core.Models
+@inject StrongBuyContext Context
+@inject NavigationManager Navigation
+@inject AzureSearchService AzureSearchService
+@inject EmbeddingClient EmbeddingClient
+@rendermode InteractiveServer
+
+<PageTitle>商品搜尋 - Azure AI Search 向量搜尋</PageTitle>
+<p>Azure AI Search 向量搜尋</p>
+@* *@
+@* <div class="facet-mode-toggle"> *@
+@*     <label> *@
+@*         <input type="checkbox" @bind="UseFullFacetCount" @bind:after="OnFacetModeChanged"/> *@
+@*         <span>使用完整 Facet Count（不受 Filter 影響）</span> *@
+@*     </label> *@
+@*     <small>@(UseFullFacetCount ? "兩次查詢：一次獲取結果，一次獲取完整 facets" : "一次查詢：使用過濾後的 facet count（預設）")</small> *@
+@* </div> *@
+
+<div class="search-container">
+    <div class="search-sidebar">
+        <div class="filter-section">
+            <h3>所有分類</h3>
+            <div class="filter-list">
+                @foreach (var category in Categories)
+                {
+                    <div class="filter-item">
+                        <input type="button" value="@category (@CategoryCounts.GetValueOrDefault(category, 0))"
+                               @onclick="() => RedirectWithNewCategory(category)"
+                               class="filter-button @(SearchModelObj.SelectedCategory == category ? "selected" : "")"/>
+                        @if (SearchModelObj.SelectedCategory == category)
+                        {
+                            <button class="clear-filter" @onclick="() => RedirectWithNewCategory(null)">x</button>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>品牌</h3>
+            <div class="filter-list">
+                @foreach (var brand in Brands)
+                {
+                    <div class="filter-item">
+                        <label class="checkbox-label">
+                            <input type="checkbox" checked="@(SearchModelObj?.FilterBrands?.Contains(brand) ?? false)"
+                                   @onchange="(e) => ToggleBrandFilter(brand)"/>
+                            <span class="brand-name">@brand (@BrandCounts.GetValueOrDefault(brand, 0))</span>
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="search-results">
+        <div class="results-header">
+            <span>1-@ProductsList.Count 件，共 @(TotalCount > 0 ? TotalCount : ProductsList.Count) 件</span>
+            <select class="sort-select" value="@SearchModelObj.SortOption"
+                    @onchange="@((ChangeEventArgs e) => OnSortOptionChanged(e.Value?.ToString() ?? string.Empty))">
+                <option value="">精選</option>
+                <option value="price_asc">價格：由低到高</option>
+                <option value="price_desc">價格：由高到低</option>
+            </select>
+        </div>
+
+        <div class="products-grid">
+            @foreach (var product in ProductsList)
+            {
+                <div class="product-card">
+                    <div class="product-image">
+                        <img
+                            src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
+                            alt="@product.Name">
+                    </div>
+                    <div class="product-info">
+                        <h2 class="product-title">
+                            <a href="/product/@product.Id">@product.Name</a>
+                        </h2>
+                        <div class="product-brand">
+                            <span class="brand">@product.Brand</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="currency">NT$</span>
+                            <span class="amount">@product.Price.ToString("N0")</span>
+                        </div>
+                        <div class="product-description">
+                            @product.Description
+                        </div>
+                        <button class="show-reviews-btn" @onclick="() => ShowReviews(product)">
+                            顯示評論 (@(product.Reviews?.Count ?? 0))
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (selectedProduct != null)
+        {
+            <div class="reviews-modal @(isReviewsVisible ? "show" : "")">
+                <div class="reviews-content">
+                    <div class="reviews-header">
+                        <h3>@selectedProduct.Name 的評論</h3>
+                        <button class="close-reviews" @onclick="HideReviews">×</button>
+                    </div>
+                    <div class="reviews-list">
+                        @if (selectedProduct.Reviews != null && selectedProduct.Reviews.Any())
+                        {
+                            @foreach (var review in selectedProduct.Reviews)
+                            {
+                                <div class="review-item">
+                                    <div class="review-rating">
+                                        @for (int i = 0; i < review.Rating; i++)
+                                        {
+                                            <span class="star">★</span>
+                                        }
+                                    </div>
+                                    <div class="review-content">@review.Comment</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-reviews">目前沒有評論</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .search-container {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        max-width: 1500px;
+        margin: 0 auto;
+    }
+
+    .search-sidebar {
+        width: 240px;
+        flex-shrink: 0;
+    }
+
+    .filter-section {
+        margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .filter-list {
+        font-size: 14px;
+    }
+
+    .filter-item {
+        margin: 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .clear-filter {
+        background: none;
+        border: 1px solid #d5d9d9;
+        color: #333;
+        cursor: pointer;
+        padding: 2px 6px;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 1;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+    }
+
+    .clear-filter:hover {
+        color: #fff;
+        background-color: #c45500;
+        border-color: #c45500;
+    }
+
+    .filter-button {
+        width: auto;
+        text-align: left;
+        background: none;
+        border: none;
+        padding: 4px 8px;
+        cursor: pointer;
+        color: #0066c0;
+        font-size: 14px;
+    }
+
+    .filter-button:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .filter-button.selected {
+        color: #c45500;
+        font-weight: bold;
+    }
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 4px 0;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .brand-name {
+        color: #0066c0;
+    }
+
+    .checkbox-label:hover .brand-name {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .search-results {
+        flex-grow: 1;
+    }
+
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 8px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sort-select {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card {
+        display: flex;
+        gap: 15px;
+        padding: 15px;
+        background: white;
+        border: 1px solid #ddd;
+        height: 210px;
+    }
+
+    .product-image {
+        width: 180px;
+        height: 180px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .product-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        width: 0;
+    }
+
+    .product-title {
+        font-size: 16px;
+        margin: 0 0 8px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .product-title a {
+        color: #0066c0;
+        text-decoration: none;
+    }
+
+    .product-title a:hover {
+        color: #c45500;
+        text-decoration: underline;
+    }
+
+    .product-price {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .currency {
+        font-size: 12px;
+        position: relative;
+        top: -5px;
+    }
+
+    .product-brand {
+        margin-bottom: 8px;
+        color: #565959;
+        font-size: 14px;
+    }
+
+    .product-description {
+        color: #565959;
+        font-size: 14px;
+        margin: 8px 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.4;
+        max-height: 2.8em;
+        flex-shrink: 0;
+    }
+
+    .show-reviews-btn {
+        background-color: #f0f2f2;
+        border: 1px solid #d5d9d9;
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 13px;
+        margin-top: auto;
+    }
+
+    .show-reviews-btn:hover {
+        background-color: #e3e6e6;
+    }
+
+    .reviews-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+    }
+
+    .reviews-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .reviews-content {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reviews-header {
+        padding: 16px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .reviews-header h3 {
+        margin: 0;
+    }
+
+    .close-reviews {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0 8px;
+    }
+
+    .reviews-list {
+        padding: 16px;
+        overflow-y: auto;
+    }
+
+    .review-item {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .review-item:last-child {
+        border-bottom: none;
+    }
+
+    .review-rating {
+        color: #ffa41c;
+        margin-bottom: 8px;
+    }
+
+    .review-content {
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .no-reviews {
+        text-align: center;
+        color: #565959;
+        padding: 20px;
+    }
+
+    .facet-mode-toggle {
+        padding: 10px 20px;
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 20px;
+    }
+
+    .facet-mode-toggle label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .facet-mode-toggle input[type="checkbox"] {
+        cursor: pointer;
+    }
+
+    .facet-mode-toggle small {
+        display: block;
+        margin-top: 4px;
+        color: #666;
+        font-size: 12px;
+        margin-left: 24px;
+    }
+</style>
+
+@code {
+    private List<ProductV2> ProductsList = new();
+    private Dictionary<string, long> CategoryCounts = new();
+    private Dictionary<string, long> BrandCounts = new();
+    private int TotalCount = 0;
+
+    private NavMenu.SearchModel SearchModelObj { get; set; } = new NavMenu.SearchModel();
+
+    private ProductV2? selectedProduct;
+    private bool isReviewsVisible;
+
+    // Facet 模式開關：false = 一次查詢（使用過濾後的 facet count，預設），true = 兩次查詢（完整 facet count）
+    private bool UseFullFacetCount { get; set; } = false;
+
+    // 計算屬性：從字典中獲取排序後的列表
+    private List<string> Categories => CategoryCounts.Keys.OrderBy(k => k).ToList();
+    private List<string> Brands => BrandCounts.Keys.OrderBy(k => k).ToList();
+
+    private bool _isInitialized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // 第一次初始化時執行搜尋
+        await LoadParametersAndSearchAsync();
+        _isInitialized = true;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // 只有在初始化完成後才檢查參數變化
+        if (_isInitialized)
+        {
+            await LoadParametersAndSearchAsync();
+        }
+    }
+
+    /// <summary>
+    /// 載入參數並執行搜尋（避免重複查詢）
+    /// </summary>
+    private async Task LoadParametersAndSearchAsync()
+    {
+        // Get parameters from query string
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        var newSearchText = queryString["q"];
+        var newCategory = queryString["category"];
+        var newBrands = queryString["brands"];
+        var newSort = queryString["sort"];
+
+        // 檢查參數是否改變，避免重複查詢
+        var parametersChanged = 
+            SearchModelObj.SearchText != newSearchText ||
+            SearchModelObj.SelectedCategory != newCategory ||
+            SearchModelObj.FilterBrands != newBrands ||
+            SearchModelObj.SortOption != newSort;
+
+        if (parametersChanged || !_isInitialized)
+        {
+            SearchModelObj.SearchText = newSearchText;
+            SearchModelObj.SelectedCategory = newCategory;
+            SearchModelObj.FilterBrands = newBrands;
+            SearchModelObj.SortOption = newSort;
+
+            // 執行搜尋（會同時獲取 facets）
+            await PerformSearchAsync();
+        }
+    }
+
+    private async Task PerformSearchAsync()
+    {
+        ReadOnlyMemory<float>? searchVector = null;
+        List<string>? filterBrands = null;
+
+        // 如果有搜尋文字，生成向量（用於混合搜尋）
+        if (!string.IsNullOrEmpty(SearchModelObj.SearchText))
+        {
+            var searchTextKnnResult = await EmbeddingClient.GenerateEmbeddingAsync(SearchModelObj.SearchText);
+            searchVector = searchTextKnnResult.Value.ToFloats();
+        }
+
+        // 解析品牌過濾條件
+        if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
+        {
+            filterBrands = SearchModelObj.FilterBrands.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(b => b.Trim())
+                .ToList();
+        }
+
+        // 執行混合搜尋（帶 filter，獲取實際結果）
+        // 統一使用 HybridSearchAsync，確保：
+        // 1. 有搜尋文字時：文字搜尋 + 向量搜尋（混合搜尋）
+        // 2. 有 filter 時：filter 應用於結果，但文字搜尋仍然參與，保持相關性
+        // 3. 無搜尋文字時：使用 * 進行全量搜尋 + filter
+        SearchResults<ProductV2SearchDocument> searchResults;
+
+        if (UseFullFacetCount)
+        {
+            // 模式 1：兩次查詢
+            // 第一次：帶 filter，獲取實際結果（不包含 facets）
+            searchResults = await AzureSearchService.HybridSearchAsync(
+                SearchModelObj.SearchText, // 文字搜尋（可能為 null 或空字串）
+                searchVector?.ToArray(), // 向量搜尋（如果有搜尋文字則有值）
+                SearchModelObj.SelectedCategory, // 分類 filter
+                filterBrands, // 品牌 filter
+                top: 1000, // 獲取所有結果
+                includeFacets: false
+            );
+
+            // 第二次：不帶 filter，只獲取 facets，只受關鍵字影響
+            var facetsResults = await AzureSearchService.HybridSearchAsync(
+                SearchModelObj.SearchText, // 文字搜尋
+                searchVector?.ToArray(), // 向量搜尋（如果有）
+                null, // 不應用 category filter
+                null, // 不應用 brand filter
+                top: 1000, // 獲取所有結果（用於 facets）
+                includeFacets: true
+            );
+
+            // 從不帶 filter 的搜尋結果中提取 facets（不受 filter 影響，只受關鍵字影響）
+            ExtractFacetsFromResults(facetsResults);
+        }
+        else
+        {
+            // 模式 2：一次查詢（預設）
+            // 帶 filter，同時獲取結果和 facets（facets 會受 filter 影響）
+            searchResults = await AzureSearchService.HybridSearchAsync(
+                SearchModelObj.SearchText, // 文字搜尋（可能為 null 或空字串）
+                searchVector?.ToArray(), // 向量搜尋（如果有搜尋文字則有值）
+                SearchModelObj.SelectedCategory, // 分類 filter
+                filterBrands, // 品牌 filter
+                top: 1000, // 獲取所有結果
+                includeFacets: true // 同時獲取 facets
+            );
+
+            // 從帶 filter 的搜尋結果中提取 facets（受 filter 影響）
+            ExtractFacetsFromResults(searchResults);
+        }
+
+        // 轉換結果：從 ProductV2SearchDocument 轉換為 ProductV2
+        ProductsList = searchResults.GetResults().Select(r =>
+        {
+            var document = r.Document;
+            var product = document.ToProductV2();
+            // 確保 Reviews 不為 null，優先使用原始文檔中的 Reviews（Azure Search 可能沒有正確反序列化）
+            if (document.Reviews != null && document.Reviews.Any())
+            {
+                product.Reviews = document.Reviews;
+            }
+            else if (product.Reviews == null)
+            {
+                product.Reviews = new List<ProductReview>();
+            }
+
+            return product;
+        }).ToList();
+        TotalCount = searchResults.TotalCount.HasValue ? (int)searchResults.TotalCount.Value : 0;
+
+        // 應用排序
+        if (!string.IsNullOrEmpty(SearchModelObj.SortOption))
+        {
+            ProductsList = SearchModelObj.SortOption switch
+            {
+                "price_asc" => ProductsList.OrderBy(p => p.Price).ToList(),
+                "price_desc" => ProductsList.OrderByDescending(p => p.Price).ToList(),
+                _ => ProductsList
+            };
+        }
+    }
+
+    /// <summary>
+    /// 從搜尋結果中提取 facets（category 和 brand 的數量）
+    /// </summary>
+    private void ExtractFacetsFromResults(SearchResults<ProductV2SearchDocument> searchResults)
+    {
+        CategoryCounts.Clear();
+        BrandCounts.Clear();
+
+        // 提取 category facets
+        if (searchResults.Facets != null && searchResults.Facets.ContainsKey("category"))
+        {
+            foreach (var facet in searchResults.Facets["category"])
+            {
+                var categoryName = facet.Value.ToString() ?? string.Empty;
+                if (!string.IsNullOrEmpty(categoryName))
+                {
+                    CategoryCounts[categoryName] = facet.Count ?? 0;
+                }
+            }
+        }
+
+        // 提取 brand facets
+        if (searchResults.Facets != null && searchResults.Facets.ContainsKey("brand"))
+        {
+            foreach (var facet in searchResults.Facets["brand"])
+            {
+                var brandName = facet.Value.ToString() ?? string.Empty;
+                if (!string.IsNullOrEmpty(brandName))
+                {
+                    BrandCounts[brandName] = facet.Count ?? 0;
+                }
+            }
+        }
+    }
+
+    private void RedirectWithNewCategory(string? value)
+    {
+        RedirectWithNewQuery("category", value);
+    }
+
+    private void RedirectWithNewQuery(string key, string? value)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        if (string.IsNullOrEmpty(value))
+        {
+            queryString.Remove(key);
+        }
+        else
+        {
+            queryString[key] = value;
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void ToggleBrandFilter(string brand)
+    {
+        var uri = new Uri(Navigation.Uri);
+        var queryString = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        var currentBrands = queryString["brands"]?.Split(',')
+            .Where(b => !string.IsNullOrEmpty(b))
+            .ToList() ?? new List<string>();
+
+        if (currentBrands.Contains(brand))
+        {
+            currentBrands.Remove(brand);
+        }
+        else
+        {
+            currentBrands.Add(brand);
+        }
+
+        if (currentBrands.Any())
+        {
+            queryString["brands"] = string.Join(",", currentBrands);
+        }
+        else
+        {
+            queryString.Remove("brands");
+        }
+
+        var newUri = $"{uri.GetLeftPart(UriPartial.Path)}";
+        if (queryString.Count > 0)
+        {
+            newUri += $"?{queryString}";
+        }
+
+        Navigation.NavigateTo(newUri, forceLoad: true);
+    }
+
+    private void OnSortOptionChanged(string? value)
+    {
+        SearchModelObj.SortOption = value;
+        RedirectWithNewQuery("sort", value);
+    }
+
+    private void ShowReviews(ProductV2 product)
+    {
+        // 從 ProductsList 中重新獲取完整的產品資料（確保評論資料完整）
+        selectedProduct = ProductsList.FirstOrDefault(p => p.Id == product.Id) ?? product;
+
+        // 確保 Reviews 不為 null
+        if (selectedProduct.Reviews == null)
+        {
+            selectedProduct.Reviews = new List<ProductReview>();
+        }
+
+        // 調試：輸出評論數量
+        Console.WriteLine($"Showing reviews for product {selectedProduct.Id}: {selectedProduct.Reviews.Count} reviews");
+
+        isReviewsVisible = true;
+        StateHasChanged(); // 確保 UI 更新
+    }
+
+    private void HideReviews()
+    {
+        isReviewsVisible = false;
+        selectedProduct = null;
+    }
+
+}
+

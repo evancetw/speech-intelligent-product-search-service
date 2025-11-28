@@ -15,6 +15,7 @@ using OpenAI.Embeddings;
 using System.Text;
 using System.Net.Http.Headers;
 using StrongBuy.Blazor.Extensions;
+using StrongBuy.Core.Models;
 
 namespace StrongBuy.Blazor;
 
@@ -34,6 +35,9 @@ public class Program
 
         // Add Elasticsearch
         builder.Services.AddElasticsearchService(builder.Configuration);
+
+        // Add Azure AI Search
+        builder.Services.AddAzureSearchService(builder.Configuration);
 
         // Add OpenAI
         builder.Services.AddOpenAi(builder.Configuration);
@@ -503,6 +507,115 @@ public class Program
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occurred while initializing Elasticsearch");
+            }
+        }
+
+        // 確認是否能連線到 Azure AI Search 並初始化資料
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            try
+            {
+                var azureSearchService = services.GetRequiredService<AzureSearchService>();
+                var loggerAzure = services.GetRequiredService<ILogger<Program>>();
+                var configuration = services.GetRequiredService<IConfiguration>();
+                var embeddingClient = services.GetRequiredService<EmbeddingClient>();
+
+                var indexName = configuration["AzureSearch:IndexName"] ?? "products-v2";
+
+                // 1. 檢查索引是否存在
+                var indexExists = await azureSearchService.IndexExistsAsync(indexName);
+                
+                if (!indexExists)
+                {
+                    // 索引不存在，創建索引
+                    loggerAzure.LogInformation("Index {IndexName} does not exist. Creating index...", indexName);
+                    await azureSearchService.CreateIndexAsync(indexName);
+                }
+                else
+                {
+                    loggerAzure.LogInformation("Index {IndexName} already exists", indexName);
+                }
+
+                // 2. 檢查索引中的文檔數量
+                var documentCount = await azureSearchService.GetDocumentCountAsync();
+                loggerAzure.LogInformation("Index {IndexName} contains {Count} documents", indexName, documentCount);
+
+                // 3. 如果沒有文檔，則匯入資料
+                if (documentCount == 0)
+                {
+                    loggerAzure.LogInformation("No documents found in index. Starting import...");
+
+                    // 讀取 products.json
+                    var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
+                    var jsonString = await File.ReadAllTextAsync(jsonPath);
+                    var products = JsonSerializer.Deserialize<List<ProductV2>>(jsonString,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (products == null || !products.Any())
+                    {
+                        loggerAzure.LogError("No products found in products.json");
+                        return;
+                    }
+
+                    // 批次處理產品
+                    var batchSize = 10;
+                    for (var i = 0; i < products.Count; i += batchSize)
+                    {
+                        var batch = products.Skip(i).Take(batchSize).ToList();
+
+                        foreach (var product in batch)
+                        {
+                            try
+                            {
+                                // 生成 embeddings（如果還沒有）
+                                if (product.CombinedEmbedding == null || product.CombinedEmbedding.Value.IsEmpty)
+                                {
+                                    var texts = new List<string>()
+                                    {
+                                        product.Name,
+                                        product.Description,
+                                        string.Join("\\n", product.Reviews.Select(x => x.Comment)),
+                                    };
+                                    texts.Add(texts[0] + "\\n" + texts[1] + "\\n" + texts[2]);
+
+                                    var embeddingsResult = await embeddingClient.GenerateEmbeddingsAsync(texts);
+                                    var nameEmbedding = embeddingsResult.Value[0].ToFloats();
+                                    var descriptionEmbedding = embeddingsResult.Value[1].ToFloats();
+                                    var reviewsEmbedding = embeddingsResult.Value[2].ToFloats();
+                                    var combinedEmbedding = embeddingsResult.Value[3].ToFloats();
+
+                                    product.NameEmbedding = nameEmbedding;
+                                    product.DescriptionEmbedding = descriptionEmbedding;
+                                    product.ReviewsEmbedding = reviewsEmbedding;
+                                    product.CombinedEmbedding = combinedEmbedding;
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                loggerAzure.LogError(e, "Failed to generate embeddings for product {ProductId}", product.Id);
+                                throw;
+                            }
+                        }
+
+                        // 批量匯入資料到 Azure AI Search
+                        await azureSearchService.UploadProductV2DocumentsAsync(batch);
+                        loggerAzure.LogInformation("Imported batch {BatchNumber} ({Start}-{End} of {Total})", 
+                            i / batchSize + 1, i + 1, Math.Min(i + batchSize, products.Count), products.Count);
+                    }
+
+                    loggerAzure.LogInformation("Successfully imported {Count} products to Azure AI Search", products.Count);
+                }
+                else
+                {
+                    loggerAzure.LogInformation("Index already contains {Count} documents. Skipping import.", documentCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while initializing Azure AI Search");
+                // 不中斷應用程式啟動，只記錄錯誤
             }
         }
 
