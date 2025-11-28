@@ -598,7 +598,7 @@
                     .Terms(t => t
                         //.Field(f => f.Category.Suffix("keyword"))
                         .Field("category")
-                        .Size(100)
+                        .Size(1000)
                     )
                 )
             )
@@ -668,11 +668,11 @@
                     knnSearchList.Add(knnSearch);
                     requestDescriptor.Knn(knnSearchList);
 
-                    requestDescriptor.Size(100);
+                    requestDescriptor.Size(1000);
                 }
                 else
                 {
-                    requestDescriptor.Size(100);
+                    requestDescriptor.Size(1000);
                 }
 
                 // 非 KNN 查詢時的過濾條件

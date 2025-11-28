@@ -1,4 +1,5 @@
 using Azure;
+using Azure.AI.Agents.Persistent;
 using Azure.AI.OpenAI;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Indexes;
@@ -49,6 +50,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddOpenAi(this IServiceCollection services, IConfiguration configuration)
     {
+        // 註冊預設的 AzureOpenAIClient（用於 Embedding 等一般用途）
         services.AddScoped(provider =>
         {
             Uri oaiEndpoint = new("https://openai-dotnetconf.openai.azure.com");
@@ -62,6 +64,32 @@ public static class ServiceCollectionExtensions
             AzureKeyCredential credentials = new(oaiKey);
             AzureOpenAIClient openAiClient = new(oaiEndpoint, credentials);
             return openAiClient;
+        });
+
+        // 註冊 Agent 專用的 AzureOpenAIClient（使用 Keyed Service）
+        // 可以從不同的配置區段讀取，或使用相同的配置
+        services.AddKeyedScoped<AzureOpenAIClient>("Agent", (provider, key) =>
+        {
+            // 可以從不同的配置讀取，例如 "OpenAI:Agent:Endpoint" 和 "OpenAI:Agent:ApiKey"
+            // 如果沒有特別配置，則使用預設的配置
+            var agentEndpoint = configuration["OpenAI:Agent:Endpoint"] ?? "https://openai-dotnetconf.openai.azure.com";
+            var agentApiKey = configuration["OpenAI:Agent:ApiKey"] ?? configuration["OpenAI:ApiKey"];
+
+            if (string.IsNullOrEmpty(agentApiKey))
+            {
+                throw new InvalidOperationException("OpenAI:Agent:ApiKey or OpenAI:ApiKey is not configured");
+            }
+
+            Uri oaiEndpoint = new(agentEndpoint);
+            AzureKeyCredential credentials = new(agentApiKey);
+            AzureOpenAIClient agentClient = new(oaiEndpoint, credentials);
+            //
+            // // var endpoint = Environment.GetEnvironmentVariable("AZURE_FOUNDRY_PROJECT_ENDPOINT") ?? throw new Exception("AZURE_FOUNDRY_PROJECT_ENDPOINT is not set.");
+            // // var model = Environment.GetEnvironmentVariable("AZURE_FOUNDRY_PROJECT_MODEL_ID") ?? "gpt-4o-mini";
+            // var persistentAgentsClient = new PersistentAgentsClient(agentEndpoint, new tok);
+            //
+            //
+            return agentClient;
         });
 
         services.AddScoped(provider =>

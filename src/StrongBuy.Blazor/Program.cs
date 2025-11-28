@@ -45,6 +45,9 @@ public class Program
         // Add Persona Service
         builder.Services.AddScoped<PersonaService>();
 
+        // Add Agent Service
+        builder.Services.AddScoped<AgentService>();
+
         var app = builder.Build();
 
         // Initialize Database

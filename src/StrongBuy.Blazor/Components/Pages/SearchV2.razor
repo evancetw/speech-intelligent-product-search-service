@@ -596,7 +596,7 @@
                     .Terms(t => t
                         //.Field(f => f.Category.Suffix("keyword"))
                         .Field("category")
-                        .Size(100)
+                        .Size(1000)
                     )
                 )
             )
@@ -635,7 +635,7 @@
         var resp = await SearchAndReturnRawQueryAsync<Product>(requestDescriptor =>
             {
                 // 開始查詢商品
-                requestDescriptor.Size(100);
+                requestDescriptor.Size(1000);
 
                 var must = new List<Query>();
                 var filters = new List<Query>();

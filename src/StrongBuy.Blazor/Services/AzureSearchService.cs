@@ -26,6 +26,7 @@ public class AzureSearchService
     public async Task<SearchResults<ProductV2SearchDocument>> VectorSearchAsync(
         float[] queryVector,
         string? category = null,
+        List<string>? categories = null, // 新增：支援多個分類
         List<string>? brands = null,
         int top = 10,
         bool includeFacets = false)
@@ -60,7 +61,18 @@ public class AzureSearchService
 
         // 添加過濾條件（用於結果，但不影響 facets）
         var filters = new List<string>();
-        if (!string.IsNullOrEmpty(category))
+        // 優先使用多個分類（使用 OR 條件）
+        if (categories != null && categories.Any())
+        {
+            var categoryFilters = categories.Select(c =>
+            {
+                var escapedCategory = c.Replace("'", "''");
+                return $"category eq '{escapedCategory}'";
+            });
+            filters.Add($"({string.Join(" or ", categoryFilters)})");
+        }
+        // 向後兼容：如果沒有多個分類，使用單一分類
+        else if (!string.IsNullOrEmpty(category))
         {
             // 轉義單引號
             var escapedCategory = category.Replace("'", "''");
@@ -128,6 +140,7 @@ public class AzureSearchService
         float[] productVector, // 商品向量（用於過濾候選結果）
         float[] userVector,    // 使用者向量（用於 ranking）
         string? category = null,
+        List<string>? categories = null, // 新增：支援多個分類
         List<string>? brands = null,
         int top = 10,
         bool includeFacets = false)
@@ -171,7 +184,18 @@ public class AzureSearchService
 
         // 添加過濾條件
         var filters = new List<string>();
-        if (!string.IsNullOrEmpty(category))
+        // 優先使用多個分類（使用 OR 條件）
+        if (categories != null && categories.Any())
+        {
+            var categoryFilters = categories.Select(c =>
+            {
+                var escapedCategory = c.Replace("'", "''");
+                return $"category eq '{escapedCategory}'";
+            });
+            filters.Add($"({string.Join(" or ", categoryFilters)})");
+        }
+        // 向後兼容：如果沒有多個分類，使用單一分類
+        else if (!string.IsNullOrEmpty(category))
         {
             var escapedCategory = category.Replace("'", "''");
             filters.Add($"category eq '{escapedCategory}'");
@@ -284,6 +308,7 @@ public class AzureSearchService
         string? searchText,
         float[]? queryVector,
         string? category = null,
+        List<string>? categories = null, // 新增：支援多個分類
         List<string>? brands = null,
         int top = 10,
         bool includeFacets = false)
@@ -338,7 +363,18 @@ public class AzureSearchService
         // 添加過濾條件（category 和 brands）
         // Filter 會應用於搜尋結果，但不會影響 facets（facets 由單獨的查詢獲取）
         var filters = new List<string>();
-        if (!string.IsNullOrEmpty(category))
+        // 優先使用多個分類（使用 OR 條件）
+        if (categories != null && categories.Any())
+        {
+            var categoryFilters = categories.Select(c =>
+            {
+                var escapedCategory = c.Replace("'", "''");
+                return $"category eq '{escapedCategory}'";
+            });
+            filters.Add($"({string.Join(" or ", categoryFilters)})");
+        }
+        // 向後兼容：如果沒有多個分類，使用單一分類
+        else if (!string.IsNullOrEmpty(category))
         {
             // 轉義單引號
             var escapedCategory = category.Replace("'", "''");

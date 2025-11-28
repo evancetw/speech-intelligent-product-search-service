@@ -27,6 +27,7 @@
                 <option value="v3">向量搜尋 (Elasticsearch)</option>
                 <option value="v4">Hybrid Search (Azure AI Search)</option>
                 <option value="v5">個人化推薦 (Azure AI Search)</option>
+                <option value="v6">Agent Framework Workflow (Azure AI Search)</option>
             </InputSelect>
 
             <button type="submit" class="search-button">
@@ -102,7 +103,15 @@
         string urlpath = "/search";
         if (!string.IsNullOrWhiteSpace(SearchModelObj.SearchVersion))
         {
-            urlpath += Uri.EscapeDataString(SearchModelObj.SearchVersion);
+            // v6 使用不同的路由
+            if (SearchModelObj.SearchVersion == "v6")
+            {
+                urlpath = "/searchv6";
+            }
+            else
+            {
+                urlpath += Uri.EscapeDataString(SearchModelObj.SearchVersion);
+            }
             queryParams.Add($"searchversion={Uri.EscapeDataString(SearchModelObj.SearchVersion)}");
         }
 
@@ -122,8 +131,8 @@
             queryParams.Add($"brands={Uri.EscapeDataString(SearchModelObj.FilterBrands)}");
         }
 
-        // 如果是 SearchV5，保留 Persona 相關參數（從當前 URL 讀取）
-        if (SearchModelObj.SearchVersion == "v5")
+        // 如果是 SearchV5 或 SearchV6，保留 Persona 相關參數（從當前 URL 讀取）
+        if (SearchModelObj.SearchVersion == "v5" || SearchModelObj.SearchVersion == "v6")
         {
             var currentUri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
             var currentQuery = QueryHelpers.ParseQuery(currentUri.Query);
