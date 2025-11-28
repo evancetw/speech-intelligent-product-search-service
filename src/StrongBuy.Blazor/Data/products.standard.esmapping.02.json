@@ -6,8 +6,8 @@
       },
       "name": {
         "type": "text",
-        "analyzer": "smartcn",
-        "search_analyzer": "smartcn",
+        "analyzer": "standard",
+        "search_analyzer": "standard",
         "fields": {
           "keyword": {
             "type": "keyword",
@@ -21,8 +21,8 @@
       },
       "description": {
         "type": "text",
-        "analyzer": "smartcn",
-        "search_analyzer": "smartcn"
+        "analyzer": "standard",
+        "search_analyzer": "standard"
       },
       "description_embedding": {
         "type": "dense_vector",
@@ -70,8 +70,8 @@
           },
           "comment": {
             "type": "text",
-            "analyzer": "smartcn",
-            "search_analyzer": "smartcn"
+            "analyzer": "standard",
+            "search_analyzer": "standard"
           }
         }
       },
@@ -93,14 +93,5 @@
       }
     }
   },
-  "settings": {
-    "analysis": {
-      "analyzer": {
-        "smartcn": {
-          "type": "custom",
-          "tokenizer": "smartcn_tokenizer"
-        }
-      }
-    }
-  }
+  "settings": {}
 }

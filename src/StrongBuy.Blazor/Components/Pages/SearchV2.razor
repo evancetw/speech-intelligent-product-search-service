@@ -138,8 +138,9 @@
             {
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
-                             alt="@product.Name">
+                        <img
+                            src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
+                            alt="@product.Name">
                     </div>
                     <div class="product-info">
                         <h2 class="product-title">
@@ -724,7 +725,7 @@
             }
         );
 
-        ProductsList = resp.SearchResponse.Documents.ToList();
+        ProductsList = resp?.SearchResponse?.Documents?.ToList() ?? [];
 
         Brands = ProductsList.Select(x => x.Brand).Distinct().ToList();
     }
@@ -912,7 +913,7 @@
     private string GetRawQueryAsync<T>(SearchRequestDescriptor<T> searchRequest)
     {
         var rawQuery = this.ElasticsearchClient.RequestResponseSerializer.SerializeToString(searchRequest);
-        
+
         Console.WriteLine($"ElasticSearch Request: {rawQuery}");
 
         return rawQuery;

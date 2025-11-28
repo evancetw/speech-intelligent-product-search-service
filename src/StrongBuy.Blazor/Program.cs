@@ -10,345 +10,518 @@ using Elastic.Transport;
 using StrongBuy.Blazor.Services;
 // using OpenAI;
 // using OpenAI.Embeddings;
-using Azure;
 using Azure.AI.OpenAI;
 using OpenAI.Embeddings;
+using System.Text;
+using System.Net.Http.Headers;
+using StrongBuy.Blazor.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace StrongBuy.Blazor;
 
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    ;
-
-// Add DbContext
-builder.Services.AddDbContext<StrongBuyContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// 配置 Elasticsearch 客戶端
-builder.Services.AddScoped(provider =>
+public class Program
 {
-    var settings = new ElasticsearchClientSettings(
-            cloudId:
-            "cloudid",
-            credentials: new ApiKey("apikey")
-        )
-        .DefaultIndex("products");
-
-    return new ElasticsearchClient(settings);
-});
-
-builder.Services.AddScoped<ElasticsearchService>();
-
-// 配置
-builder.Services.AddScoped(provider =>
-{
-    var configuration = provider.GetRequiredService<IConfiguration>();
-    Uri oaiEndpoint = new("https://openai-dotnetconf.openai.azure.com");
-    string oaiKey = configuration["OpenAI:ApiKey"];
-
-    AzureKeyCredential credentials = new(oaiKey);
-
-    Azure.AI.OpenAI.AzureOpenAIClient openAIClient = new(oaiEndpoint, credentials);
-    return openAIClient;
-});
-
-builder.Services.AddScoped(provider =>
-{
-    var openAIClient = provider.GetRequiredService<AzureOpenAIClient>();
-    var embeddingClient = openAIClient.GetEmbeddingClient("text-embedding-3-small");
-    return embeddingClient;
-});
-
-
-var app = builder.Build();
-
-// Initialize Database
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
+    public static async Task Main(string[] args)
     {
-        var context = services.GetRequiredService<StrongBuyContext>();
+        var builder = WebApplication.CreateBuilder(args);
 
-        // Ensure database is created and apply migrations
-        context.Database.Migrate();
+        // Add services to the container.
+        builder.Services.AddRazorComponents()
+            .AddInteractiveServerComponents();
 
-        // Check if database needs seeding
-        if (!context.Products.Any())
+        // Add DbContext
+        builder.Services.AddDbContext<StrongBuyContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+        // Add Elasticsearch
+        builder.Services.AddElasticsearchService(builder.Configuration);
+
+        // Add OpenAI
+        builder.Services.AddOpenAi(builder.Configuration);
+
+        var app = builder.Build();
+
+        // Initialize Database
+        using (var scope = app.Services.CreateScope())
         {
-            // Read products from JSON file
-            var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
-            var jsonString = File.ReadAllText(jsonPath);
-            var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            if (products != null)
+            var services = scope.ServiceProvider;
+            try
             {
-                context.Products.AddRange(products);
-                context.SaveChanges();
-            }
-        }
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while initializing the database.");
-    }
-}
+                var context = services.GetRequiredService<StrongBuyContext>();
 
-// 確認是否能連線到 Elasticsearch 並初始化資料
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    try
-    {
-        var client = services.GetRequiredService<ElasticsearchClient>();
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        var configuration = services.GetRequiredService<IConfiguration>();
+                // Ensure database is created and apply migrations
+                await context.Database.MigrateAsync();
 
-        // 1. 檢查連線
-        var pingResponse = await client.PingAsync();
-        if (!pingResponse.IsValidResponse)
-        {
-            logger.LogError("Failed to connect to Elasticsearch");
-            return;
-        }
-
-        logger.LogInformation("Successfully connected to Elasticsearch");
-
-        // 2. 檢查索引是否存在
-        var indexName = "products";
-        var indexExistsResponse = await client.Indices.ExistsAsync(indexName);
-
-        // 跳過這段，先手動建立索引
-        // // 3. 如果索引不存在，建立索引
-        // if (!indexExistsResponse.Exists)
-        // {
-        //     logger.LogInformation("Creating index: {IndexName}", indexName);
-        //
-        //     // 讀取 mapping 檔案
-        //     var mappingPath = Path.Combine(
-        //         builder.Environment.ContentRootPath, "Data", "products.smartcn.esmapping.json");
-        //     var mappingJson = await File.ReadAllTextAsync(mappingPath);
-        //
-        //     var createIndexResponse = await client.Indices.CreateAsync(indexName, c => c
-        //         .InitializeUsingJson(mappingJson)
-        //     );
-        //
-        //     if (!createIndexResponse.IsValidResponse)
-        //     {
-        //         logger.LogError("Failed to create index: {Error}", createIndexResponse.DebugInformation);
-        //         return;
-        //     }
-        //
-        //     logger.LogInformation("Index created successfully");
-        // }
-
-        // 4. 檢查索引中的文檔數量
-        var countResponse = await client.CountAsync(c => c.Index(indexName));
-        if (!countResponse.IsValidResponse)
-        {
-            logger.LogError("Failed to get document count");
-            return;
-        }
-
-        // 5. 如果沒有文檔，則匯入資料
-        if (countResponse.Count == 0)
-        {
-            logger.LogInformation("No documents found in index. Starting import...");
-
-            // 讀取 products.json
-            var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
-            var jsonString = await File.ReadAllTextAsync(jsonPath);
-            var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            if (products == null || !products.Any())
-            {
-                logger.LogError("No products found in products.json");
-                return;
-            }
-
-            // 批量匯入資料
-            var bulkResponse = await client.BulkAsync(b => b
-                .Index(indexName)
-                .IndexMany(products)
-            );
-
-            if (!bulkResponse.IsValidResponse)
-            {
-                logger.LogError("Failed to import products: {Error}", bulkResponse.DebugInformation);
-                return;
-            }
-
-            logger.LogInformation("Successfully imported {Count} products", products.Count);
-        }
-        else
-        {
-            logger.LogInformation("Index already contains {Count} documents", countResponse.Count);
-        }
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while initializing Elasticsearch");
-    }
-}
-
-// 確認是否能連線到 Elasticsearch 並初始化 products-v2 資料
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    try
-    {
-        var client = services.GetRequiredService<ElasticsearchClient>();
-        var loggerV2 = services.GetRequiredService<ILogger<Program>>();
-        var configuration = services.GetRequiredService<IConfiguration>();
-
-        // 1. 檢查連線
-        var pingResponse = await client.PingAsync();
-        if (!pingResponse.IsValidResponse)
-        {
-            loggerV2.LogError("Failed to connect to Elasticsearch");
-            return;
-        }
-
-        loggerV2.LogInformation("Successfully connected to Elasticsearch");
-
-        // 2. 檢查索引是否存在
-        var indexName = "products-v2";
-        var indexExistsResponse = await client.Indices.ExistsAsync(indexName);
-
-        // 4. 檢查索引中的文檔數量
-        var countResponse = await client.CountAsync(c => c.Index(indexName));
-        if (!countResponse.IsValidResponse)
-        {
-            loggerV2.LogError("Failed to get document count");
-            return;
-        }
-
-        // 5. 如果沒有文檔，則匯入資料
-        if (countResponse.Count == 0)
-        {
-            loggerV2.LogInformation("No documents found in index. Starting import...");
-
-            // // 初始化 OpenAI 客戶端
-            // var endpoint =
-            //     new Uri(
-            //         "https://openai-dotnetconf.openai.azure.com/openai/deployments/text-embedding-3-small/embeddings?api-version=2023-05-15"); // 2023-05-15
-            // // var endpoint =
-            // //     new Uri(
-            // //         "https://openai-dotnetconf.openai.azure.com"); // 2023-05-15
-            // var credential = configuration["OpenAI:ApiKey"];
-            // var apiKeyCredential = new ApiKeyCredential(credential);
-            // var model = "text-embedding-3-small";
-            //
-            // var openAIOptions = new OpenAIClientOptions()
-            // {
-            //     Endpoint = endpoint
-            // };
-            //
-            // var embeddingClient = new EmbeddingClient(model, apiKeyCredential, openAIOptions);
-
-
-            // var qq =  embeddingClient.GenerateEmbeddings(new List<string> { "first phrase", "second phrase", "third phrase" },
-            //      options: new EmbeddingGenerationOptions());
-
-
-            // var openAiKey = configuration["OpenAI:ApiKey"];
-            // var openAiClient = new OpenAIClient(new AzureKeyCredential(openAiKey));
-            // var embeddingClient = openAiClient.GetEmbeddingClient("text-embedding-3-small");
-
-            // 讀取 products.json
-            var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
-            var jsonString = await File.ReadAllTextAsync(jsonPath);
-            var products = JsonSerializer.Deserialize<List<ProductV2>>(jsonString,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-            if (products == null || !products.Any())
-            {
-                loggerV2.LogError("No products found in products.json");
-                return;
-            }
-
-            var embeddingClient = services.GetRequiredService<EmbeddingClient>();
-
-            // 批次處理產品
-            var batchSize = 10;
-            for (var i = 0; i < products.Count; i += batchSize)
-            {
-                var batch = products.Skip(i).Take(batchSize);
-
-                foreach (var product in batch)
+                // Check if database needs seeding
+                if (!context.Products.Any())
                 {
-                    try
+                    // Read products from JSON file
+                    var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
+                    var jsonString = await File.ReadAllTextAsync(jsonPath);
+                    var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (products != null)
                     {
-                        // 生成 embeddings
-                        var texts = new List<string>()
-                        {
-                            product.Name,
-                            product.Description,
-                            string.Join("\\n", product.Reviews.Select(x => x.Comment)),
-                        };
-                        texts.Add(texts[0] + "\\n" + texts[1] + "\\n" + texts[2]);
-                       
-                        var embeddingsResult = await embeddingClient.GenerateEmbeddingsAsync(texts);
-                        var nameEmbedding = embeddingsResult.Value[0].ToFloats();
-                        var descriptionEmbedding = embeddingsResult.Value[1].ToFloats();
-                        var reviewsEmbedding = embeddingsResult.Value[2].ToFloats();
-                        var combinedEmbedding = embeddingsResult.Value[3].ToFloats();
-                        
-                        product.NameEmbedding = nameEmbedding;
-                        product.DescriptionEmbedding = descriptionEmbedding;
-                        product.ReviewsEmbedding = reviewsEmbedding;
-                        product.CombinedEmbedding = combinedEmbedding;
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
+                        context.Products.AddRange(products);
+                        await context.SaveChangesAsync();
                     }
                 }
-
-                // 批量匯入資料
-                var bulkResponse = await client.BulkAsync(b => b
-                    .Index(indexName)
-                    .IndexMany(batch)
-                );
-
-
-                loggerV2.LogInformation("Successfully imported all products with embeddings");
             }
-
-            // else
-            // {
-            //     loggerV2.LogInformation("Index already contains {Count} documents", countResponse.Count);
-            // }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while initializing the database.");
+                return;
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while initializing Elasticsearch");
+
+        // 確認是否能連線到 Elasticsearch 並初始化資料
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            try
+            {
+                var client = services.GetRequiredService<ElasticsearchClient>();
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                var configuration = services.GetRequiredService<IConfiguration>();
+
+                // 1. 檢查連線
+                var pingResponse = await client.PingAsync();
+                if (!pingResponse.IsValidResponse)
+                {
+                    logger.LogError("Failed to connect to Elasticsearch");
+                    return;
+                }
+
+                logger.LogInformation("Successfully connected to Elasticsearch");
+
+                // 2. 檢查索引是否存在
+                var indexName = "products";
+                var indexExistsResponse = await client.Indices.ExistsAsync(indexName);
+
+                // 3. 如果索引不存在，建立索引
+                if (!indexExistsResponse.Exists)
+                {
+                    logger.LogInformation("Creating index: {IndexName}", indexName);
+
+                    // 讀取 mapping 檔案
+                    var mappingPath = Path.Combine(
+                        builder.Environment.ContentRootPath, "Data", "products.standard.esmapping.01.json");
+                    var mappingJson = await File.ReadAllTextAsync(mappingPath);
+
+                    // 使用 HTTP 請求直接建立索引（因為我們有完整的 JSON 配置）
+                    var esUri = configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
+                    var username = configuration["Elasticsearch:Username"] ?? "elastic";
+                    var password = configuration["Elasticsearch:Password"] ?? "espw";
+
+                    using var httpClient = new HttpClient();
+                    var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authValue);
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var createIndexUrl = $"{esUri.TrimEnd('/')}/{indexName}";
+                    var content = new StringContent(mappingJson, Encoding.UTF8, "application/json");
+                    var httpResponse = await httpClient.PutAsync(createIndexUrl, content);
+
+                    if (httpResponse.IsSuccessStatusCode)
+                    {
+                        logger.LogInformation("Index {IndexName} created successfully", indexName);
+                    }
+                    else
+                    {
+                        var errorContent = await httpResponse.Content.ReadAsStringAsync();
+                        logger.LogError("Failed to create index {IndexName}: {StatusCode} - {Error}",
+                            indexName, httpResponse.StatusCode, errorContent);
+                        return;
+                    }
+                }
+                // else
+                // {
+                //     // 4. 升級現有索引（檢查並更新 mapping）
+                //     logger.LogInformation("Index {IndexName} already exists. Checking for updates...", indexName);
+                //
+                //     var mappingPath = Path.Combine(
+                //         builder.Environment.ContentRootPath, "Data", "products.standard.esmapping.01.json");
+                //     var mappingJson = await File.ReadAllTextAsync(mappingPath);
+                //     var jsonDoc = JsonDocument.Parse(mappingJson);
+                //
+                //     // 使用 HTTP 請求更新 mapping（只能添加新欄位，不能修改現有欄位的類型）
+                //     if (jsonDoc.RootElement.TryGetProperty("mappings", out var mappings))
+                //     {
+                //         try
+                //         {
+                //             var esUri = configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
+                //             var username = configuration["Elasticsearch:Username"] ?? "elastic";
+                //             var password = configuration["Elasticsearch:Password"] ?? "espw";
+                //
+                //             using var httpClient = new HttpClient();
+                //             var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
+                //             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authValue);
+                //             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //
+                //             // 只發送 mappings 部分
+                //             var mappingsJson = JsonSerializer.Serialize(new { mappings = JsonSerializer.Deserialize<JsonElement>(mappings.GetRawText()) });
+                //             var putMappingUrl = $"{esUri.TrimEnd('/')}/{indexName}/_mapping";
+                //             var content = new StringContent(mappingsJson, Encoding.UTF8, "application/json");
+                //             var httpResponse = await httpClient.PutAsync(putMappingUrl, content);
+                //
+                //             if (httpResponse.IsSuccessStatusCode)
+                //             {
+                //                 logger.LogInformation("Index mapping updated successfully");
+                //             }
+                //             else
+                //             {
+                //                 var errorContent = await httpResponse.Content.ReadAsStringAsync();
+                //                 logger.LogWarning("Failed to update index mapping: {StatusCode} - {Error}",
+                //                     httpResponse.StatusCode, errorContent);
+                //             }
+                //         }
+                //         catch (Exception ex)
+                //         {
+                //             logger.LogWarning(ex, "Could not update index mapping. This is normal if mapping is already up to date.");
+                //         }
+                //     }
+                //
+                //     // 更新 settings（如果需要，注意：某些 settings 只能在建立索引時設定）
+                //     if (jsonDoc.RootElement.TryGetProperty("settings", out var indexSettings))
+                //     {
+                //         try
+                //         {
+                //             var esUri = configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
+                //             var username = configuration["Elasticsearch:Username"] ?? "elastic";
+                //             var password = configuration["Elasticsearch:Password"] ?? "espw";
+                //
+                //             using var httpClient = new HttpClient();
+                //             var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
+                //             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authValue);
+                //             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //
+                //             // 只發送 settings 部分（排除 index 相關的設定）
+                //             var settingsJson = JsonSerializer.Serialize(new { index = JsonSerializer.Deserialize<JsonElement>(indexSettings.GetRawText()) });
+                //             var putSettingsUrl = $"{esUri.TrimEnd('/')}/{indexName}/_settings";
+                //             var content = new StringContent(settingsJson, Encoding.UTF8, "application/json");
+                //             var httpResponse = await httpClient.PutAsync(putSettingsUrl, content);
+                //
+                //             if (httpResponse.IsSuccessStatusCode)
+                //             {
+                //                 logger.LogInformation("Index settings updated successfully");
+                //             }
+                //             else
+                //             {
+                //                 var errorContent = await httpResponse.Content.ReadAsStringAsync();
+                //                 logger.LogWarning("Could not update index settings: {StatusCode} - {Error}. Some settings can only be set at index creation.",
+                //                     httpResponse.StatusCode, errorContent);
+                //             }
+                //         }
+                //         catch (Exception ex)
+                //         {
+                //             logger.LogWarning(ex, "Could not update index settings: {Message}", ex.Message);
+                //         }
+                //     }
+                // }
+
+                // 5. 檢查索引中的文檔數量
+                var countResponse = await client.CountAsync(c => c.Index(indexName));
+                if (!countResponse.IsValidResponse)
+                {
+                    logger.LogError("Failed to get document count");
+                    return;
+                }
+
+                // 6. 如果沒有文檔，則匯入資料
+                if (countResponse.Count == 0)
+                {
+                    logger.LogInformation("No documents found in index. Starting import...");
+
+                    // 讀取 products.json
+                    var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
+                    var jsonString = await File.ReadAllTextAsync(jsonPath);
+                    var products = JsonSerializer.Deserialize<List<Product>>(jsonString,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (products == null || !products.Any())
+                    {
+                        logger.LogError("No products found in products.json");
+                        return;
+                    }
+
+                    // 批量匯入資料
+                    var bulkResponse = await client.BulkAsync(b => b
+                        .Index(indexName)
+                        .IndexMany(products)
+                    );
+
+                    if (!bulkResponse.IsValidResponse)
+                    {
+                        logger.LogError("Failed to import products: {Error}", bulkResponse.DebugInformation);
+                        return;
+                    }
+
+                    logger.LogInformation("Successfully imported {Count} products", products.Count);
+                }
+                else
+                {
+                    logger.LogInformation("Index already contains {Count} documents", countResponse.Count);
+                }
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while initializing Elasticsearch");
+            }
+        }
+
+        // 確認是否能連線到 Elasticsearch 並初始化 products-v2 資料
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+
+            try
+            {
+                var client = services.GetRequiredService<ElasticsearchClient>();
+                var loggerV2 = services.GetRequiredService<ILogger<Program>>();
+                var configuration = services.GetRequiredService<IConfiguration>();
+
+                // 1. 檢查連線
+                var pingResponse = await client.PingAsync();
+                if (!pingResponse.IsValidResponse)
+                {
+                    loggerV2.LogError("Failed to connect to Elasticsearch");
+                    return;
+                }
+
+                loggerV2.LogInformation("Successfully connected to Elasticsearch");
+
+                // 2. 檢查索引是否存在
+                var indexName = "products-v2";
+                var indexExistsResponse = await client.Indices.ExistsAsync(indexName);
+
+                // 3. 如果索引不存在，建立索引
+                if (!indexExistsResponse.Exists)
+                {
+                    loggerV2.LogInformation("Creating index: {IndexName}", indexName);
+
+                    // 讀取 mapping 檔案
+                    var mappingPath = Path.Combine(
+                        builder.Environment.ContentRootPath, "Data", "products.standard.esmapping.02.json");
+
+                    if (!File.Exists(mappingPath))
+                    {
+                        loggerV2.LogWarning("Mapping file not found: {MappingPath}. Skipping index creation.", mappingPath);
+                    }
+                    else
+                    {
+                        var mappingJson = await File.ReadAllTextAsync(mappingPath);
+
+                        // 使用 HTTP 請求直接建立索引（因為我們有完整的 JSON 配置）
+                        var esUri = configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
+                        var username = configuration["Elasticsearch:Username"] ?? "elastic";
+                        var password = configuration["Elasticsearch:Password"] ?? "espw";
+
+                        using var httpClient = new HttpClient();
+                        var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authValue);
+                        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        var createIndexUrl = $"{esUri.TrimEnd('/')}/{indexName}";
+                        var content = new StringContent(mappingJson, Encoding.UTF8, "application/json");
+                        var httpResponse = await httpClient.PutAsync(createIndexUrl, content);
+
+                        if (httpResponse.IsSuccessStatusCode)
+                        {
+                            loggerV2.LogInformation("Index {IndexName} created successfully", indexName);
+                        }
+                        else
+                        {
+                            var errorContent = await httpResponse.Content.ReadAsStringAsync();
+                            loggerV2.LogError("Failed to create index {IndexName}: {StatusCode} - {Error}",
+                                indexName, httpResponse.StatusCode, errorContent);
+                            return;
+                        }
+                    }
+                }
+                // else
+                // {
+                //     // 4. 升級現有索引（檢查並更新 mapping）
+                //     loggerV2.LogInformation("Index {IndexName} already exists. Checking for updates...", indexName);
+                //
+                //     var mappingPath = Path.Combine(
+                //         builder.Environment.ContentRootPath, "Data", "products-v2.smartcn.esmapping.json");
+                //
+                //     if (File.Exists(mappingPath))
+                //     {
+                //         var mappingJson = await File.ReadAllTextAsync(mappingPath);
+                //         var jsonDoc = JsonDocument.Parse(mappingJson);
+                //
+                //         // 使用 HTTP 請求更新 mapping（只能添加新欄位，不能修改現有欄位的類型）
+                //         if (jsonDoc.RootElement.TryGetProperty("mappings", out var mappings))
+                //         {
+                //             try
+                //             {
+                //                 var esUri = configuration["Elasticsearch:Uri"] ?? "http://localhost:9200";
+                //                 var username = configuration["Elasticsearch:Username"] ?? "elastic";
+                //                 var password = configuration["Elasticsearch:Password"] ?? "espw";
+                //
+                //                 using var httpClient = new HttpClient();
+                //                 var authValue = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
+                //                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authValue);
+                //                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //
+                //                 // 只發送 mappings 部分
+                //                 var mappingsJson = JsonSerializer.Serialize(new { mappings = JsonSerializer.Deserialize<JsonElement>(mappings.GetRawText()) });
+                //                 var putMappingUrl = $"{esUri.TrimEnd('/')}/{indexName}/_mapping";
+                //                 var content = new StringContent(mappingsJson, Encoding.UTF8, "application/json");
+                //                 var httpResponse = await httpClient.PutAsync(putMappingUrl, content);
+                //
+                //                 if (httpResponse.IsSuccessStatusCode)
+                //                 {
+                //                     loggerV2.LogInformation("Index mapping updated successfully");
+                //                 }
+                //                 else
+                //                 {
+                //                     var errorContent = await httpResponse.Content.ReadAsStringAsync();
+                //                     loggerV2.LogWarning("Failed to update index mapping: {StatusCode} - {Error}",
+                //                         httpResponse.StatusCode, errorContent);
+                //                 }
+                //             }
+                //             catch (Exception ex)
+                //             {
+                //                 loggerV2.LogWarning(ex, "Could not update index mapping. This is normal if mapping is already up to date.");
+                //             }
+                //         }
+                //     }
+                // }
+
+                // 5. 檢查索引中的文檔數量
+                var countResponse = await client.CountAsync(c => c.Index(indexName));
+                if (!countResponse.IsValidResponse)
+                {
+                    loggerV2.LogError("Failed to get document count");
+                    return;
+                }
+
+                // 6. 如果沒有文檔，則匯入資料
+                if (countResponse.Count == 0)
+                {
+                    loggerV2.LogInformation("No documents found in index. Starting import...");
+
+                    // // 初始化 OpenAI 客戶端
+                    // var endpoint =
+                    //     new Uri(
+                    //         "https://openai-dotnetconf.openai.azure.com/openai/deployments/text-embedding-3-small/embeddings?api-version=2023-05-15"); // 2023-05-15
+                    // // var endpoint =
+                    // //     new Uri(
+                    // //         "https://openai-dotnetconf.openai.azure.com"); // 2023-05-15
+                    // var credential = configuration["OpenAI:ApiKey"];
+                    // var apiKeyCredential = new ApiKeyCredential(credential);
+                    // var model = "text-embedding-3-small";
+                    //
+                    // var openAIOptions = new OpenAIClientOptions()
+                    // {
+                    //     Endpoint = endpoint
+                    // };
+                    //
+                    // var embeddingClient = new EmbeddingClient(model, apiKeyCredential, openAIOptions);
+
+
+                    // var qq =  embeddingClient.GenerateEmbeddings(new List<string> { "first phrase", "second phrase", "third phrase" },
+                    //      options: new EmbeddingGenerationOptions());
+
+
+                    // var openAiKey = configuration["OpenAI:ApiKey"];
+                    // var openAiClient = new OpenAIClient(new AzureKeyCredential(openAiKey));
+                    // var embeddingClient = openAiClient.GetEmbeddingClient("text-embedding-3-small");
+
+                    // 讀取 products.json
+                    var jsonPath = Path.Combine(builder.Environment.ContentRootPath, "Data", "products.json");
+                    var jsonString = await File.ReadAllTextAsync(jsonPath);
+                    var products = JsonSerializer.Deserialize<List<ProductV2>>(jsonString,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    if (products == null || !products.Any())
+                    {
+                        loggerV2.LogError("No products found in products.json");
+                        return;
+                    }
+
+                    var embeddingClient = services.GetRequiredService<EmbeddingClient>();
+
+                    // 批次處理產品
+                    var batchSize = 10;
+                    for (var i = 0; i < products.Count; i += batchSize)
+                    {
+                        var batch = products.Skip(i).Take(batchSize);
+
+                        foreach (var product in batch)
+                        {
+                            try
+                            {
+                                // 生成 embeddings
+                                var texts = new List<string>()
+                                {
+                                    product.Name,
+                                    product.Description,
+                                    string.Join("\\n", product.Reviews.Select(x => x.Comment)),
+                                };
+                                texts.Add(texts[0] + "\\n" + texts[1] + "\\n" + texts[2]);
+
+                                var embeddingsResult = await embeddingClient.GenerateEmbeddingsAsync(texts);
+                                var nameEmbedding = embeddingsResult.Value[0].ToFloats();
+                                var descriptionEmbedding = embeddingsResult.Value[1].ToFloats();
+                                var reviewsEmbedding = embeddingsResult.Value[2].ToFloats();
+                                var combinedEmbedding = embeddingsResult.Value[3].ToFloats();
+
+                                product.NameEmbedding = nameEmbedding;
+                                product.DescriptionEmbedding = descriptionEmbedding;
+                                product.ReviewsEmbedding = reviewsEmbedding;
+                                product.CombinedEmbedding = combinedEmbedding;
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                                throw;
+                            }
+                        }
+
+                        // 批量匯入資料
+                        var bulkResponse = await client.BulkAsync(b => b
+                            .Index(indexName)
+                            .IndexMany(batch)
+                        );
+
+
+                        loggerV2.LogInformation("Successfully imported all products with embeddings");
+                    }
+
+                    // else
+                    // {
+                    //     loggerV2.LogInformation("Index already contains {Count} documents", countResponse.Count);
+                    // }
+                }
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while initializing Elasticsearch");
+            }
+        }
+
+        // Configure the HTTP request pipeline.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Error", createScopeForErrors: true);
+            app.UseHsts();
+            app.UseHttpsRedirection();
+        }
+
+        // app.UseHttpsRedirection();
+
+        app.UseStaticFiles();
+        app.UseAntiforgery();
+
+        app.MapRazorComponents<App>()
+            .AddInteractiveServerRenderMode();
+
+        await app.RunAsync();
     }
 }
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    app.UseHsts();
-    app.UseHttpsRedirection();
-}
-
-// app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-app.UseAntiforgery();
-
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
-
-app.Run();

@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.0  # 升級到 8.x
+    container_name: elasticsearch
+    environment:
+      - node.name=elasticsearch
+      - cluster.name=docker-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_PASSWORD=espw
+      - xpack.security.enabled=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - es-network
+
+  cerebro:
+    image: lmenezes/cerebro:0.8.3
+    container_name: cerebro
+    ports:
+      - "9000:9000"
+    command: -Dhosts.0.host=http://elasticsearch:9200
+    networks:
+      - es-network
+
+volumes:
+  esdata:
+    driver: local
+
+networks:
+  es-network:
+    driver: bridge
+
+
+# docker-compose up -d
+# http://localhost:9000
+# docker-compose down -v  # (remove volumes)

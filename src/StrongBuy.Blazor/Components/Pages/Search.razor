@@ -534,7 +534,9 @@
         if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
         {
             // FilterBrands 是逗號分隔的品牌名稱，例如 "Apple,Samsung"，還原回陣列後做為 OR 條件
-            var brands = SearchModelObj.FilterBrands.Split(',');
+            var brands = SearchModelObj.FilterBrands.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(b => b.Trim())
+                .ToList();
             query = query.Where(p => brands.Contains(p.Brand));
         }
 

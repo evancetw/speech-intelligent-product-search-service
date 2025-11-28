@@ -140,8 +140,9 @@
             {
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
-                             alt="@product.Name">
+                        <img
+                            src="https://fakeimg.pl/300x300/?retina=1&font=noto&font_size=30&text=@Uri.EscapeDataString(product.Name)"
+                            alt="@product.Name">
                     </div>
                     <div class="product-info">
                         <h2 class="product-title">
@@ -617,22 +618,54 @@
                 // Text search
                 if (string.IsNullOrEmpty(SearchModelObj.SearchText) == false)
                 {
-                    //var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(SearchModelObj.SearchText);
-                    
-                    var searchPrompt = "我是一位廚師，我喜歡美食，最近看了黑白大廚，很喜歡\n" + SearchModelObj.SearchText;
+                    var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(SearchModelObj.SearchText);
+
+                    //var searchPrompt = "我是一位廚師，我喜歡美食，最近看了黑白大廚，很喜歡\n" + SearchModelObj.SearchText;
                     //var searchPrompt = "我是我家的首富，服務都要最好的\n" + SearchModelObj.SearchText;
-                    var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(searchPrompt);
-                    
+                    // var searchTextKnnResult = EmbeddingClient.GenerateEmbedding(searchPrompt);
+
                     var searchVector = searchTextKnnResult.Value.ToFloats();
 
-                    var knnQuery = new KnnQuery()
+                    // 在 Elasticsearch 8.x 中，knn 查詢必須使用頂層的 knn 參數，不能放在 bool.must 中
+                    var knnSearchList = new List<KnnSearch>();
+
+                    // 添加過濾條件到 KNN 查詢
+                    var knnFilters = new List<Query>();
+                    if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
                     {
+                        knnFilters.Add(new TermQuery("category")
+                        {
+                            Value = SearchModelObj.SelectedCategory
+                        });
+                    }
+
+                    if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
+                    {
+                        var brands = SearchModelObj.FilterBrands.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                            .Select(b => b.Trim())
+                            .ToList();
+                        knnFilters.Add(new TermsQuery
+                        {
+                            Field = "brand",
+                            Terms = new TermsQueryField(brands.Select(b => FieldValue.String(b)).ToList())
+                        });
+                    }
+
+                    var knnSearch = new KnnSearch
+                    {
+                        Field = "combinedEmbedding",
                         k = 10,
-                        NumCandidates = 1000,
-                        Field = "combinedEmbedding"!,
                         QueryVector = searchVector.ToArray(),
+                        NumCandidates = 1000
                     };
-                    must.Add(knnQuery);
+
+                    if (knnFilters.Any())
+                    {
+                        knnSearch.Filter = knnFilters;
+                    }
+
+                    knnSearchList.Add(knnSearch);
+                    requestDescriptor.Knn(knnSearchList);
 
                     requestDescriptor.Size(100);
                 }
@@ -641,43 +674,53 @@
                     requestDescriptor.Size(100);
                 }
 
-                if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
+                // 非 KNN 查詢時的過濾條件
+                if (string.IsNullOrEmpty(SearchModelObj.SearchText))
                 {
-                    var categoryFilter = new TermQuery("catego›ry")
+                    if (!string.IsNullOrEmpty(SearchModelObj.SelectedCategory))
                     {
-                        Value = SearchModelObj.SelectedCategory
-                    };
-                    filters.Add(categoryFilter);
-                }
-
-                if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
-                {
-                    var brands = SearchModelObj.FilterBrands.Split(',');
-
-                    var brandsFilter = new TermsQuery
-                    {
-                        Field = "brand",
-                        Terms = new TermsQueryField(brands.Select(id => FieldValue.String(id)).ToList())
-                    };
-
-                    filters.Add(brandsFilter);
-                }
-
-                requestDescriptor.Query(q => q
-                    .Bool(b =>
+                        var categoryFilter = new TermQuery("category")
                         {
-                            if (must.Any())
-                            {
-                                b.Must(must);
-                            }
+                            Value = SearchModelObj.SelectedCategory
+                        };
+                        filters.Add(categoryFilter);
+                    }
 
-                            if (filters.Any())
+                    if (!string.IsNullOrEmpty(SearchModelObj.FilterBrands))
+                    {
+                        var brands = SearchModelObj.FilterBrands.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                            .Select(b => b.Trim())
+                            .ToList();
+
+                        var brandsFilter = new TermsQuery
+                        {
+                            Field = "brand",
+                            Terms = new TermsQueryField(brands.Select(id => FieldValue.String(id)).ToList())
+                        };
+
+                        filters.Add(brandsFilter);
+                    }
+                }
+
+                // 只有在非 KNN 查詢時才設置 bool 查詢
+                if (string.IsNullOrEmpty(SearchModelObj.SearchText) && (must.Any() || filters.Any()))
+                {
+                    requestDescriptor.Query(q => q
+                        .Bool(b =>
                             {
-                                b.Filter(filters);
+                                if (must.Any())
+                                {
+                                    b.Must(must);
+                                }
+
+                                if (filters.Any())
+                                {
+                                    b.Filter(filters);
+                                }
                             }
-                        }
-                    )
-                );
+                        )
+                    );
+                }
 
                 // Add sortings
                 List<SortOptions> sortList = new();
@@ -715,7 +758,7 @@
             }
         );
 
-        ProductsList = resp.SearchResponse.Documents.ToList();
+        ProductsList = resp?.SearchResponse?.Documents?.ToList() ?? [];
 
         Brands = ProductsList.Select(x => x.Brand).Distinct().ToList();
     }
